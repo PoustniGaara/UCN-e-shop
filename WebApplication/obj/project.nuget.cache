@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Vepc0o6A/ZFlMdfYM/1reU4mevkWViy3aNaXjmIVCUoGgX2ephfriY+Zxt1Kuqtri6L0u6169B4c9ADghB5eJg==",
+  "dgSpecHash": "SDOQKLNXv8LqKs7n2hgABnsK2YcPPewgFtN38AQn2wO+13qmlswh6XLmjPvNZOOgfafJ+FGAk+pIFNCjGrjgEA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\Third_Semester_Project\\WebApplication\\WebApplication.csproj",
+  "projectFilePath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebApplication\\WebApplication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vikto\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\vikto\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
