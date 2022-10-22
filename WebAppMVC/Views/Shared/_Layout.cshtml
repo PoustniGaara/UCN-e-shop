@@ -10,8 +10,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
+@*        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">*@
+@*                <img class="logo" src="https://www.ucn.dk/Files/Billeder/ucn/Om-UCN/Presse/UCN-hovedlogo-PNG.png" alt="">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebAppMVC</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -26,9 +27,23 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                </div>*@
+                <div class="header">
+                    <div class="navbar">
+                        <img class="logo" src="https://www.ucn.dk/Files/Billeder/ucn/Om-UCN/Presse/UCN-hovedlogo-PNG.png" alt="">
+                        <div class="menu">
+                            <div class="home">Home</div>
+                            <a href="about.html" class="about">About</a>
+                            <div class="products">Products</div>
+                        </div>
+                        <div class="menu2">
+                            <div class="cart">Cart</div>
+                            <div class="user">User</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </nav>
+@*            </div>
+        </nav>*@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
