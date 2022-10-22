@@ -1,0 +1,12 @@
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\bin\Debug\net6.0\AppMVCClassLibrary.deps.json
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\bin\Debug\net6.0\AppMVCClassLibrary.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\bin\Debug\net6.0\AppMVCClassLibrary.pdb
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\AppMVCClassLibrary.csproj.AssemblyReference.cache
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\AppMVCClassLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\AppMVCClassLibrary.AssemblyInfoInputs.cache
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\AppMVCClassLibrary.AssemblyInfo.cs
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\AppMVCClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\AppMVCClassLibrary.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\refint\AppMVCClassLibrary.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\AppMVCClassLibrary.pdb
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\ref\AppMVCClassLibrary.dll
