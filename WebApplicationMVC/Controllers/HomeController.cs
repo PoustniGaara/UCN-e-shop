@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebApplication.Models;
+using WebApplicationMVC.Models;
 
-namespace WebApplication.Controllers
+namespace WebApplicationMVC.Controllers
 {
     [Authorize]
     public class HomeController : Controller
