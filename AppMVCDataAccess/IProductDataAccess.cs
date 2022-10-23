@@ -1,8 +1,8 @@
-﻿using AppMVCClassLibrary;
+﻿using DataAccessLayer.Model;
 
 namespace DataAccessLayer
 {
-        public interface IProductDataAccess
+    public interface IProductDataAccess
         {
             public IEnumerable<Product> GetAll();
             public Product GetProductById(int id);

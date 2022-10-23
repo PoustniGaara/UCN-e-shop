@@ -4,19 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppMVCClassLibrary
+namespace DataAccessLayer.Model
 {
     public class Supplier
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        string Email { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
 
-        public Supplier(int id, string name, string email)
-        {
-            Id = id;
-            Name = name;
-            Email = email;
-        }
+
     }
 }

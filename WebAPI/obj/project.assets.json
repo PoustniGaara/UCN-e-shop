@@ -2,6 +2,35 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "ADO.Net.Client.Annotations/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/ADO.Net.Client.Annotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/ADO.Net.Client.Annotations.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ADO.Net.Client.Core/1.4.4": {
+        "type": "package",
+        "dependencies": {
+          "ADO.Net.Client.Annotations": "1.2.0"
+        },
+        "compile": {
+          "lib/net6.0/ADO.Net.Client.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/ADO.Net.Client.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Azure.Core/1.6.0": {
         "type": "package",
         "dependencies": {
@@ -302,6 +331,19 @@
           }
         }
       },
+      "RestSharp/108.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/RestSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/RestSharp.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.2.3": {
         "type": "package",
         "dependencies": {
@@ -490,10 +532,83 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
+      },
+      "DataAccessLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "ADO.Net.Client.Core": "1.4.4",
+          "WebApiClient": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DataAccessLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataAccessLayer.dll": {}
+        }
+      },
+      "WebApiClient/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "RestSharp": "108.0.2"
+        },
+        "compile": {
+          "bin/placeholder/WebApiClient.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WebApiClient.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "ADO.Net.Client.Annotations/1.2.0": {
+      "sha512": "UZsCQ6xAM+k4TLmP7Sa0q6wY5wM9wam8P812V7kOAYN909iOUWH+XWlQXgH3MSLDo66CERVnKSzk2/Gxmm12zw==",
+      "type": "package",
+      "path": "ado.net.client.annotations/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CONTRIBUTING.md",
+        "LICENSE.md",
+        "README.md",
+        "ado.net.client.annotations.1.2.0.nupkg.sha512",
+        "ado.net.client.annotations.nuspec",
+        "icon.png",
+        "lib/net5.0/ADO.Net.Client.Annotations.dll",
+        "lib/net5.0/ADO.Net.Client.Annotations.xml",
+        "lib/net6.0/ADO.Net.Client.Annotations.dll",
+        "lib/net6.0/ADO.Net.Client.Annotations.xml",
+        "lib/netstandard2.0/ADO.Net.Client.Annotations.dll",
+        "lib/netstandard2.0/ADO.Net.Client.Annotations.xml"
+      ]
+    },
+    "ADO.Net.Client.Core/1.4.4": {
+      "sha512": "dl0hc4UbSaONKI5mqz+3EmZMYGOqvK6NWcjO+9aE2jOARjfZdX8jy/fVSWvR5/AtbIe133pe8WsnwpmhmOeq2g==",
+      "type": "package",
+      "path": "ado.net.client.core/1.4.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CONTRIBUTING.md",
+        "LICENSE.md",
+        "README.md",
+        "ado.net.client.core.1.4.4.nupkg.sha512",
+        "ado.net.client.core.nuspec",
+        "icon.png",
+        "lib/net461/ADO.Net.Client.Core.dll",
+        "lib/net461/ADO.Net.Client.Core.xml",
+        "lib/net5.0/ADO.Net.Client.Core.dll",
+        "lib/net5.0/ADO.Net.Client.Core.xml",
+        "lib/net6.0/ADO.Net.Client.Core.dll",
+        "lib/net6.0/ADO.Net.Client.Core.xml",
+        "lib/netstandard2.0/ADO.Net.Client.Core.dll",
+        "lib/netstandard2.0/ADO.Net.Client.Core.xml",
+        "lib/netstandard2.1/ADO.Net.Client.Core.dll",
+        "lib/netstandard2.1/ADO.Net.Client.Core.xml"
+      ]
+    },
     "Azure.Core/1.6.0": {
       "sha512": "kI4m2NsODPOrxo0OoKjk6B3ADbdovhDQIEmI4039upjjZKRaewVLx/Uz4DfRa/NtnIRZQPUALe1yvdHWAoRt4w==",
       "type": "package",
@@ -888,6 +1003,24 @@
         "lib/netstandard2.0/Microsoft.OpenApi.xml",
         "microsoft.openapi.1.2.3.nupkg.sha512",
         "microsoft.openapi.nuspec"
+      ]
+    },
+    "RestSharp/108.0.2": {
+      "sha512": "zI1lzI+Jjzl6bcicyUYfLIGmmOAdJRkYepMnSPzrxd1o9RxztPaR/blUOmY8BpXdN3I+XlK9dtwCYRGCxvaODw==",
+      "type": "package",
+      "path": "restsharp/108.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net5.0/RestSharp.dll",
+        "lib/net5.0/RestSharp.xml",
+        "lib/net6.0/RestSharp.dll",
+        "lib/net6.0/RestSharp.xml",
+        "lib/netstandard2.0/RestSharp.dll",
+        "lib/netstandard2.0/RestSharp.xml",
+        "restsharp.108.0.2.nupkg.sha512",
+        "restsharp.nuspec",
+        "restsharp.png"
       ]
     },
     "Swashbuckle.AspNetCore/6.2.3": {
@@ -1297,10 +1430,21 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "DataAccessLayer/1.0.0": {
+      "type": "project",
+      "path": "../AppMVCDataAccess/DataAccessLayer.csproj",
+      "msbuildProject": "../AppMVCDataAccess/DataAccessLayer.csproj"
+    },
+    "WebApiClient/1.0.0": {
+      "type": "project",
+      "path": "../AppMVCClassLibrary/WebApiClient.csproj",
+      "msbuildProject": "../AppMVCClassLibrary/WebApiClient.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "DataAccessLayer >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.8",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 6.0.8",
       "Microsoft.Identity.Web >= 1.16.0",
@@ -1313,9 +1457,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\WebAPI.csproj",
-      "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\WebApi.csproj",
+      "projectName": "WebApi",
+      "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\WebApi.csproj",
       "packagesPath": "C:\\Users\\vikto\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
@@ -1333,7 +1477,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj": {
+              "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

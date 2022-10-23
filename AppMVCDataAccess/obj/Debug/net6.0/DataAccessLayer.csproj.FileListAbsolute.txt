@@ -3,3 +3,13 @@ C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDat
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\obj\Debug\net6.0\DataAccessLayer.AssemblyInfoInputs.cache
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\obj\Debug\net6.0\DataAccessLayer.AssemblyInfo.cs
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\obj\Debug\net6.0\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\bin\Debug\net6.0\DataAccessLayer.deps.json
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\bin\Debug\net6.0\DataAccessLayer.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\bin\Debug\net6.0\DataAccessLayer.pdb
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\bin\Debug\net6.0\WebApiClient.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\bin\Debug\net6.0\WebApiClient.pdb
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\obj\Debug\net6.0\DataAccessLayer.csproj.CopyComplete
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\obj\Debug\net6.0\DataAccessLayer.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\obj\Debug\net6.0\refint\DataAccessLayer.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\obj\Debug\net6.0\DataAccessLayer.pdb
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCDataAccess\obj\Debug\net6.0\ref\DataAccessLayer.dll

@@ -12,11 +12,5 @@ namespace WebApiClient.DTOs
         string Name { get; set; }
         string Description { get; set; }
 
-        public CategoryDto(int id, string name, string description)
-        {
-            Id = id;
-            Name = name;
-            Description = description;
-        }
     }
 }
