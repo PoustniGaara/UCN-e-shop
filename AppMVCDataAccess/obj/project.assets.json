@@ -2,16 +2,32 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "Newtonsoft.Json/12.0.1": {
+      "ADO.Net.Client.Annotations/1.2.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {
-            "related": ".pdb;.xml"
+          "lib/net6.0/ADO.Net.Client.Annotations.dll": {
+            "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {
-            "related": ".pdb;.xml"
+          "lib/net6.0/ADO.Net.Client.Annotations.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ADO.Net.Client.Core/1.4.4": {
+        "type": "package",
+        "dependencies": {
+          "ADO.Net.Client.Annotations": "1.2.0"
+        },
+        "compile": {
+          "lib/net6.0/ADO.Net.Client.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/ADO.Net.Client.Core.dll": {
+            "related": ".xml"
           }
         }
       },
@@ -28,28 +44,11 @@
           }
         }
       },
-      "RestSharp.Serializers.NewtonsoftJson/108.0.2": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.1",
-          "RestSharp": "108.0.2"
-        },
-        "compile": {
-          "lib/net6.0/RestSharp.Serializers.NewtonsoftJson.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/RestSharp.Serializers.NewtonsoftJson.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "WebApiClient/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "RestSharp.Serializers.NewtonsoftJson": "108.0.2"
+          "RestSharp": "108.0.2"
         },
         "compile": {
           "bin/placeholder/WebApiClient.dll": {}
@@ -61,43 +60,50 @@
     }
   },
   "libraries": {
-    "Newtonsoft.Json/12.0.1": {
-      "sha512": "pBR3wCgYWZGiaZDYP+HHYnalVnPJlpP1q55qvVb+adrDHmFMDc1NAKio61xTwftK3Pw5h7TZJPJEEVMd6ty8rg==",
+    "ADO.Net.Client.Annotations/1.2.0": {
+      "sha512": "UZsCQ6xAM+k4TLmP7Sa0q6wY5wM9wam8P812V7kOAYN909iOUWH+XWlQXgH3MSLDo66CERVnKSzk2/Gxmm12zw==",
       "type": "package",
-      "path": "newtonsoft.json/12.0.1",
+      "path": "ado.net.client.annotations/1.2.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "CONTRIBUTING.md",
         "LICENSE.md",
-        "lib/net20/Newtonsoft.Json.dll",
-        "lib/net20/Newtonsoft.Json.pdb",
-        "lib/net20/Newtonsoft.Json.xml",
-        "lib/net35/Newtonsoft.Json.dll",
-        "lib/net35/Newtonsoft.Json.pdb",
-        "lib/net35/Newtonsoft.Json.xml",
-        "lib/net40/Newtonsoft.Json.dll",
-        "lib/net40/Newtonsoft.Json.pdb",
-        "lib/net40/Newtonsoft.Json.xml",
-        "lib/net45/Newtonsoft.Json.dll",
-        "lib/net45/Newtonsoft.Json.pdb",
-        "lib/net45/Newtonsoft.Json.xml",
-        "lib/netstandard1.0/Newtonsoft.Json.dll",
-        "lib/netstandard1.0/Newtonsoft.Json.pdb",
-        "lib/netstandard1.0/Newtonsoft.Json.xml",
-        "lib/netstandard1.3/Newtonsoft.Json.dll",
-        "lib/netstandard1.3/Newtonsoft.Json.pdb",
-        "lib/netstandard1.3/Newtonsoft.Json.xml",
-        "lib/netstandard2.0/Newtonsoft.Json.dll",
-        "lib/netstandard2.0/Newtonsoft.Json.pdb",
-        "lib/netstandard2.0/Newtonsoft.Json.xml",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.pdb",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
-        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.pdb",
-        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "newtonsoft.json.12.0.1.nupkg.sha512",
-        "newtonsoft.json.nuspec"
+        "README.md",
+        "ado.net.client.annotations.1.2.0.nupkg.sha512",
+        "ado.net.client.annotations.nuspec",
+        "icon.png",
+        "lib/net5.0/ADO.Net.Client.Annotations.dll",
+        "lib/net5.0/ADO.Net.Client.Annotations.xml",
+        "lib/net6.0/ADO.Net.Client.Annotations.dll",
+        "lib/net6.0/ADO.Net.Client.Annotations.xml",
+        "lib/netstandard2.0/ADO.Net.Client.Annotations.dll",
+        "lib/netstandard2.0/ADO.Net.Client.Annotations.xml"
+      ]
+    },
+    "ADO.Net.Client.Core/1.4.4": {
+      "sha512": "dl0hc4UbSaONKI5mqz+3EmZMYGOqvK6NWcjO+9aE2jOARjfZdX8jy/fVSWvR5/AtbIe133pe8WsnwpmhmOeq2g==",
+      "type": "package",
+      "path": "ado.net.client.core/1.4.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CONTRIBUTING.md",
+        "LICENSE.md",
+        "README.md",
+        "ado.net.client.core.1.4.4.nupkg.sha512",
+        "ado.net.client.core.nuspec",
+        "icon.png",
+        "lib/net461/ADO.Net.Client.Core.dll",
+        "lib/net461/ADO.Net.Client.Core.xml",
+        "lib/net5.0/ADO.Net.Client.Core.dll",
+        "lib/net5.0/ADO.Net.Client.Core.xml",
+        "lib/net6.0/ADO.Net.Client.Core.dll",
+        "lib/net6.0/ADO.Net.Client.Core.xml",
+        "lib/netstandard2.0/ADO.Net.Client.Core.dll",
+        "lib/netstandard2.0/ADO.Net.Client.Core.xml",
+        "lib/netstandard2.1/ADO.Net.Client.Core.dll",
+        "lib/netstandard2.1/ADO.Net.Client.Core.xml"
       ]
     },
     "RestSharp/108.0.2": {
@@ -118,24 +124,6 @@
         "restsharp.png"
       ]
     },
-    "RestSharp.Serializers.NewtonsoftJson/108.0.2": {
-      "sha512": "zVnaBFtSHG7lx7zhKjv2FWc3ktE4bucoB62lNm+EAJAtKUMyhr3AFhO1lJXhbt6hgyvI1ewX/se1bnxHicQsfQ==",
-      "type": "package",
-      "path": "restsharp.serializers.newtonsoftjson/108.0.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net5.0/RestSharp.Serializers.NewtonsoftJson.dll",
-        "lib/net5.0/RestSharp.Serializers.NewtonsoftJson.xml",
-        "lib/net6.0/RestSharp.Serializers.NewtonsoftJson.dll",
-        "lib/net6.0/RestSharp.Serializers.NewtonsoftJson.xml",
-        "lib/netstandard2.0/RestSharp.Serializers.NewtonsoftJson.dll",
-        "lib/netstandard2.0/RestSharp.Serializers.NewtonsoftJson.xml",
-        "restsharp.png",
-        "restsharp.serializers.newtonsoftjson.108.0.2.nupkg.sha512",
-        "restsharp.serializers.newtonsoftjson.nuspec"
-      ]
-    },
     "WebApiClient/1.0.0": {
       "type": "project",
       "path": "../AppMVCClassLibrary/WebApiClient.csproj",
@@ -144,6 +132,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "ADO.Net.Client.Core >= 1.4.4",
       "WebApiClient >= 1.0.0"
     ]
   },
@@ -189,6 +178,12 @@
     "frameworks": {
       "net6.0": {
         "targetAlias": "net6.0",
+        "dependencies": {
+          "ADO.Net.Client.Core": {
+            "target": "Package",
+            "version": "[1.4.4, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

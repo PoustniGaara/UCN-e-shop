@@ -2,9 +2,7 @@
 
 namespace DataAccessLayer
 {
-    public class IProductDataAccess
-    {
-        public interface IMovieDataAccess
+        public interface IProductDataAccess
         {
             public IEnumerable<Product> GetAll();
             public Product GetProductById(int id);
@@ -13,5 +11,5 @@ namespace DataAccessLayer
             public bool DeleteProduct(int id);
             public bool UpdateProduct(Product product);
         }
-    }
+ 
 }

@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "WebAPI/1.0.0": {
+      "WebApi/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.8",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "6.0.8",
@@ -14,7 +14,7 @@
           "Swashbuckle.AspNetCore": "6.2.3"
         },
         "runtime": {
-          "WebAPI.dll": {}
+          "WebApi.dll": {}
         }
       },
       "Azure.Core/1.6.0": {
@@ -292,7 +292,7 @@
     }
   },
   "libraries": {
-    "WebAPI/1.0.0": {
+    "WebApi/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

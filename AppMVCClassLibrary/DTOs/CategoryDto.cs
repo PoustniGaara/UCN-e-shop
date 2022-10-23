@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace WebApiClient.DTOs
 {
-    public class Category
+    public class CategoryDto
     {
         int Id { get; set; }
         string Name { get; set; }
         string Description { get; set; }
 
-        public Category(int id, string name, string description)
+        public CategoryDto(int id, string name, string description)
         {
             Id = id;
             Name = name;

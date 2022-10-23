@@ -40,7 +40,7 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "RestSharp.Serializers.NewtonsoftJson": {
+            "RestSharp": {
               "target": "Package",
               "version": "[108.0.2, )"
             }

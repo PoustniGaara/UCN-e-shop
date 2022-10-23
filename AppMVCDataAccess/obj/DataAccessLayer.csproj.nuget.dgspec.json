@@ -40,7 +40,7 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "RestSharp.Serializers.NewtonsoftJson": {
+            "RestSharp": {
               "target": "Package",
               "version": "[108.0.2, )"
             }
@@ -104,6 +104,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "ADO.Net.Client.Core": {
+              "target": "Package",
+              "version": "[1.4.4, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

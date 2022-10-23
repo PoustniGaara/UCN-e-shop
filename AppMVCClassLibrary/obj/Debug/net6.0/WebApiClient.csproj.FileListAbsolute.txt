@@ -1,11 +1,11 @@
-C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\bin\Debug\net6.0\WebApiClient.deps.json
-C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\bin\Debug\net6.0\WebApiClient.dll
-C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\bin\Debug\net6.0\WebApiClient.pdb
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\WebApiClient.csproj.AssemblyReference.cache
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\WebApiClient.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\WebApiClient.AssemblyInfoInputs.cache
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\WebApiClient.AssemblyInfo.cs
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\WebApiClient.csproj.CoreCompileInputs.cache
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\bin\Debug\net6.0\WebApiClient.deps.json
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\bin\Debug\net6.0\WebApiClient.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\bin\Debug\net6.0\WebApiClient.pdb
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\WebApiClient.dll
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\refint\WebApiClient.dll
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\AppMVCClassLibrary\obj\Debug\net6.0\WebApiClient.pdb

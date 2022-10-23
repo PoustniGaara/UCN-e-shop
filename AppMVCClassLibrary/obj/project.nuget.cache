@@ -1,12 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "MGuAIEn2zOBZXekAIzVW2pZL0GZTZd9Rdus6OKkZe/xd0h7MklucruRNXQTMyxyi1Z6CS4Mtb8WtDSpLNB9elw==",
+  "dgSpecHash": "l/69LTU2CURt6XqeeKbwvzA4L9JJ06GOJw/m2CyDFx5MDcPhyrpYoo6OSZVWGYxaVIUxeuiI47lhpKlRgBkiOw==",
   "success": true,
   "projectFilePath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\vikto\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
-    "C:\\Users\\vikto\\.nuget\\packages\\restsharp\\108.0.2\\restsharp.108.0.2.nupkg.sha512",
-    "C:\\Users\\vikto\\.nuget\\packages\\restsharp.serializers.newtonsoftjson\\108.0.2\\restsharp.serializers.newtonsoftjson.108.0.2.nupkg.sha512"
+    "C:\\Users\\vikto\\.nuget\\packages\\restsharp\\108.0.2\\restsharp.108.0.2.nupkg.sha512"
   ],
   "logs": []
 }
