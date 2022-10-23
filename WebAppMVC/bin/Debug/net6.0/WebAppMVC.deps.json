@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "WebAppMVC/1.0.0": {
+        "dependencies": {
+          "WebApiClient": "1.0.0"
+        },
         "runtime": {
           "WebAppMVC.dll": {}
+        }
+      },
+      "WebApiClient/1.0.0": {
+        "runtime": {
+          "WebApiClient.dll": {}
         }
       }
     }
   },
   "libraries": {
     "WebAppMVC/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WebApiClient/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

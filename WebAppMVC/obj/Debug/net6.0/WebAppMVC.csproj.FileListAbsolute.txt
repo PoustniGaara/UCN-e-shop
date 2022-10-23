@@ -24,3 +24,6 @@ C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\obj\Debug\net6.0\WebAppMVC.pdb
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\obj\Debug\net6.0\WebAppMVC.genruntimeconfig.cache
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\obj\Debug\net6.0\ref\WebAppMVC.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\obj\Debug\net6.0\WebAppMVC.csproj.CopyComplete
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\bin\Debug\net6.0\WebApiClient.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\bin\Debug\net6.0\WebApiClient.pdb

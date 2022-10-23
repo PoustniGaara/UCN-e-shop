@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "WebApiClient/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/WebApiClient.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WebApiClient.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "WebApiClient/1.0.0": {
+      "type": "project",
+      "path": "../AppMVCClassLibrary/WebApiClient.csproj",
+      "msbuildProject": "../AppMVCClassLibrary/WebApiClient.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "WebApiClient >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\vikto\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj": {
+              "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

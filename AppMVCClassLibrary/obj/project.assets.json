@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\AppMVCClassLibrary.csproj",
-      "projectName": "AppMVCClassLibrary",
-      "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\AppMVCClassLibrary.csproj",
+      "projectUniqueName": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj",
+      "projectName": "WebApiClient",
+      "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj",
       "packagesPath": "C:\\Users\\vikto\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\obj\\",
       "projectStyle": "PackageReference",

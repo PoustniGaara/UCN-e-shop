@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "AppMVCDataAccess/1.0.0": {
+        "dependencies": {
+          "AppMVCClassLibrary": "1.0.0"
+        },
+        "runtime": {
+          "AppMVCDataAccess.dll": {}
+        }
+      },
+      "AppMVCClassLibrary/1.0.0": {
+        "runtime": {
+          "AppMVCClassLibrary.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AppMVCDataAccess/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AppMVCClassLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
