@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "xBVaSHQlqF1kmpG7H/RPVIZkGd4/4FO5HHiptAUFplSTqg02mVjPFj9p3fyvP1EA7F5Am48hW+bLytN+WNy7LA==",
+  "dgSpecHash": "ZwoNj4bSrIV8hDH6Zh8GVtKsqwGUPe2lL5CQqD9ERmwjihFGiA+8Z+kT5/4qie/m+o3UUwZJo9mUnoPbug60QA==",
   "success": true,
   "projectFilePath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\vikto\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\vikto\\.nuget\\packages\\restsharp\\108.0.2\\restsharp.108.0.2.nupkg.sha512",
+    "C:\\Users\\vikto\\.nuget\\packages\\restsharp.serializers.newtonsoftjson\\108.0.2\\restsharp.serializers.newtonsoftjson.108.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
