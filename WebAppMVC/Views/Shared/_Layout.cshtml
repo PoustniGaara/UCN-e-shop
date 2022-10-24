@@ -16,10 +16,11 @@
                 <div class="menu">
                     <a asp-controller="Home" asp-action="Index" class="home">Home</a>
                     <a asp-controller="Home" asp-action="About" class="about">About</a>
-                    <div class="products">Products</div>
+                    <a asp-controller="Product" asp-action="Index" class="about">Products</a>
+                    
                 </div>
                 <div class="menu2">
-                    <div class="cart">Cart</div>
+                    <a asp-controller="Cart" asp-action="Index" class="about">Cart</a>
                     <div class="user">User</div>
                 </div>
             </div>
@@ -32,9 +33,9 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+@*        <div class="container">
             &copy; 2022 - WebAppMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+        </div>*@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

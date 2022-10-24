@@ -8,7 +8,7 @@ using WebApiClient.DTOs;
 
 namespace WebApiClient
 {
-    internal class ApiClient
+    public class ApiClient : IApiClient
     {
 
         private RestClient _restClient;
@@ -16,13 +16,18 @@ namespace WebApiClient
 
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
-            var response = await _restClient.RequestAsync<IEnumerable<ProductDto>>(Method.Get, $"blogposts");
+            var response = await _restClient.RequestAsync<IEnumerable<ProductDto>>(Method.Get, $"products");
 
             if (!response.IsSuccessful)
             {
-                throw new Exception($"Error retrieving all blogposts. Message was {response.Content}");
+                throw new Exception($"Error retrieving all products. Message was {response.Content}");
             }
             return response.Data;
+        }
+
+        public Task<ProductDto> GetProductByIdAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

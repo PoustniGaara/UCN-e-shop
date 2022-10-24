@@ -6,20 +6,23 @@ using WebApiClient.DTOs;
 
 namespace WebAppMVC.Controllers
 {
-    public class ProductController : Controller
+
+    // WARNING THIS IS JUST A COPY OF PRODUCT CONTROLLER, CHANGES ARE NECCESSARY!
+
+    public class CartController : Controller
     {
         private IApiClient _client;
 
-        public ProductController(IApiClient client) => _client = client;
+        public CartController(IApiClient client) => _client = client;
 
 
-        // GET: ProductController
+        // GET: CartController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: ProductController/Details/5
+        // GET: CartController/Details/5
         public async Task<ActionResult> Details(int id)
         {
             //NOT FINISHED
@@ -31,13 +34,13 @@ namespace WebAppMVC.Controllers
             return View(model);
         }
 
-        // GET: ProductController/Create
+        // GET: CartController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ProductController/Create
+        // POST: CartController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProductDto product)
@@ -52,13 +55,13 @@ namespace WebAppMVC.Controllers
             }
         }
 
-        // GET: ProductController/Edit/5
+        // GET: CartController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ProductController/Edit/5
+        // POST: CartController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, ProductDto product)
@@ -73,13 +76,13 @@ namespace WebAppMVC.Controllers
             }
         }
 
-        // GET: ProductController/Delete/5
+        // GET: CartController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ProductController/Delete/5
+        // POST: CartController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, ProductDto product)

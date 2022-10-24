@@ -10,6 +10,6 @@ namespace WebApiClient
     public interface IApiClient
     {
         Task<ProductDto> GetProductByIdAsync(int id);
-        Task<IEnumerable<ProductDto>> GetAllBlogPostsAsync();
+        Task<IEnumerable<ProductDto>> GetAllProductsAsync();
     }
 }

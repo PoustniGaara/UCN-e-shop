@@ -35,11 +35,6 @@ namespace WebApi.Controllers
                 products = await _productDataAccess.GetAllAsync();
             }
 
-            foreach(ProductDto p in products.ToDtos())
-            {
-                Console.WriteLine(p.Name);
-            }
-
             return Ok(products.ToDtos());
         }
 

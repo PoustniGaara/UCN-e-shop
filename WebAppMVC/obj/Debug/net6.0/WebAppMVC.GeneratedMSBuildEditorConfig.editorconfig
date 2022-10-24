@@ -15,12 +15,12 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/vikto/Desktop/UCN/programming projects/Third_Semester_Project/WebAppMVC/Views/Home/About.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
+[C:/Users/vikto/Desktop/UCN/programming projects/Third_Semester_Project/WebAppMVC/Views/Cart/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/vikto/Desktop/UCN/programming projects/Third_Semester_Project/WebAppMVC/Views/Home/Cart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDYXJ0LmNzaHRtbA==
+[C:/Users/vikto/Desktop/UCN/programming projects/Third_Semester_Project/WebAppMVC/Views/Home/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/vikto/Desktop/UCN/programming projects/Third_Semester_Project/WebAppMVC/Views/Home/Index.cshtml]
