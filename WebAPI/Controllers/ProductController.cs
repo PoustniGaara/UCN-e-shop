@@ -40,15 +40,18 @@ namespace WebApi.Controllers
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<ProductDto>> Get(int id)
         {
-            return "value";
+            var product = await _productDataAccess.GetProductByIdAsync(id);
+            if (product == null) { return NotFound(); }
+            else { return Ok(product.ToDto()); }
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<int>> Post([FromBody] ProductDto newProductDto)
         {
+            return Ok(await _productDataAccess.CreateProductAsync(newProductDto.FromDto()));
         }
 
         // PUT api/<ProductController>/5

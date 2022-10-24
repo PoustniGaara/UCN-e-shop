@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
-    internal class ProductDataAccess : IProductDataAccess
+    internal class ProductDataAccessDAO : IProductDataAccess
     {
 
         #region Properties + Constructor
         public string ConnectionString { get; set; }
 
-        public ProductDataAccess(string connectionString)
+        public ProductDataAccessDAO(string connectionString)
         {
             ConnectionString = connectionString;
         }
         #endregion
 
         #region Methods
-        public async Task<int> CreatProductAsync(Product product)
+        public async Task<int> CreateProductAsync(Product product)
         {
             throw new NotImplementedException();
         }
