@@ -4,12 +4,12 @@ namespace WebApi.DTOs
 {
     public class ProductDto
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        string Description { get; set; }
-        decimal Price { get; set; }
-        int Stock { get; set; }
-        string Category { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+        public string Category { get; set; }
 
     }
 }

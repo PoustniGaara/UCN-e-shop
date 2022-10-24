@@ -4,34 +4,28 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.DTOs;
 using WebApi.DTOs.Converters;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
-        #region Properties
-        const string baseURI = "api/v1/products";
-        private IProductDataAccess _productDataAccess { get; set; }
+        #region Properties and Constructor
+        IProductDataAccess _productDataAccess;
+
+        public ProductController(IProductDataAccess productDataAccess) => _productDataAccess = productDataAccess;
+
         #endregion
 
-        #region Constructor
-        public ProductController(IProductDataAccess productDataAccess)
-        {
-            _productDataAccess = productDataAccess;
-        }
-        #endregion
-
+        #region Default Crud Actions
         // GET: api/<ProductController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> Get([FromQuery] string category)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
         {
-            IEnumerable<Product> products;
+            IEnumerable<Product> products = null;
 
 
-            if (!string.IsNullOrEmpty(category))
+            if (!string.IsNullOrEmpty("")) // for future catefory search
             {
                 //Not implemented because of dilema of the need of new DAO for category
                 products = null;
@@ -39,6 +33,11 @@ namespace WebApi.Controllers
             else
             {
                 products = await _productDataAccess.GetAllAsync();
+            }
+
+            foreach(ProductDto p in products.ToDtos())
+            {
+                Console.WriteLine(p.Name);
             }
 
             return Ok(products.ToDtos());
@@ -68,5 +67,6 @@ namespace WebApi.Controllers
         public void Delete(int id)
         {
         }
+        #endregion 
     }
 }

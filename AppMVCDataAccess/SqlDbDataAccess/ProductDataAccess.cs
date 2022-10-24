@@ -20,17 +20,17 @@ namespace DataAccessLayer.SqlDbDataAccess
         #endregion
 
         #region Methods
-        public Task<int> CreatProductAsync(Product product)
+        public async Task<int> CreatProductAsync(Product product)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteProductAsync(int id)
+        public async Task<bool> DeleteProductAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
             // THIS DATA IS JUST FOR TEST PURPOUSES
 
@@ -66,26 +66,25 @@ namespace DataAccessLayer.SqlDbDataAccess
             P3.Supplier = Supplier;
             P3.Category = Category;
 
+            List<Product> list = new List<Product>();
+            list.Add(P1);   
+            list.Add(P2);   
+            list.Add(P3);
 
-            IEnumerable<Product> list = new List<Product>();
-            list.Append(P1);   
-            list.Append(P2);   
-            list.Append(P3);
-
-            return (Task<IEnumerable<Product>>)list;
+            return list;
         }
 
-        public Task<Product> GetProductByCategoryAsync(Category category)
+        public async Task<Product> GetProductByCategoryAsync(Category category)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Product> GetProductByIdAsync(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateProductAsync(Product product)
+        public async Task<bool> UpdateProductAsync(Product product)
         {
             throw new NotImplementedException();
         }
