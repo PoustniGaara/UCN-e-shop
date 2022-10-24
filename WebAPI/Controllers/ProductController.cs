@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccessLayer;
+using DataAccessLayer.Model;
+using Microsoft.AspNetCore.Mvc;
+using WebApi.DTOs;
+using WebApi.DTOs.Converters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,13 +12,36 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        #region Properties
+        const string baseURI = "api/v1/products";
+        private IProductDataAccess _productDataAccess { get; set; }
+        #endregion
 
+        #region Constructor
+        public ProductController(IProductDataAccess productDataAccess)
+        {
+            _productDataAccess = productDataAccess;
+        }
+        #endregion
 
         // GET: api/<ProductController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> Get([FromQuery] string category)
         {
-            return new string[] { "value1", "value2" };
+            IEnumerable<Product> products;
+
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                //Not implemented because of dilema of the need of new DAO for category
+                products = null;
+            }
+            else
+            {
+                products = await _productDataAccess.GetAllAsync();
+            }
+
+            return Ok(products.ToDtos());
         }
 
         // GET api/<ProductController>/5

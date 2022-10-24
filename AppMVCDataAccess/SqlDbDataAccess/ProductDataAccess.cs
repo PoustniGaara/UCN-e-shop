@@ -9,17 +9,28 @@ namespace DataAccessLayer.SqlDbDataAccess
 {
     internal class ProductDataAccess : IProductDataAccess
     {
-        public int AddProduct(Product product)
+
+        #region Properties + Constructor
+        public string ConnectionString { get; set; }
+
+        public ProductDataAccess(string connectionString)
+        {
+            ConnectionString = connectionString;
+        }
+        #endregion
+
+        #region Methods
+        public Task<int> CreatProductAsync(Product product)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteProduct(int id)
+        public Task<bool> DeleteProductAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetAll()
+        public Task<IEnumerable<Product>> GetAllAsync()
         {
             // THIS DATA IS JUST FOR TEST PURPOUSES
 
@@ -56,27 +67,29 @@ namespace DataAccessLayer.SqlDbDataAccess
             P3.Category = Category;
 
 
-            List<Product> list = new List<Product>();
-            list.Add(P1);   
-            list.Add(P2);   
-            list.Add(P3);
+            IEnumerable<Product> list = new List<Product>();
+            list.Append(P1);   
+            list.Append(P2);   
+            list.Append(P3);
 
-            return list;
+            return (Task<IEnumerable<Product>>)list;
         }
 
-        public Product GetProductByCategory(Category category)
+        public Task<Product> GetProductByCategoryAsync(Category category)
         {
             throw new NotImplementedException();
         }
 
-        public Product GetProductById(int id)
+        public Task<Product> GetProductByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool UpdateProduct(Product product)
+        public Task<bool> UpdateProductAsync(Product product)
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }

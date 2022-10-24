@@ -4,12 +4,12 @@ namespace DataAccessLayer
 {
     public interface IProductDataAccess
         {
-            public IEnumerable<Product> GetAll();
-            public Product GetProductById(int id);
-            public Product GetProductByCategory(Category category);
-            public int AddProduct(Product product);
-            public bool DeleteProduct(int id);
-            public bool UpdateProduct(Product product);
+            public Task<IEnumerable<Product>> GetAllAsync();
+            public Task<Product> GetProductByIdAsync(int id);
+            public Task<Product> GetProductByCategoryAsync(Category category);
+            public Task<int> CreatProductAsync(Product product);
+            public Task<bool> DeleteProductAsync(int id);
+            public Task<bool> UpdateProductAsync(Product product);
         }
  
 }

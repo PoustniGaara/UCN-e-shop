@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "WebApi/1.0.0": {
         "dependencies": {
+          "DataAccessLayer": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.8",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "6.0.8",
           "Microsoft.Identity.Web": "1.16.0",
@@ -15,6 +16,25 @@
         },
         "runtime": {
           "WebApi.dll": {}
+        }
+      },
+      "ADO.Net.Client.Annotations/1.2.0": {
+        "runtime": {
+          "lib/net6.0/ADO.Net.Client.Annotations.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
+          }
+        }
+      },
+      "ADO.Net.Client.Core/1.4.4": {
+        "dependencies": {
+          "ADO.Net.Client.Annotations": "1.2.0"
+        },
+        "runtime": {
+          "lib/net6.0/ADO.Net.Client.Core.dll": {
+            "assemblyVersion": "1.4.4.0",
+            "fileVersion": "1.4.4.0"
+          }
         }
       },
       "Azure.Core/1.6.0": {
@@ -215,6 +235,14 @@
           }
         }
       },
+      "RestSharp/108.0.2": {
+        "runtime": {
+          "lib/net6.0/RestSharp.dll": {
+            "assemblyVersion": "108.0.2.0",
+            "fileVersion": "108.0.2.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.2.3": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
@@ -288,7 +316,24 @@
       },
       "System.Text.Encodings.Web/5.0.1": {},
       "System.Text.Json/4.6.0": {},
-      "System.Threading.Tasks.Extensions/4.5.2": {}
+      "System.Threading.Tasks.Extensions/4.5.2": {},
+      "DataAccessLayer/1.0.0": {
+        "dependencies": {
+          "ADO.Net.Client.Core": "1.4.4",
+          "WebApiClient": "1.0.0"
+        },
+        "runtime": {
+          "DataAccessLayer.dll": {}
+        }
+      },
+      "WebApiClient/1.0.0": {
+        "dependencies": {
+          "RestSharp": "108.0.2"
+        },
+        "runtime": {
+          "WebApiClient.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -296,6 +341,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "ADO.Net.Client.Annotations/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UZsCQ6xAM+k4TLmP7Sa0q6wY5wM9wam8P812V7kOAYN909iOUWH+XWlQXgH3MSLDo66CERVnKSzk2/Gxmm12zw==",
+      "path": "ado.net.client.annotations/1.2.0",
+      "hashPath": "ado.net.client.annotations.1.2.0.nupkg.sha512"
+    },
+    "ADO.Net.Client.Core/1.4.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dl0hc4UbSaONKI5mqz+3EmZMYGOqvK6NWcjO+9aE2jOARjfZdX8jy/fVSWvR5/AtbIe133pe8WsnwpmhmOeq2g==",
+      "path": "ado.net.client.core/1.4.4",
+      "hashPath": "ado.net.client.core.1.4.4.nupkg.sha512"
     },
     "Azure.Core/1.6.0": {
       "type": "package",
@@ -423,6 +482,13 @@
       "path": "microsoft.openapi/1.2.3",
       "hashPath": "microsoft.openapi.1.2.3.nupkg.sha512"
     },
+    "RestSharp/108.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zI1lzI+Jjzl6bcicyUYfLIGmmOAdJRkYepMnSPzrxd1o9RxztPaR/blUOmY8BpXdN3I+XlK9dtwCYRGCxvaODw==",
+      "path": "restsharp/108.0.2",
+      "hashPath": "restsharp.108.0.2.nupkg.sha512"
+    },
     "Swashbuckle.AspNetCore/6.2.3": {
       "type": "package",
       "serviceable": true,
@@ -520,6 +586,16 @@
       "sha512": "sha512-BG/TNxDFv0svAzx8OiMXDlsHfGw623BZ8tCXw4YLhDFDvDhNUEV58jKYMGRnkbJNm7c3JNNJDiN7JBMzxRBR2w==",
       "path": "system.threading.tasks.extensions/4.5.2",
       "hashPath": "system.threading.tasks.extensions.4.5.2.nupkg.sha512"
+    },
+    "DataAccessLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WebApiClient/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
