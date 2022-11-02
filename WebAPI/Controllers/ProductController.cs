@@ -51,19 +51,23 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromBody] ProductDto newProductDto)
         {
-            return Ok(await _productDataAccess.CreateProductAsync(newProductDto.FromDto()));
+            int id = await _productDataAccess.CreateProductAsync(newProductDto.FromDto());
+            if(id == -1) { return 500; }
+            return Ok();
         }
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(int id, [FromBody] ProductDto updatedProductDto)
         {
+            return Ok(await _productDataAccess.UpdateProductAsync(updatedProductDto.FromDto()));
         }
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+           return Ok( await _productDataAccess.DeleteProductAsync(id));    
         }
         #endregion 
     }

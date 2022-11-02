@@ -22,6 +22,14 @@ namespace DataAccessLayer.SqlDbDataAccess
         #region Methods
         public async Task<int> CreateProductAsync(Product product)
         {
+            try
+            {
+                // SQL statement
+            }
+            catch (Exception e)
+            {
+                throw new Exception("message", e);
+            }
             throw new NotImplementedException();
         }
 
