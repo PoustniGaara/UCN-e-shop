@@ -8,7 +8,7 @@ namespace DataAccessLayer.Model
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public int Stock { get; set; }
+        public ProductSize ProductSize { get; set; }
         public Supplier Supplier { get; set; }
         public Category Category { get; set; }
 

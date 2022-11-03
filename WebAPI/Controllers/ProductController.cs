@@ -18,21 +18,22 @@ namespace WebApi.Controllers
         #endregion
 
         #region Default Crud Actions
-        // GET: api/<ProductController>
+        // GET: api/products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
         {
-            IEnumerable<Product> products = null;
+            IEnumerable<Product>? products = null;
 
 
-            if (!string.IsNullOrEmpty("")) // for future catefory search
+            if (!string.IsNullOrEmpty("")) // for future category search
             {
-                //Not implemented because of dilema of the need of new DAO for category
+                //Not implemented because of idea of the need of new DAO for category
                 products = null;
             }
             else
             {
                 products = await _productDataAccess.GetAllAsync();
+                
             }
 
             return Ok(products.ToDtos());

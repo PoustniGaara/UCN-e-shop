@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging;
 using System.Dynamic;
 using WebApiClient;
 using WebApiClient.DTOs;
+using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
 {
@@ -14,9 +16,16 @@ namespace WebAppMVC.Controllers
 
 
         // GET: ProductController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            //Get the IEnumerable from API client
+            IEnumerable<ProductDto> productDtoList = await _client.GetAllProductsAsync();
+
+            //Create new view model
+            ProductIndexVM productIndexVM = new(productDtoList);
+            productIndexVM.PageTitle = "Products";
+
+            return View(productIndexVM);
         }
 
         // GET: ProductController/Details/5

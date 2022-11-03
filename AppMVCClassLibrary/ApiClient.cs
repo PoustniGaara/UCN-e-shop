@@ -16,7 +16,7 @@ namespace WebApiClient
 
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
-            var response = await _restClient.RequestAsync<IEnumerable<ProductDto>>(Method.Get, $"products");
+            var response = await _restClient.RequestAsync<IEnumerable<ProductDto>>(Method.Get, $"Product");
 
             if (!response.IsSuccessful)
             {

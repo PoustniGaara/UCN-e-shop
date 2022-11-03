@@ -78,6 +78,24 @@ body {
     background-color: aliceblue;
 }
 
+.product-list{
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 20px -10px 0;
+    padding: 0;
+}
+
+.product-list li{
+    width: 33%;
+}
+
+.product-list  li img {
+    display: block;
+    margin: 0 auto 12px;
+    width: 100%;
+}
+
 .fproducts {
     padding-top: 50px;
     padding-bottom: 50px;
@@ -106,7 +124,7 @@ body {
     justify-content: space-around;
 }
 
-.img {
+.product-img {
     width: 200px;
     height: 200px;
     background-color: brown;
@@ -177,13 +195,14 @@ body {
     margin-left: 100px;
 }
 
-.products {
+.product-panel {
     display: flex;
     flex-wrap: wrap;
+    text-transform: uppercase;
 
 }
 
-.fproduct {
+.product-inner {
     margin-top: 50px;
     margin-right: 125px;
 }
