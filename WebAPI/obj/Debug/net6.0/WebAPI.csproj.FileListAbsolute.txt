@@ -50,3 +50,4 @@ C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAPI\bi
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAPI\bin\Debug\net6.0\WebApiClient.dll
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAPI\bin\Debug\net6.0\DataAccessLayer.pdb
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAPI\bin\Debug\net6.0\WebApiClient.pdb
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAPI\bin\Debug\net6.0\AutoMapper.dll

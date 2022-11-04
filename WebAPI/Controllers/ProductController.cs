@@ -1,6 +1,8 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
+using System.Collections.ObjectModel;
 using WebApi.DTOs;
 using WebApi.DTOs.Converters;
 
@@ -23,6 +25,9 @@ namespace WebApi.Controllers
         public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
         {
             IEnumerable<Product>? products = null;
+            ICollection<ProductDto>? productsTest = new Collection<ProductDto>();
+
+            var mapper = Startup.InitializeAutomapper();
 
 
             if (!string.IsNullOrEmpty("")) // for future category search
@@ -36,7 +41,14 @@ namespace WebApi.Controllers
                 
             }
 
-            return Ok(products.ToDtos());
+            foreach (Product product in products)
+            {
+                ProductDto productDTOData = mapper.Map<Product, ProductDto>(product);
+                productsTest.Add(productDTOData);
+
+            }
+
+            return Ok(productsTest);
         }
 
         // GET api/<ProductController>/5

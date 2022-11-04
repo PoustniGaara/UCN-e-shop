@@ -34,9 +34,9 @@
                         <li>
                             <div class="product-inner">
                         <div class="product-img">
-                            <a href=>
-                            <img src="~/images/1.jpg"> 
-                            </a>
+                                    <a href="@Url.Action("Details", "Product", new { id = productDto.Id })">
+                                <img src="~/images/1.jpg"> 
+                                </a>
                         </div>
                         <div class="row">
                                     <div class="title">@Html.DisplayFor(modelItem => productDto.Name)</div>

@@ -1,6 +1,8 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
+using DataAccessLayer.Model;
 using Microsoft.OpenApi.Models;
-
+using WebApi.DTOs;
 
 namespace WebApi
 {
@@ -12,6 +14,21 @@ namespace WebApi
         }
 
         public IConfiguration Configuration { get; }
+
+        public static Mapper InitializeAutomapper()
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Product, ProductDto>()
+                    //ProductSize is a Complex type, so Map ProductSize to Simple type using For Member
+                    .ForMember(dest => dest.Size, act => act.MapFrom(src => src.ProductSize.Size))
+                    .ForMember(dest => dest.Stock, act => act.MapFrom(src => src.ProductSize.Stock))
+                    .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name))
+                    .ReverseMap();
+            });
+
+            var mapper = new Mapper(config);
+            return mapper;
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
