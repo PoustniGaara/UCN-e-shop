@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using DataAccessLayer;
+﻿using DataAccessLayer;
 using DataAccessLayer.Model;
 using Microsoft.OpenApi.Models;
 using WebApi.DTOs;
+using WebApi.DTOs.Converters;
 
 namespace WebApi
 {
@@ -15,26 +15,14 @@ namespace WebApi
 
         public IConfiguration Configuration { get; }
 
-        public static Mapper InitializeAutomapper()
-        {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Product, ProductDto>()
-                    //ProductSize is a Complex type, so Map ProductSize to Simple type using For Member
-                    .ForMember(dest => dest.Size, act => act.MapFrom(src => src.ProductSize.Size))
-                    .ForMember(dest => dest.Stock, act => act.MapFrom(src => src.ProductSize.Stock))
-                    .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name))
-                    .ReverseMap();
-            });
-
-            var mapper = new Mapper(config);
-            return mapper;
-        }
 
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddScoped((sc) => DataAccessFactory.CreateRepository<IProductDataAccess>(Configuration.GetConnectionString("DefaultConnection")));
 
+            //AutoMapper config
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

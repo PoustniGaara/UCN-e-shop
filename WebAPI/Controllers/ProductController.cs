@@ -1,4 +1,5 @@
-﻿using DataAccessLayer;
+﻿using AutoMapper;
+using DataAccessLayer;
 using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
@@ -14,8 +15,13 @@ namespace WebApi.Controllers
     {
         #region Properties and Constructor
         IProductDataAccess _productDataAccess;
+        private readonly IMapper _mapper;
 
-        public ProductController(IProductDataAccess productDataAccess) => _productDataAccess = productDataAccess;
+        public ProductController(IProductDataAccess productDataAccess, IMapper mapper)
+        {
+            _productDataAccess = productDataAccess;
+            _mapper = mapper;
+        } 
 
         #endregion
 
@@ -27,9 +33,6 @@ namespace WebApi.Controllers
             IEnumerable<Product>? products = null;
             ICollection<ProductDto>? productsTest = new Collection<ProductDto>();
 
-            var mapper = Startup.InitializeAutomapper();
-
-
             if (!string.IsNullOrEmpty("")) // for future category search
             {
                 //Not implemented because of idea of the need of new DAO for category
@@ -38,16 +41,14 @@ namespace WebApi.Controllers
             else
             {
                 products = await _productDataAccess.GetAllAsync();
-                
             }
 
             foreach (Product product in products)
             {
-                ProductDto productDTOData = mapper.Map<Product, ProductDto>(product);
-                productsTest.Add(productDTOData);
-
+                ProductDto productDto = _mapper.Map<ProductDto>(product);
+                //ProductDto productDTOData = mapper.Map<Product, ProductDto>(product);
+                productsTest.Add(productDto);
             }
-
             return Ok(productsTest);
         }
 
@@ -56,8 +57,9 @@ namespace WebApi.Controllers
         public async Task<ActionResult<ProductDto>> Get(int id)
         {
             var product = await _productDataAccess.GetProductByIdAsync(id);
+            ProductDto productDto = _mapper.Map<ProductDto>(product);
             if (product == null) { return NotFound(); }
-            else { return Ok(product.ToDto()); }
+            else { return Ok(productDto); }
         }
 
         // POST api/<ProductController>
