@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AppMVCDataAccess\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
   </ItemGroup>
 
 </Project>

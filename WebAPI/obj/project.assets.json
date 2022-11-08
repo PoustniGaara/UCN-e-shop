@@ -1656,8 +1656,8 @@
     },
     "DataAccessLayer/1.0.0": {
       "type": "project",
-      "path": "../AppMVCDataAccess/DataAccessLayer.csproj",
-      "msbuildProject": "../AppMVCDataAccess/DataAccessLayer.csproj"
+      "path": "../DataAccessLayer/DataAccessLayer.csproj",
+      "msbuildProject": "../DataAccessLayer/DataAccessLayer.csproj"
     },
     "WebApiClient/1.0.0": {
       "type": "project",
@@ -1704,6 +1704,9 @@
           "projectReferences": {
             "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj": {
               "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj"
+            },
+            "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\DataAccessLayer\\DataAccessLayer.csproj": {
+              "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\DataAccessLayer\\DataAccessLayer.csproj"
             }
           }
         }

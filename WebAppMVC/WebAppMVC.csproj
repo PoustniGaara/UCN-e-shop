@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AppMVCClassLibrary\WebApiClient.csproj" />
+    <ProjectReference Include="..\WenApiClient\WebApiClient.csproj" />
   </ItemGroup>
 
 </Project>
