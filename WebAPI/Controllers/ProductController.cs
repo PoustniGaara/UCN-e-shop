@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataAccessLayer;
 using DataAccessLayer.Model;
+using LoggerService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
@@ -15,17 +16,20 @@ namespace WebApi.Controllers
         #region Properties and Constructor
         IProductDataAccess _productDataAccess;
         private readonly IMapper _mapper;
+        private ILoggerManager _logger;
 
-        public ProductController(IProductDataAccess productDataAccess, IMapper mapper)
+
+        public ProductController(IProductDataAccess productDataAccess, IMapper mapper, ILoggerManager logger)
         {
             _productDataAccess = productDataAccess;
             _mapper = mapper;
-        } 
+            _logger = logger;
+        }
 
         #endregion
 
         #region Default Crud Actions
-        // GET: api/products
+        // GET: api/products/
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
         {
@@ -34,7 +38,6 @@ namespace WebApi.Controllers
             if (!string.IsNullOrEmpty("")) // for future category search
             {
                 //Not implemented because of idea of the need of new DAO for category
-                
             }
             else
             {

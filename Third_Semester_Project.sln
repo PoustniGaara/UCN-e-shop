@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiClient", "AppMVCClass
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "AppMVCDataAccess\DataAccessLayer.csproj", "{D1063AFD-1821-4A5E-B251-4E96F61BB8FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{7735A1AB-C62E-4757-BB0B-3BC9477CE5FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.csproj", "{7735A1AB-C62E-4757-BB0B-3BC9477CE5FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerService", "LoggerService\LoggerService.csproj", "{FB658C4B-0587-4606-AE8E-832E972E3017}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{7735A1AB-C62E-4757-BB0B-3BC9477CE5FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7735A1AB-C62E-4757-BB0B-3BC9477CE5FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7735A1AB-C62E-4757-BB0B-3BC9477CE5FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB658C4B-0587-4606-AE8E-832E972E3017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB658C4B-0587-4606-AE8E-832E972E3017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB658C4B-0587-4606-AE8E-832E972E3017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB658C4B-0587-4606-AE8E-832E972E3017}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
