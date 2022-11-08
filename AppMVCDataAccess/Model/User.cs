@@ -12,6 +12,8 @@ namespace DataAccessLayer.Model
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
 
+
+
     }
 }
 
