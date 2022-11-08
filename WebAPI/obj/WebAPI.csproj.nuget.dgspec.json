@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\WebApi.csproj": {}
+    "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/WebAPI/WebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj": {
+    "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCClassLibrary/WebApiClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj",
+        "projectUniqueName": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCClassLibrary/WebApiClient.csproj",
         "projectName": "WebApiClient",
-        "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj",
-        "packagesPath": "C:\\Users\\vikto\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\obj\\",
+        "projectPath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCClassLibrary/WebApiClient.csproj",
+        "packagesPath": "/Users/ppastierova/.nuget/packages/",
+        "outputPath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCClassLibrary/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vikto\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/ppastierova/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -61,36 +60,35 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj": {
+    "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCDataAccess/DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj",
+        "projectUniqueName": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCDataAccess/DataAccessLayer.csproj",
         "projectName": "DataAccessLayer",
-        "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj",
-        "packagesPath": "C:\\Users\\vikto\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\obj\\",
+        "projectPath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCDataAccess/DataAccessLayer.csproj",
+        "packagesPath": "/Users/ppastierova/.nuget/packages/",
+        "outputPath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCDataAccess/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vikto\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/ppastierova/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj": {
-                "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj"
+              "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCClassLibrary/WebApiClient.csproj": {
+                "projectPath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCClassLibrary/WebApiClient.csproj"
               }
             }
           }
@@ -126,36 +124,35 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\WebApi.csproj": {
+    "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/WebAPI/WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\WebApi.csproj",
+        "projectUniqueName": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/WebAPI/WebApi.csproj",
         "projectName": "WebApi",
-        "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\WebApi.csproj",
-        "packagesPath": "C:\\Users\\vikto\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\WebAPI\\obj\\",
+        "projectPath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/WebAPI/WebApi.csproj",
+        "packagesPath": "/Users/ppastierova/.nuget/packages/",
+        "outputPath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/WebAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vikto\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/ppastierova/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj"
+              "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCDataAccess/DataAccessLayer.csproj": {
+                "projectPath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCDataAccess/DataAccessLayer.csproj"
               }
             }
           }
@@ -210,7 +207,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
         }
       }
     }
