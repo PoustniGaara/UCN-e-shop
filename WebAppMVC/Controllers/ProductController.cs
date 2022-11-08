@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Packaging;
 using System.Dynamic;
@@ -11,8 +12,13 @@ namespace WebAppMVC.Controllers
     public class ProductController : Controller
     {
         private IApiClient _client;
+        private readonly IMapper _mapper;
 
-        public ProductController(IApiClient client) => _client = client;
+        public ProductController(IApiClient client, IMapper mapper)
+        {
+            _client = client;
+            _mapper = mapper;
+        } 
 
 
         // GET: ProductController
@@ -22,8 +28,14 @@ namespace WebAppMVC.Controllers
             IEnumerable<ProductDto> productDtoList = await _client.GetAllProductsAsync();
 
             //Create new view model
-            ProductIndexVM productIndexVM = new(productDtoList);
-            productIndexVM.PageTitle = "Products";
+            ProductIndexVM productIndexVM = _mapper.Map<ProductIndexVM>(productDtoList);
+            //ProductIndexVM productIndexVM = new(productDtoList);
+            //productIndexVM.PageTitle = "Products";
+
+            foreach(ProductDto productDto in productIndexVM.Products)
+            {
+                Console.WriteLine(productDto.Name);
+            }
 
             return View(productIndexVM);
         }
