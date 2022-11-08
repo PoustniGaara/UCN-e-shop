@@ -18,9 +18,6 @@ namespace WebApiClient
         {
             var response = await _restClient.RequestAsync<ICollection<ProductDto>>(Method.Get, $"product");
 
-            Console.WriteLine(response.Data);
-            Console.WriteLine(response.StatusCode);
-
             if (!response.IsSuccessful)
             {
                 throw new Exception($"Error retrieving all products. Message was {response.Content}");
