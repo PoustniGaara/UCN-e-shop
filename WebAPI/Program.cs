@@ -4,12 +4,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using WebApi.DTOs;
 
-
 namespace WebApi
 {
     public class Program
     {
-
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
