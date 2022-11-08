@@ -20,6 +20,8 @@ namespace WebAppMVC
             //for providing an implementation of IBlogSharpApiClient whenever needed
             services.AddScoped<IApiClient>((cs) => new ApiClient(Configuration["WebApiURI"]));
 
+            //AutoMapper config
+            services.AddAutoMapper(typeof(Startup));
 
             //Adds the cookie authentication scheme
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

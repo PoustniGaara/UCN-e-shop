@@ -8,8 +8,8 @@ namespace WebApi.MapperProfiles
     {
         public ProductProfile()
         {
-            CreateMap<Product, ProductDto>()
-            //ProductSize is a Complex type, so Map ProductSize to Simple type using For Member
+            //ProductSize and Category are complex types so, map them to simple type using for member
+            CreateMap<Product,ProductDto > ()
                 .ForMember(dest => dest.Size, act => act.MapFrom(src => src.ProductSize.Size))
                 .ForMember(dest => dest.Stock, act => act.MapFrom(src => src.ProductSize.Stock))
                 .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name))

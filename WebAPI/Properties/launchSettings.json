@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
@@ -11,10 +11,8 @@
   "profiles": {
     "WebAPI": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7098;http://localhost:5098",
+      "applicationUrl": "http://localhost:15789",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
 using WebApi.DTOs;
-using WebApi.DTOs.Converters;
 
 namespace WebApi.Controllers
 {
@@ -31,7 +30,7 @@ namespace WebApi.Controllers
         public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
         {
             IEnumerable<Product>? products = null;
-            ICollection<ProductDto>? productsTest = new Collection<ProductDto>();
+            ICollection<ProductDto>? productsDTO = new Collection<ProductDto>();
 
             if (!string.IsNullOrEmpty("")) // for future category search
             {
@@ -46,10 +45,9 @@ namespace WebApi.Controllers
             foreach (Product product in products)
             {
                 ProductDto productDto = _mapper.Map<ProductDto>(product);
-                //ProductDto productDTOData = mapper.Map<Product, ProductDto>(product);
-                productsTest.Add(productDto);
+                productsDTO.Add(productDto);
             }
-            return Ok(productsTest);
+            return Ok( productsDTO);
         }
 
         // GET api/<ProductController>/5
@@ -63,20 +61,20 @@ namespace WebApi.Controllers
         }
 
         // POST api/<ProductController>
-        [HttpPost]
-        public async Task<ActionResult<int>> Post([FromBody] ProductDto newProductDto)
-        {
-            int id = await _productDataAccess.CreateProductAsync(newProductDto.FromDto());
-            if(id == -1) { return 500; }
-            return Ok();
-        }
+        //[HttpPost]
+        //public async Task<ActionResult<int>> Post([FromBody] ProductDto newProductDto)
+        //{
+        //    int id = await _productDataAccess.CreateProductAsync(newProductDto.FromDto());
+        //    if(id == -1) { return 500; }
+        //    return Ok();
+        //}
 
         // PUT api/<ProductController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] ProductDto updatedProductDto)
-        {
-            return Ok(await _productDataAccess.UpdateProductAsync(updatedProductDto.FromDto()));
-        }
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult> Put(int id, [FromBody] ProductDto updatedProductDto)
+        //{
+        //    return Ok(await _productDataAccess.UpdateProductAsync(updatedProductDto.FromDto()));
+        //}
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]

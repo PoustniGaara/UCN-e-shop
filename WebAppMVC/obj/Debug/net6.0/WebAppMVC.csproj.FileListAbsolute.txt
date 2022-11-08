@@ -242,3 +242,5 @@ C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\vikto\Desktop\UCN\programming projects\Third_Semester_Project\WebAppMVC\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
