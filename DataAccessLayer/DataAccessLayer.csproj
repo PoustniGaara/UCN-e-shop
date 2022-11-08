@@ -10,8 +10,4 @@
     <PackageReference Include="ADO.Net.Client.Core" Version="1.4.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AppMVCClassLibrary\WebApiClient.csproj" />
-  </ItemGroup>
-
 </Project>
