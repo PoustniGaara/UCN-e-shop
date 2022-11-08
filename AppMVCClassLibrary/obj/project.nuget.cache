@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "IfRrjsPfbMTGTpdrhRF9r2owGzgCxDJZuHhjlv6u2QpKGBP3nnSqihrKaA0otXCmV+/RQmxo0n16tDGCpPlVOw==",
+  "dgSpecHash": "l/69LTU2CURt6XqeeKbwvzA4L9JJ06GOJw/m2CyDFx5MDcPhyrpYoo6OSZVWGYxaVIUxeuiI47lhpKlRgBkiOw==",
   "success": true,
-  "projectFilePath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCClassLibrary/WebApiClient.csproj",
+  "projectFilePath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCClassLibrary\\WebApiClient.csproj",
   "expectedPackageFiles": [
-    "/Users/ppastierova/.nuget/packages/restsharp/108.0.2/restsharp.108.0.2.nupkg.sha512"
+    "C:\\Users\\vikto\\.nuget\\packages\\restsharp\\108.0.2\\restsharp.108.0.2.nupkg.sha512"
   ],
   "logs": []
 }

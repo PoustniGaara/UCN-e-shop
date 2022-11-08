@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "YrUFmXOk7LybdQjbnC/P+ZO/Jd6OL74LuIeBOo0AupqK5ri/rKA5Fmwai6ivJRE/28A3CL00obYPYfmLtR2JIg==",
+  "dgSpecHash": "6sUyyacWcpSSreINc/DNS3lmlioKItKWV9jI4pyVVR1Kl8/GV5BacJLEYISuk72Nzp9EWUwADESPZ+zEe8YIIA==",
   "success": true,
-  "projectFilePath": "/Users/ppastierova/Documents/GitHub/Third_Semester_Project/AppMVCDataAccess/DataAccessLayer.csproj",
+  "projectFilePath": "C:\\Users\\vikto\\Desktop\\UCN\\programming projects\\Third_Semester_Project\\AppMVCDataAccess\\DataAccessLayer.csproj",
   "expectedPackageFiles": [
-    "/Users/ppastierova/.nuget/packages/ado.net.client.annotations/1.2.0/ado.net.client.annotations.1.2.0.nupkg.sha512",
-    "/Users/ppastierova/.nuget/packages/ado.net.client.core/1.4.4/ado.net.client.core.1.4.4.nupkg.sha512",
-    "/Users/ppastierova/.nuget/packages/restsharp/108.0.2/restsharp.108.0.2.nupkg.sha512"
+    "C:\\Users\\vikto\\.nuget\\packages\\ado.net.client.annotations\\1.2.0\\ado.net.client.annotations.1.2.0.nupkg.sha512",
+    "C:\\Users\\vikto\\.nuget\\packages\\ado.net.client.core\\1.4.4\\ado.net.client.core.1.4.4.nupkg.sha512",
+    "C:\\Users\\vikto\\.nuget\\packages\\restsharp\\108.0.2\\restsharp.108.0.2.nupkg.sha512"
   ],
   "logs": []
 }
