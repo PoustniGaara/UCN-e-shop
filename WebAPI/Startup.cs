@@ -2,7 +2,6 @@
 using DataAccessLayer.Model;
 using Microsoft.OpenApi.Models;
 using WebApi.DTOs;
-using WebApi.DTOs.Converters;
 
 namespace WebApi
 {
