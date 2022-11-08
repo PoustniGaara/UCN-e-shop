@@ -5,11 +5,11 @@ using System.Data;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
-    public class OrderDataAccessDAO : IOrderDataAccess
+    public class OrderDAO : IOrderDataAccess
     {
         private string connectionstring;
 
-        public OrderDataAccessDAO(string connectionstring)
+        public OrderDAO(string connectionstring)
         { 
             this.connectionstring = connectionstring;
         }

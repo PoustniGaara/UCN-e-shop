@@ -13,7 +13,8 @@ namespace DataAccessLayer
         {
             switch (typeof(T).Name)
             {
-                case "IProductDataAccess": return new ProductDataAccessDAO(connectionstring) as T;
+                case "IProductDataAccess": return new ProductDAO(connectionstring) as T;
+                case "IOrderDataAccess": return new OrderDAO(connectionstring) as T;
             }
             throw new ArgumentException($"Unknown type {typeof(T).FullName}");
         }

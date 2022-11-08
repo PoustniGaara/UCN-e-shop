@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
-    internal class ProductDataAccessDAO : IProductDataAccess
+    internal class ProductDAO : IProductDataAccess
     {
 
         #region Properties + Constructor
         public string ConnectionString { get; set; }
 
-        public ProductDataAccessDAO(string connectionString)
+        public ProductDAO(string connectionString)
         {
             ConnectionString = connectionString;
         }
