@@ -18,7 +18,7 @@ namespace Testing.DataAccess
 
         private async Task<Order> CreateNewOrderAsync()
         {
-            _order = new Order() { Date = DateTime.Now, TotalPrice = 57, Note = "note...", Status = Status.PLACED, User = new User(), Items = new List<LineItem>() };
+            _order = new Order(DateTime.Now, 57, Status.PLACED, "note...", new User(), new List<LineItem>());
             _order.Id = await _orderDAO.CreateOrderAsync(_order);
             return _order;
         }

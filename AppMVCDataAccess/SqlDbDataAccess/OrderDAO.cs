@@ -79,8 +79,8 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlDataReader reader = selectCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    User user = UserDAO.GetByIdAsync(reader.GetString("customer"));
-                    List<LineItem> items = OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
+                    User? user = null; //UserDAO.GetByIdAsync(reader.GetString("customer"));
+                    List<LineItem>? items = null; //OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
                     orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("note"), user, items));
                 }
             }
@@ -110,8 +110,8 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                User user = UserDAO.GetByIdAsync(reader.GetString("customer"));
-                List<LineItem> items = OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
+                User user = null; //UserDAO.GetByIdAsync(reader.GetString("customer"));
+                List<LineItem> items = null; //OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
                 return new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("note"), user, items);
             }
             catch (SqlException sqlex)
@@ -141,7 +141,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlDataReader reader = selectCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    List<LineItem> items = OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
+                    List<LineItem> items = null; //OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
                     orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("note"), user, items));
                 }
             }
