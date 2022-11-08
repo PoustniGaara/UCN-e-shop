@@ -34,6 +34,11 @@ namespace DataAccessLayer.SqlDbDataAccess
             throw new NotImplementedException();
         }
 
+        public Task<Order> GetOrderByCategoryAsync(Category category)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Order> GetOrderByIdAsync(int id)
         {
             throw new NotImplementedException();

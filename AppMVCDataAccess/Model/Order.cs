@@ -7,7 +7,7 @@ namespace DataAccessLayer.Model
         public DateTime Date { get; set; }
         public decimal TotalPrice { get; set; }
         public Status Status { get; set; }
-        public string Note { get; set;
+        public string Note { get; set; }
         public User User { get; set; }
     }
 
