@@ -30,24 +30,20 @@ namespace WebApi.Controllers
         public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
         {
             IEnumerable<Product>? products = null;
-            ICollection<ProductDto>? productsDTO = new Collection<ProductDto>();
 
             if (!string.IsNullOrEmpty("")) // for future category search
             {
                 //Not implemented because of idea of the need of new DAO for category
-                products = null;
+                
             }
             else
             {
                 products = await _productDataAccess.GetAllAsync();
             }
 
-            foreach (Product product in products)
-            {
-                ProductDto productDto = _mapper.Map<ProductDto>(product);
-                productsDTO.Add(productDto);
-            }
-            return Ok( productsDTO);
+            products.ToList().ForEach(p => _mapper.Map<ProductDto>(p));
+
+            return Ok(products);
         }
 
         // GET api/<ProductController>/5
