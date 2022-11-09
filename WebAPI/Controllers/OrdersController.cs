@@ -60,21 +60,28 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            if (_orderDataAccess.DeleteOrderAsync(id) == null)
+            var isdeleted = await _orderDataAccess.DeleteOrderAsync(id);
+            if (isdeleted == false)
             {
                 return NotFound();
             }
-            else return Ok(await _orderDataAccess.DeleteOrderAsync(id));
+            else return Ok(isdeleted);
         }
 
-        // POST api/<OrderController>
-        //[HttpPost]
-        //public async Task<ActionResult<int>> Post([FromBody] OrderDto newOrderDto)
-        //{
-            //int id = await _orderDataAccess.CreateOrderAsync(newOrderDto.);
-           
-        //}
+         //POST api/<OrderController>
+        [HttpPost]
+        public async Task<ActionResult<int>> Post([FromBody] OrderDto newOrderDto)
+        {
+            int id = await _orderDataAccess.CreateOrderAsync(_mapper.Map<Order>(newOrderDto));
+            return Created("api/orders/" + id, id);
+        }
 
+        // PUT api/<OrderController>/1
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody] OrderDto updatedOrderDto)
+        {
+            return Ok(await _orderDataAccess.UpdateOrderAsync(_mapper.Map<Order>(updatedOrderDto)));
+        }
         #endregion
 
     }
