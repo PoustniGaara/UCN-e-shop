@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+AppMVCDataAccess/DataAccessLayer.csproj
+AppMVCDataAccess/DataAccessLayer.csproj
+*.csproj
+GlobalErrorHandlingLogs/internal_logs/internallog.txt
