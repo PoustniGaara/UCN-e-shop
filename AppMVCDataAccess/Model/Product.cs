@@ -10,8 +10,7 @@ namespace DataAccessLayer.Model
         public decimal Price { get; set; }
         public ProductSize ProductSize { get; set; }
         public Supplier Supplier { get; set; }
+        public Discount Discount { get; set; }
         public Category Category { get; set; }
-
-
     }
 }

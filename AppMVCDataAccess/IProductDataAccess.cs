@@ -5,6 +5,7 @@ namespace DataAccessLayer
     public interface IProductDataAccess
         {
             public Task<IEnumerable<Product>> GetAllAsync();
+            public Task<IEnumerable<Product>> GetByCategoryAsync(String category);
             public Task<Product> GetProductByIdAsync(int id);
             public Task<Product> GetProductByCategoryAsync(Category category);
             public Task<int> CreateProductAsync(Product product);

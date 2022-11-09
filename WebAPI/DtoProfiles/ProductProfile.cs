@@ -13,13 +13,8 @@ namespace WebApi.MapperProfiles
                 .ForMember(dest => dest.Size, act => act.MapFrom(src => src.ProductSize.Size))
                 .ForMember(dest => dest.Stock, act => act.MapFrom(src => src.ProductSize.Stock))
                 .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name))
+                .ForMember(dest => dest.Discount, act => act.MapFrom(src => src.Discount.Amount))
                 .ReverseMap();
-            //CreateMap<IEnumerable<Product>, IEnumerable<ProductDto>>()
-            //    .ForMember(dest => dest, act => act.MapFrom(src => src));
-
-
-
-
         }
     }
 }

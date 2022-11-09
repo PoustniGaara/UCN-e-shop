@@ -11,7 +11,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         #region Properties and Constructor
         IProductDataAccess _productDataAccess;
@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         private ILoggerManager _logger;
 
 
-        public ProductController(IProductDataAccess productDataAccess, IMapper mapper, ILoggerManager logger)
+        public ProductsController(IProductDataAccess productDataAccess, IMapper mapper, ILoggerManager logger)
         {
             _productDataAccess = productDataAccess;
             _mapper = mapper;
@@ -31,27 +31,24 @@ namespace WebApi.Controllers
         #region Default Crud Actions
         // GET: api/products/
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> Get([FromQuery] string? category)
         {
+            //
             IEnumerable<Product>? products = null;
-
-            if (!string.IsNullOrEmpty("")) // for future category search
+            if (!string.IsNullOrEmpty(category)) 
             {
-                //Not implemented because of idea of the need of new DAO for category
+                //should we create new dao class or just a transaction? 
+                _logger.LogInfo("Fetching all the Products by category from the DB");
+                products = await _productDataAccess.GetByCategoryAsync(category);
+                _logger.LogInfo($"Returning {products.Count()} products.");
             }
             else
             {
                 _logger.LogInfo("Fetching all the Products from the DB");
-
                 products = await _productDataAccess.GetAllAsync();
-
-                _logger.LogInfo($"Returning {products.Count()} students.");
-
-                
+                _logger.LogInfo($"Returning {products.Count()} products.");
             }
-            //products.ToList().ForEach(p => _mapper.Map<ProductDto>(p));
             IEnumerable<ProductDto> productDtos = products.Select(s => _mapper.Map<ProductDto>(s));
-
             return Ok(productDtos);
         }
 

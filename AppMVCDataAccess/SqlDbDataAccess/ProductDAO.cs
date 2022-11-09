@@ -54,6 +54,9 @@ namespace DataAccessLayer.SqlDbDataAccess
             productSize.Size = "M";
             productSize.Stock = 1;
 
+            Discount discount = new();
+            discount.Amount = 10;
+
             Product P1 = new Product();
             P1.Name = "Bottle1";
             P1.Description = "Big bottle";
@@ -61,6 +64,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             P1.ProductSize = productSize;
             P1.Supplier = Supplier;
             P1.Category = Category;
+            P1.Discount = discount;
 
             Product P2 = new Product();
             P2.Name = "Bottle2";
@@ -69,6 +73,8 @@ namespace DataAccessLayer.SqlDbDataAccess
             P2.ProductSize = productSize;
             P2.Supplier = Supplier;
             P2.Category = Category;
+            P2.Discount = discount;
+
 
             Product P3 = new Product();
             P3.Name = "Bottle3";
@@ -77,6 +83,8 @@ namespace DataAccessLayer.SqlDbDataAccess
             P3.ProductSize = productSize;
             P3.Supplier = Supplier;
             P3.Category = Category;
+            P3.Discount = discount;
+
 
             List<Product> list = new List<Product>();
             list.Add(P1);   
@@ -97,6 +105,11 @@ namespace DataAccessLayer.SqlDbDataAccess
         }
 
         public async Task<bool> UpdateProductAsync(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Product>> GetByCategoryAsync(string category)
         {
             throw new NotImplementedException();
         }
