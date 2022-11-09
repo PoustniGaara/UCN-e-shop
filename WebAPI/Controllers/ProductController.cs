@@ -49,9 +49,10 @@ namespace WebApi.Controllers
 
                 
             }
-            products.ToList().ForEach(p => _mapper.Map<ProductDto>(p));
+            //products.ToList().ForEach(p => _mapper.Map<ProductDto>(p));
+            IEnumerable<ProductDto> productDtos = products.Select(s => _mapper.Map<ProductDto>(s));
 
-            return Ok(products);
+            return Ok(productDtos);
         }
 
         // GET api/<ProductController>/5
