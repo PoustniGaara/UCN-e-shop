@@ -29,13 +29,6 @@ namespace WebAppMVC.Controllers
 
             //Create new view model
             ProductIndexVM productIndexVM = _mapper.Map<ProductIndexVM>(productDtoList);
-            //ProductIndexVM productIndexVM = new(productDtoList);
-            //productIndexVM.PageTitle = "Products";
-
-            foreach(ProductDto productDto in productIndexVM.Products)
-            {
-                Console.WriteLine(productDto.Name);
-            }
 
             return View(productIndexVM);
         }

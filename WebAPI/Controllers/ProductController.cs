@@ -41,7 +41,14 @@ namespace WebApi.Controllers
             }
             else
             {
+                _logger.LogInfo("Fetching all the Products from the DB");
+
                 products = await _productDataAccess.GetAllAsync();
+
+                throw new Exception("Exception while fetching all the products from the DB.");
+                
+                _logger.LogInfo($"Returning {products.Count()} students.");
+
             }
 
             products.ToList().ForEach(p => _mapper.Map<ProductDto>(p));
