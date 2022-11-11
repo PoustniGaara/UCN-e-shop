@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AppMVCClassLibrary\WebApiClient.csproj" />
+    <ProjectReference Include="..\LoggerService\LoggerService.csproj" />
   </ItemGroup>
 
 </Project>

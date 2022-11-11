@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LoggerService;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.VisualBasic;
 
@@ -6,6 +7,13 @@ namespace WebAppMVC.ActionFilters
 {
     public class ExceptionFilter : Attribute, IExceptionFilter
     {
+        private ILoggerManager _logger;
+
+        public ExceptionFilter(ILoggerManager logger)
+        {
+            _logger = logger;
+        }
+
         public void OnException(ExceptionContext filterContext)
         {
             if (!filterContext.ExceptionHandled)
@@ -18,6 +26,9 @@ namespace WebAppMVC.ActionFilters
                 string Message = "Date :" + DateTime.Now.ToString() + ", Controller: " + controllerName + ", Action:" + actionName +
                                  "Error Message : " + exceptionMessage
                                 + Environment.NewLine + "Stack Trace : " + stackTrace;
+
+                _logger.LogInfo(Message);
+
                 //saving the data in a text file called Log.txt
                 //You can also save this in a dabase
                 //File.AppendAllText(HttpContext.Current.Server.MapPath("~/Log/Log.txt"), Message);

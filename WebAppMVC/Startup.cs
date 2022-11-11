@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using LoggerService;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
+using WebApi.Extensions;
 using WebApiClient;
 using WebAppMVC.ActionFilters;
 
@@ -25,6 +27,9 @@ namespace WebAppMVC
             //AutoMapper config
             services.AddAutoMapper(typeof(Startup));
 
+            //Logger manager config
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+
             //Register filters
             services.AddScoped<ExceptionFilter>();
 
@@ -44,7 +49,7 @@ namespace WebAppMVC
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
         {
             if (env.IsDevelopment())
             {
@@ -52,6 +57,9 @@ namespace WebAppMVC
             }
             else
             {
+                //Logger manager config
+                app.ConfigureExceptionHandler(logger);
+
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
