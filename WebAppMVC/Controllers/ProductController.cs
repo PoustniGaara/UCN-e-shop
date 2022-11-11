@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Packaging;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Dynamic;
 using WebApiClient;
 using WebApiClient.DTOs;
 using WebAppMVC.ViewModels;
+using WebAppMVC.ActionFilters;
+
 
 namespace WebAppMVC.Controllers
 {
+    [ServiceFilter(typeof(ExceptionFilter))]
     public class ProductController : Controller
     {
         private IApiClient _client;
@@ -18,8 +20,7 @@ namespace WebAppMVC.Controllers
         {
             _client = client;
             _mapper = mapper;
-        } 
-
+        }
 
         // GET: ProductController
         public async Task<ActionResult> Index()

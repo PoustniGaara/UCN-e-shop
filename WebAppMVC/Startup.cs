@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Options;
 using WebApiClient;
+using WebAppMVC.ActionFilters;
 
 namespace WebAppMVC
 {
@@ -15,13 +18,15 @@ namespace WebAppMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             //Registers the Dependency Injection code
             //for providing an implementation of IBlogSharpApiClient whenever needed
             services.AddScoped<IApiClient>((cs) => new ApiClient(Configuration["WebApiURI"]));
 
             //AutoMapper config
             services.AddAutoMapper(typeof(Startup));
+
+            //Register filters
+            services.AddScoped<ExceptionFilter>();
 
             //Adds the cookie authentication scheme
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

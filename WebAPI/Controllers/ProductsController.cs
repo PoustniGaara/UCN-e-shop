@@ -33,11 +33,9 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> Get([FromQuery] string? category)
         {
-            //
             IEnumerable<Product>? products = null;
             if (!string.IsNullOrEmpty(category)) 
             {
-                //should we create new dao class or just a transaction? 
                 _logger.LogInfo("Fetching all the Products by category from the DB");
                 products = await _productDataAccess.GetByCategoryAsync(category);
                 _logger.LogInfo($"Returning {products.Count()} products.");
@@ -49,6 +47,7 @@ namespace WebApi.Controllers
                 _logger.LogInfo($"Returning {products.Count()} products.");
             }
             IEnumerable<ProductDto> productDtos = products.Select(s => _mapper.Map<ProductDto>(s));
+
             return Ok(productDtos);
         }
 

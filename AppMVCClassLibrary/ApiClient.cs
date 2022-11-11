@@ -24,6 +24,8 @@ namespace WebApiClient
             {
                 throw new Exception($"Error retrieving all products. Message was {response.Content}");
             }
+            throw new Exception($"Error retrieving all products. Message was {response.Content}");
+
             return response.Data;
         }
 

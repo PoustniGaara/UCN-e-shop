@@ -91,6 +91,8 @@ namespace DataAccessLayer.SqlDbDataAccess
             list.Add(P2);   
             list.Add(P3);
 
+            //throw new Exception("From data acces");
+
             return list;
         }
 
