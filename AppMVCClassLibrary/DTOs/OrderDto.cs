@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccessLayer.Model;
 
 namespace WebApi.DTOs
 {
@@ -12,6 +11,7 @@ namespace WebApi.DTOs
         public int Status { get; set; }
         public string Note { get; set; }
         public string UserEmail { get; set; }
+        
         public IEnumerable<LineItemDto> Items { get; set; }
 
     }
