@@ -22,6 +22,11 @@ namespace WebAppMVC.Controllers
             _mapper = mapper;
         }
 
+        public IActionResult Sproduct()
+        {
+            return View();
+        }
+
         // GET: ProductController
         public async Task<ActionResult> Index()
         {

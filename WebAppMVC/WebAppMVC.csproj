@@ -16,4 +16,8 @@
     <ProjectReference Include="..\LoggerService\LoggerService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\NewFolder\" />
+  </ItemGroup>
+
 </Project>

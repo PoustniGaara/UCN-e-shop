@@ -184,13 +184,12 @@ body {
     margin-left: 100px;
 }
 
-.product-panel {
+.products {
     display: flex;
     flex-wrap: wrap;
-    text-transform: uppercase;
 }
 
-.product-inner {
+.fproduct {
     margin-top: 50px;
     margin-right: 125px;
 }
@@ -214,6 +213,11 @@ body {
     max-width: 1200px;
 }
 
+.ccc {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
 .cartcontainer {
     margin-top: 50px;
     display: grid;
@@ -223,6 +227,10 @@ body {
 
 .hr {
     width: 1200px;
+}
+
+.hrr {
+    width: 499px;
 }
 
 .cartitems {
@@ -257,8 +265,7 @@ body {
     top: 0;
 }
 
-.subtotal,
-.fee {
+.subtotal, .fee {
     display: flex;
     font-size: 1.2rem;
 }
@@ -343,4 +350,189 @@ select {
 .secondpart {
     margin-left: 100px;
     margin-top: 50px;
+}
+
+
+/**************
+*****************
+****************
+****************/
+
+/* ===== Google Font Import - Poformsins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+
+
+
+
+
+.password {
+    max-width: 730px;
+}
+
+
+.form .title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    background-color: #4070f4;
+    border-radius: 25px;
+}
+
+.form .input-field {
+    position: relative;
+    height: 50px;
+    width: 800px;
+    margin-top: 30px;
+}
+
+.input-field input {
+    position: absolute;
+    height: 100%;
+    width: 800px;
+    padding: 0 35px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    border-bottom: 2px solid #ccc;
+    border-top: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+    .input-field input:is(:focus, :valid) {
+        border-bottom-color: #4070f4;
+    }
+
+.input-field i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 23px;
+    transition: all 0.2s ease;
+}
+
+.input-field input:is(:focus, :valid) ~ i {
+    color: #4070f4;
+}
+
+.input-field i.icon {
+    left: 0;
+}
+
+.input-field i.showHidePw {
+    right: 0;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.form .checkbox-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.checkbox-text .checkbox-content {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-content input {
+    margin: 0 8px -2px 4px;
+    accent-color: #4070f4;
+}
+
+.form .text {
+    color: #333;
+    font-size: 14px;
+}
+
+.form a.text {
+    color: #4070f4;
+    text-decoration: none;
+}
+
+.form a:hover {
+    text-decoration: underline;
+}
+
+.form .button {
+    margin-top: 35px;
+}
+
+    .form .button input {
+        border: none;
+        color: #fff;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        border-radius: 6px;
+        background-color: #4070f4;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+.button input:hover {
+    background-color: #265df2;
+}
+
+.form .login-signup {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/**************
+*****************
+****************
+****************/
+
+.product-image {
+    width: 600px;
+    height: 600px;
+    background-color: purple;
+}
+
+
+.product-content {
+    padding-left: 30px;
+    max-width: 600px;
+}
+
+.sproduct-title {
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.sproduct-price {
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+}
+
+.sproduct-description {
+}
+
+.sproduct-instock {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+
+
+
+
+
+.sproduct-size {
+}
+
+.sprodfirstpart {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
 }
