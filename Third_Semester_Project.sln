@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "AppMVCDa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerService", "LoggerService\LoggerService.csproj", "{FB658C4B-0587-4606-AE8E-832E972E3017}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{B92F0AEB-230B-43DD-BDFA-47490A878F07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{B92F0AEB-230B-43DD-BDFA-47490A878F07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntergrationTests", "IntergrationTests\IntergrationTests.csproj", "{57D2DE60-37B7-41B8-AA02-4E20196D5534}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{686F1329-C023-42E8-B516-0BF47E7F102D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{B92F0AEB-230B-43DD-BDFA-47490A878F07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B92F0AEB-230B-43DD-BDFA-47490A878F07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B92F0AEB-230B-43DD-BDFA-47490A878F07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57D2DE60-37B7-41B8-AA02-4E20196D5534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57D2DE60-37B7-41B8-AA02-4E20196D5534}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57D2DE60-37B7-41B8-AA02-4E20196D5534}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57D2DE60-37B7-41B8-AA02-4E20196D5534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{686F1329-C023-42E8-B516-0BF47E7F102D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{686F1329-C023-42E8-B516-0BF47E7F102D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{686F1329-C023-42E8-B516-0BF47E7F102D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{686F1329-C023-42E8-B516-0BF47E7F102D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
