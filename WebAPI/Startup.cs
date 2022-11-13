@@ -1,10 +1,8 @@
 ﻿using DataAccessLayer;
-using DataAccessLayer.Model;
 using LoggerService;
 using Microsoft.OpenApi.Models;
 using NLog;
-using WebApi.DTOs;
-using WebApi.Extensions;
+using WebApi.ActionFilters;
 
 namespace WebApi
 {
@@ -20,19 +18,27 @@ namespace WebApi
 
         public IConfiguration Configuration { get; }
 
-
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddScoped((sc) => DataAccessFactory.CreateRepository<IProductDataAccess>(Configuration.GetConnectionString("DefaultConnection")));
 
             //AutoMapper config
             services.AddAutoMapper(typeof(Startup));
 
+            //Register Filters
+            //services.AddScoped<ExceptionFilter>();
+
             //Logger manager config
             services.AddSingleton<ILoggerManager, LoggerManager>();
 
-            services.AddControllers();
+            //services.AddControllers();
+
+            // register filters
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<ExceptionFilter>();
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
@@ -47,10 +53,6 @@ namespace WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
-
-            //Logger manager config
-            app.ConfigureExceptionHandler(logger);
-            //app.ConfigureCustomExceptionMiddleware(logger):
 
             app.UseHttpsRedirection();
 

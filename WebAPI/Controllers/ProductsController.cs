@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
 using WebApi.DTOs;
+using WebApi.ActionFilters;
 
 namespace WebApi.Controllers
 {
@@ -16,14 +17,11 @@ namespace WebApi.Controllers
         #region Properties and Constructor
         IProductDataAccess _productDataAccess;
         private readonly IMapper _mapper;
-        private ILoggerManager _logger;
 
-
-        public ProductsController(IProductDataAccess productDataAccess, IMapper mapper, ILoggerManager logger)
+        public ProductsController(IProductDataAccess productDataAccess, IMapper mapper)
         {
             _productDataAccess = productDataAccess;
             _mapper = mapper;
-            _logger = logger;
         }
 
         #endregion
@@ -33,18 +31,14 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> Get([FromQuery] string? category)
         {
-            IEnumerable<Product>? products = null;
+            IEnumerable<Product> products;
             if (!string.IsNullOrEmpty(category)) 
             {
-                _logger.LogInfo("Fetching all the Products by category from the DB");
                 products = await _productDataAccess.GetByCategoryAsync(category);
-                _logger.LogInfo($"Returning {products.Count()} products.");
             }
             else
             {
-                _logger.LogInfo("Fetching all the Products from the DB");
                 products = await _productDataAccess.GetAllAsync();
-                _logger.LogInfo($"Returning {products.Count()} products.");
             }
             IEnumerable<ProductDto> productDtos = products.Select(s => _mapper.Map<ProductDto>(s));
 

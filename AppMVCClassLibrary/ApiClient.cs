@@ -18,7 +18,7 @@ namespace WebApiClient
         {
             var response = await _restClient.RequestAsync<IEnumerable<ProductDto>>(Method.Get, $"products");
 
-            Console.WriteLine(response.Data);
+            //throw new Exception();
 
             if (!response.IsSuccessful)
             {
