@@ -18,27 +18,35 @@ namespace DataAccessLayer.SqlDbDataAccess
         {
             int id = -1;
             using SqlConnection connection = new SqlConnection(connectionstring);
+         
+            connection.Open();
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+
             try
             {
-                connection.Open();
-                string queryString = "INSERT INTO dbo.Order ('orderStatus', 'customer') VALUES (@status, @customer); SELECT CAST(scope_identity() AS int)";
-                SqlCommand insertCommand = new SqlCommand(queryString, connection);
-                insertCommand.Parameters.AddWithValue("@status", order.Status);
-                insertCommand.Parameters.AddWithValue("@customer", order.User.Email);
-                id = (int)insertCommand.ExecuteScalar();
+                command.CommandText = "INSERT INTO dbo.Order ('orderStatus', 'customer') VALUES (@status, @customer); SELECT CAST(scope_identity() AS int)";
+                command.Parameters.AddWithValue("@status", order.Status);
+                command.Parameters.AddWithValue("@customer", order.User.Email);
+                id = (int)command.ExecuteScalar();
                 order.Id = id;
-            }
-            catch (SqlException sqlex)
+
+                foreach(LineItem item in order.Items)
+                {
+                    command.CommandText = "INSERT INTO dbo.OrderLineItem ('order_id', 'product_id', 'amount') VALUES (@orderId, @productId, @amount)";
+                    command.Parameters.AddWithValue("@order_id", order.Id);
+                    command.Parameters.AddWithValue("@product_id", item.Id);
+                    command.Parameters.AddWithValue("@amount", item.Quantity);
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+
+            } catch(Exception ex)
             {
-                Console.WriteLine("An error occured while inserting account information into the database: " + sqlex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occured while inserting account information into the database: " + ex);
-            }
-            finally
-            {
-                connection.Close();
+                transaction.Rollback();
             }
             return id;
         }
