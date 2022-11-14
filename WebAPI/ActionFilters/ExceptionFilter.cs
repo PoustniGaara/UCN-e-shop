@@ -30,7 +30,7 @@ namespace WebApi.ActionFilters
                 ExceptionType = filterContext.Exception.GetType().FullName,
             })
             {
-                StatusCode = (int)HttpStatusCode.InternalServerError
+                StatusCode = (int)HttpStatusCode.ServiceUnavailable
             };
 
             filterContext.Result = result;

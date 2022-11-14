@@ -16,6 +16,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+	<!--show internal to integration tests-->
+	<ItemGroup>
+		<InternalsVisibleTo Include="IntegrationTests" />
+	</ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\AppMVCDataAccess\DataAccessLayer.csproj" />
     <ProjectReference Include="..\LoggerService\LoggerService.csproj" />

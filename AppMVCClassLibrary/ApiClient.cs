@@ -19,7 +19,6 @@ namespace WebApiClient
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
             var response = await _restClient.RequestAsync<IEnumerable<ProductDto>>(Method.Get, $"products");
-            throw new Exception();
             if (!response.IsSuccessful)
             {
                 throw new Exception($"Error retrieving all products. Message was {response.Content}");

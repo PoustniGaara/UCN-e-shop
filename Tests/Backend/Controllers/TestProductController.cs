@@ -18,7 +18,6 @@ namespace Testing.Backend.Controllers
     public class TestProductController
     {
         private IProductDataAccess _productDataAcces;
-        //private ILoggerManager _logger;
         private IMapper _mapper;
         private ProductsController _productsController;
 
@@ -26,7 +25,6 @@ namespace Testing.Backend.Controllers
         {
             _productDataAcces = A.Fake<IProductDataAccess>();
 
-            //_logger = new LoggerManager();
 
             //mapper config 
             var config = new MapperConfiguration(cfg => {
@@ -34,7 +32,7 @@ namespace Testing.Backend.Controllers
             });
             _mapper = config.CreateMapper();
 
-            _productsController = new(_productDataAcces, _mapper/*, _logger*/);
+            _productsController = new(_productDataAcces, _mapper);
         }
 
         [Fact]

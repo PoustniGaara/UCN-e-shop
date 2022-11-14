@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.DTOs;
 using WebApiClient;
 using WebApiClient.DTOs;
+using WebAppMVC.ActionFilters;
 using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
 {
+    [ServiceFilter(typeof(ExceptionFilter))]
     public class OrderController : Controller
     {
         private IApiClient _client;
