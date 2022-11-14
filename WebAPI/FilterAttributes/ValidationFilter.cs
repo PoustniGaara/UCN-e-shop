@@ -10,12 +10,12 @@ namespace WebApi.ActionFilters
         {
             public void OnActionExecuting(ActionExecutingContext context)
             {
-                var param = context.ActionArguments.SingleOrDefault();
-                if (param.Value == null)
-                {
-                    context.Result = new BadRequestObjectResult("Object is null");
-                    return;
-                }
+                //var param = context.ActionArguments.SingleOrDefault();
+                //if (param.Value == null)
+                //{
+                //    context.Result = new BadRequestObjectResult("Object is null");
+                //    return;
+                //}
                 if (!context.ModelState.IsValid)
                 {
                     context.Result = new UnprocessableEntityObjectResult(context.ModelState);

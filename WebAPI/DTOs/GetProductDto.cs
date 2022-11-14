@@ -14,5 +14,6 @@ namespace WebApi.DTOs
         public string Size { get; set; }
         public string Category { get; set; }
 
+
     }
 }
