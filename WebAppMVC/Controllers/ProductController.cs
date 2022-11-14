@@ -26,7 +26,7 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Index()
         {
             //Get the IEnumerable from API client
-            IEnumerable<ProductDto> productDtoList = await _client.GetAllProductsAsync();
+            IEnumerable<GetProductDto> productDtoList = await _client.GetAllProductsAsync();
 
             //Create new view model
             ProductIndexVM productIndexVM = _mapper.Map<ProductIndexVM>(productDtoList);
@@ -55,7 +55,7 @@ namespace WebAppMVC.Controllers
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProductDto product)
+        public ActionResult Create(GetProductDto product)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace WebAppMVC.Controllers
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, ProductDto product)
+        public ActionResult Edit(int id, GetProductDto product)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace WebAppMVC.Controllers
         // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, ProductDto product)
+        public ActionResult Delete(int id, GetProductDto product)
         {
             try
             {

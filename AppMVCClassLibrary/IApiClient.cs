@@ -12,8 +12,8 @@ namespace WebApiClient
 {
     public interface IApiClient
     {
-        Task<ProductDto> GetProductByIdAsync(int id);
-        Task<IEnumerable<ProductDto>> GetAllProductsAsync();
+        Task<GetProductDto> GetProductByIdAsync(int id);
+        Task<IEnumerable<GetProductDto>> GetAllProductsAsync();
 
 
         Task<int> CreateOrderAsync(OrderDto entity);

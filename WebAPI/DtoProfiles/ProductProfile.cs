@@ -8,12 +8,18 @@ namespace WebApi.MapperProfiles
     {
         public ProductProfile()
         {
-            //ProductSize and Category are complex types so, map them to simple type using for member
-            CreateMap<Product, ProductDto>()
+            //GetProductDto to Product mapper
+            CreateMap<Product, GetProductDto>()
                 .ForMember(dest => dest.Size, act => act.MapFrom(src => src.ProductSize.Size))
                 .ForMember(dest => dest.Stock, act => act.MapFrom(src => src.ProductSize.Stock))
                 .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name))
-                .ForMember(dest => dest.Discount, act => act.MapFrom(src => src.Discount.Amount))
+                .ReverseMap();
+
+            //PostProductDto to Product mapper
+            CreateMap<Product, PostProductDto>()
+                .ForMember(dest => dest.Size, act => act.MapFrom(src => src.ProductSize.Size))
+                .ForMember(dest => dest.Stock, act => act.MapFrom(src => src.ProductSize.Stock))
+                .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name))
                 .ReverseMap();
         }
     }

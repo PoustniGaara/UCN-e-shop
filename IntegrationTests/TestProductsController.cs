@@ -17,7 +17,7 @@ using WebApi.MapperProfiles;
 
 namespace IntegrationTests
 {
-    public class TestProductsController : /*IClassFixture<WebApplicationFactory<WebApi.Startup>>*/IAsyncLifetime
+    public class TestProductsController : IAsyncLifetime
     {
         private HttpClient _httpClient = null!;
 
@@ -46,23 +46,6 @@ namespace IntegrationTests
         {
             return Task.CompletedTask;
         }
-        //private readonly WebApplicationFactory<WebApi.Startup> _factory;
-        //private IProductDataAccess _productDataAcces;
-        //private IMapper _mapper;
-        //private ProductsController _productsController;
-
-        //public TestProductsController(WebApplicationFactory<WebApi.Startup> factory)
-        //{
-        //    _factory = factory;
-        //    _productDataAcces = A.Fake<IProductDataAccess>();
-        //    //mapper config 
-        //    var config = new MapperConfiguration(cfg => {
-        //        cfg.AddProfile(new ProductProfile());
-        //    });
-        //    _mapper = config.CreateMapper();
-
-        //    _productsController = new(_productDataAcces, _mapper);
-        //}
 
         [Fact]
         public async Task<Task> Get_Products_WithoutQueryString_UnSuccess()
@@ -75,9 +58,6 @@ namespace IntegrationTests
         private async Task AssertThatGetFullProfileHandlesGivenException(Exception givenException, HttpStatusCode resultingStatusCode)
         {
             var category = "";
-
-            //_profileServiceMock.Setup(profileService => profileService.GetFullProfile(username))
-            //    .ThrowsAsync(givenException);
 
             var response = await _httpClient.GetAsync($"api/products/{category}");
             Assert.Equal(resultingStatusCode, response.StatusCode);

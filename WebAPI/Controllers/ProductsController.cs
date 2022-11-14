@@ -29,7 +29,7 @@ namespace WebApi.Controllers
         #region Default Crud Actions
         // GET: api/products/
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> Get([FromQuery] string? category)
+        public async Task<ActionResult<IEnumerable<GetProductDto>>> Get([FromQuery] string? category)
         {
             IEnumerable<Product> products;
             if (!string.IsNullOrEmpty(category)) 
@@ -40,31 +40,33 @@ namespace WebApi.Controllers
             {
                 products = await _productDataAccess.GetAllAsync();
             }
-            IEnumerable<ProductDto> productDtos = products.Select(s => _mapper.Map<ProductDto>(s));
+            IEnumerable<GetProductDto> productDtos = products.Select(s => _mapper.Map<GetProductDto>(s));
 
             return Ok(productDtos);
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDto>> Get(int id)
+        public async Task<ActionResult<GetProductDto>> Get(int id)
         {
             var product = await _productDataAccess.GetProductByIdAsync(id);
-            ProductDto productDto = _mapper.Map<ProductDto>(product);
+            GetProductDto productDto = _mapper.Map<GetProductDto>(product);
             if (product == null) { return NotFound(); }
             else { return Ok(productDto); }
         }
 
-        // POST api/<ProductController>
-        //[HttpPost]
-        //public async Task<ActionResult<int>> Post([FromBody] ProductDto newProductDto)
-        //{
-        //    int id = await _productDataAccess.CreateProductAsync(newProductDto.FromDto());
-        //    if(id == -1) { return 500; }
-        //    return Ok();
-        //}
+        //POST api/<ProductController>
+        [HttpPost]
+        public async Task<ActionResult<int>> Post([FromBody] PostProductDto newProductDto)
+        {
+            Product product = _mapper.Map<Product>(newProductDto);
 
-        // PUT api/<ProductController>/5
+            int id = await _productDataAccess.CreateProductAsync(product);
+
+            return Ok(id);
+        }
+
+        //PUT api/<ProductController>/5
         //[HttpPut("{id}")]
         //public async Task<ActionResult> Put(int id, [FromBody] ProductDto updatedProductDto)
         //{

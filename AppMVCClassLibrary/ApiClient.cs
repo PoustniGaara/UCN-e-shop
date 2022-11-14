@@ -16,9 +16,9 @@ namespace WebApiClient
         private RestClient _restClient;
         public ApiClient(string uri) => _restClient = new RestClient(new Uri(uri));
 
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
+        public async Task<IEnumerable<GetProductDto>> GetAllProductsAsync()
         {
-            var response = await _restClient.RequestAsync<IEnumerable<ProductDto>>(Method.Get, $"products");
+            var response = await _restClient.RequestAsync<IEnumerable<GetProductDto>>(Method.Get, $"products");
             if (!response.IsSuccessful)
             {
                 throw new Exception($"Error retrieving all products. Message was {response.Content}");
@@ -27,7 +27,7 @@ namespace WebApiClient
             return response.Data;
         }
 
-        public Task<ProductDto> GetProductByIdAsync(int id)
+        public Task<GetProductDto> GetProductByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

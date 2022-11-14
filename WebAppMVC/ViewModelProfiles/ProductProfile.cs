@@ -10,7 +10,7 @@ namespace WebAppMVC.ViewModelProfiles
     {
         public ProductProfile()
         {
-            CreateMap<IEnumerable<ProductDto>, ProductIndexVM>()
+            CreateMap<IEnumerable<GetProductDto>, ProductIndexVM>()
             .ForMember(dest => dest.Products, act => act.MapFrom(src => src));
         }
 

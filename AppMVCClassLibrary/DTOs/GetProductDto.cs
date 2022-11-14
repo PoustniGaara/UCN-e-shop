@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace WebApi.DTOs
+namespace WebApiClient.DTOs
 {
-    public class ProductDto
+    public class GetProductDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -10,8 +10,7 @@ namespace WebApi.DTOs
         public decimal Price { get; set; }
         public int Stock { get; set; }
         public string Size { get; set; }
-        public string Category { get; set; }
         public int Discount { get; set; }
-
+        public string Category { get; set; }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using DataAccessLayer;
 using LoggerService;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using NLog;
 using WebApi.ActionFilters;
+using static WebApi.ActionFilters.ValidationFilter;
 
 namespace WebApi
 {
@@ -25,18 +27,20 @@ namespace WebApi
             //AutoMapper config
             services.AddAutoMapper(typeof(Startup));
 
-            //Register Filters
-            //services.AddScoped<ExceptionFilter>();
-
             //Logger manager config
             services.AddSingleton<ILoggerManager, LoggerManager>();
 
-            //services.AddControllers();
+            //Surppress default validation filters
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
-            // register filters
+            //Register filters
             services.AddControllers(options =>
             {
                 options.Filters.Add<ExceptionFilter>();
+                options.Filters.Add(new ValidationFilterAttribute()); 
             });
 
             services.AddSwaggerGen(c =>

@@ -45,30 +45,11 @@ namespace Testing.Backend.Controllers
             var request = await _productsController.Get("");
             var result = request.Result as ObjectResult;
             //ASSERT
-            //Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
             result.Should().BeOfType<OkObjectResult>()
             .Which.StatusCode.Should().Be((int)HttpStatusCode.OK);
-            //request.Should().BeOfType<Task<ActionResult<IEnumerable<ProductDto>>>>()
-            //.Which.StatusCode.Should().Be((int)HttpStatusCode.OK);
+
 
         }
 
-        //This test must be done by integration test
-        //[Fact]
-        //public async Task Get_Products_WithoutQueryString_UnSuccess()
-        //{
-        //    //ARRANGE
-        //    var products = A.Fake<IEnumerable<Product>>();
-        //    A.CallTo(() => _productDataAcces.GetAllAsync()).ThrowsAsync(new Exception());
-        //    //ACT
-        //    var request = await _productsController.Get("");
-        //    var result = request.Result as ObjectResult;
-
-        //    //ASSERT
-        //    Assert.Equal(StatusCodes.Status500InternalServerError, result.StatusCode);
-        //    request.Should().BeOfType<OkObjectResult>()
-        //    .Which.StatusCode.Should().Be((int)HttpStatusCode.InternalServerError);
-        //    //Assert.Equal(StatusCodes.Status500InternalServerError, result.StatusCode);
-        //}
     }
 }
