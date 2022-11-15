@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DataAccessLayer;
 using DataAccessLayer.Model;
 using LoggerService;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,7 @@ using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
 using WebApi.DTOs;
 using WebApi.ActionFilters;
+using DataAccessLayer.Interfaces;
 
 namespace WebApi.Controllers
 {
@@ -15,12 +15,12 @@ namespace WebApi.Controllers
     public class ProductsController : ControllerBase
     {
         #region Properties and Constructor
-        IProductDataAccess _productDataAccess;
+        IProductDataAccess _dataAccess;
         private readonly IMapper _mapper;
 
         public ProductsController(IProductDataAccess productDataAccess, IMapper mapper)
         {
-            _productDataAccess = productDataAccess;
+            _dataAccess = productDataAccess;
             _mapper = mapper;
         }
 
@@ -34,11 +34,11 @@ namespace WebApi.Controllers
             IEnumerable<Product> products;
             if (!string.IsNullOrEmpty(category)) 
             {
-                products = await _productDataAccess.GetByCategoryAsync(category);
+                products = await _dataAccess.GetAllByCategoryAsync(category);
             }
             else
             {
-                products = await _productDataAccess.GetAllAsync();
+                products = await _dataAccess.GetAllAsync();
             }
             IEnumerable<GetProductDto> productDtos = products.Select(s => _mapper.Map<GetProductDto>(s));
 
@@ -49,10 +49,12 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GetProductDto>> Get(int id)
         {
-            var product = await _productDataAccess.GetProductByIdAsync(id);
-            GetProductDto productDto = _mapper.Map<GetProductDto>(product);
+            var product = await _dataAccess.GetByIdAsync(id);
             if (product == null) { return NotFound(); }
-            else { return Ok(productDto); }
+
+            GetProductDto productDto = _mapper.Map<GetProductDto>(product);
+            
+           return Ok(productDto); 
         }
 
         //POST api/<ProductController>
@@ -61,23 +63,32 @@ namespace WebApi.Controllers
         {
             Product product = _mapper.Map<Product>(newProductDto);
 
-            int id = await _productDataAccess.CreateProductAsync(product);
+            int id = await _dataAccess.CreateAsync(product);
 
             return Ok(id);
         }
 
         //PUT api/<ProductController>/5
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult> Put(int id, [FromBody] ProductDto updatedProductDto)
-        //{
-        //    return Ok(await _productDataAccess.UpdateProductAsync(updatedProductDto.FromDto()));
-        //}
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody] PostProductDto updatedProductDto)
+        {
+            Product product = await _dataAccess.GetByIdAsync(id);
+            if (product == null) { return NotFound(); }
+
+            product = _mapper.Map<Product>(updatedProductDto);
+
+            bool success = await _dataAccess.UpdateAsync(product);
+            if (success) return Ok();
+            else throw new Exception("Update was not successful");
+        }
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-           return Ok( await _productDataAccess.DeleteProductAsync(id));    
+           Product product = await _dataAccess.GetByIdAsync(id);
+           if(product == null) { return NotFound(); }
+           return Ok();    
         }
         #endregion 
     }

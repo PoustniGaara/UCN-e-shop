@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Model;
 
-namespace DataAccessLayer
+namespace DataAccessLayer.Interfaces
 {
     public interface IOrderDataAccess
     {

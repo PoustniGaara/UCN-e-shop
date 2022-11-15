@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using DataAccessLayer;
-using DataAccessLayer.InMemoryTestDataAccess;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
 using FakeItEasy;
 using FluentAssertions;

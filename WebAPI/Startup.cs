@@ -1,4 +1,6 @@
 ﻿using DataAccessLayer;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Model;
 using LoggerService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
@@ -22,6 +24,7 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //Data access 
             services.AddScoped((sc) => DataAccessFactory.CreateRepository<IProductDataAccess>(Configuration.GetConnectionString("DefaultConnection")));
 
             //AutoMapper config
@@ -36,7 +39,7 @@ namespace WebApi
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            //Register filters
+            //Register global filters
             services.AddControllers(options =>
             {
                 options.Filters.Add<ExceptionFilter>();
@@ -49,7 +52,7 @@ namespace WebApi
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

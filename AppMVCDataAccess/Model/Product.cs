@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using DataAccessLayer.Interfaces;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataAccessLayer.Model

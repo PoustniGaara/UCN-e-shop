@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Interfaces;
+using DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
-    internal class ProductDAO : IProductDataAccess
+    public class ProductDAO : IProductDataAccess
     {
 
         #region Properties + Constructor
@@ -20,23 +21,6 @@ namespace DataAccessLayer.SqlDbDataAccess
         #endregion
 
         #region Methods
-        public async Task<int> CreateProductAsync(Product product)
-        {
-            try
-            {
-                // SQL statement
-            }
-            catch (Exception e)
-            {
-                throw new Exception("message", e);
-            }
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> DeleteProductAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
@@ -84,22 +68,56 @@ namespace DataAccessLayer.SqlDbDataAccess
             return list;
         }
 
-        public async Task<Product> GetProductByCategoryAsync(Category category)
+
+        public async Task<int> CreateAsync(Product order)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateProductAsync(Product product)
+        public async Task UpdateAsync(Product order)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Product>> GetByCategoryAsync(string category)
+        public async Task<Product> GetByIdAsync(int id) 
+        {
+            Category Category = new Category();
+            Category.Name = "Gifts";
+            Category.Description = "Lovely gifts";
+
+            ProductSize productSize = new ProductSize();
+            productSize.Size = "M";
+            productSize.Stock = 1;
+
+            Product P1 = new Product();
+            P1.Id = 5;
+            P1.Name = "Bottle1";
+            P1.Description = "Big bottle";
+            P1.Price = 20;
+            P1.ProductSize = productSize;
+            P1.Category = Category;
+
+            Product P2 = new Product();
+            P2.Name = "Bottle2";
+            P2.Description = "Medium bottle";
+            P2.Price = 10;
+            P2.ProductSize = productSize;
+            P2.Category = Category;
+
+            return P1;
+        }
+
+        public Task<IEnumerable<Product>> GetAllByCategoryAsync(string category)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Product> IProductDataAccess.GetByCategoryAsync(string category)
         {
             throw new NotImplementedException();
         }

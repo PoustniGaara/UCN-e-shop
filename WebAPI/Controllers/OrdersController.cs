@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using AutoMapper;
-using DataAccessLayer;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.DTOs;
@@ -12,12 +12,12 @@ namespace WebApi.Controllers
     public class OrdersController : ControllerBase
     {
     #region Properties and Constructor
-    IOrderDataAccess _orderDataAccess;
+    IOrderDataAccess _dataAccess;
     private readonly IMapper _mapper;
 
     public OrdersController(IOrderDataAccess orderDataAccess, IMapper mapper)
     {
-        _orderDataAccess = orderDataAccess;
+        _dataAccess = orderDataAccess;
         _mapper = mapper;
     }
         #endregion
@@ -35,7 +35,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                orders = await _orderDataAccess.GetAllAsync();
+                orders = await _dataAccess.GetAllAsync();
             }
 
             foreach (Order order in orders)
@@ -50,7 +50,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderDto>> Get(int id)
         {
-            var order = await _orderDataAccess.GetOrderByIdAsync(id);
+            var order = await _dataAccess.GetOrderByIdAsync(id);
             OrderDto orderDto = _mapper.Map<OrderDto>(order);
             if (order == null) { return NotFound(); }
             else { return Ok(orderDto); }
@@ -61,7 +61,7 @@ namespace WebApi.Controllers
         public async Task<ActionResult> Delete(int id)
         {
 
-            var isdeleted = await _orderDataAccess.DeleteOrderAsync(id);
+            var isdeleted = await _dataAccess.DeleteOrderAsync(id);
             if (isdeleted == false)
             {
                 return NotFound();
@@ -73,7 +73,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromBody] OrderDto newOrderDto)
         {
-            int id = await _orderDataAccess.CreateOrderAsync(_mapper.Map<Order>(newOrderDto));
+            int id = await _dataAccess.CreateOrderAsync(_mapper.Map<Order>(newOrderDto));
             return Created("api/orders/" + id, id);
         }
 
@@ -81,7 +81,7 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] OrderDto updatedOrderDto)
         {
-            return Ok(await _orderDataAccess.UpdateOrderAsync(_mapper.Map<Order>(updatedOrderDto)));
+            return Ok(await _dataAccess.UpdateOrderAsync(_mapper.Map<Order>(updatedOrderDto)));
         }
         #endregion
 

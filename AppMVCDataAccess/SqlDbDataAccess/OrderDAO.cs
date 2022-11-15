@@ -2,6 +2,7 @@
 using System.Security.Principal;
 using System.Data.SqlClient;
 using System.Data;
+using DataAccessLayer.Interfaces;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
