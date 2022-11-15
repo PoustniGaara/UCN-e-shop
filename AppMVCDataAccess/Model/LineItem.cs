@@ -3,10 +3,14 @@ namespace DataAccessLayer.Model
 {
     public class LineItem
     {
-        public int Id { get; set; }
+        public int ProductId { get; set; }
         public int Quantity { get; set; }
-        public decimal Total { get; set; }
 
+        public LineItem(int productId, int quantity)
+        {
+            ProductId = productId;
+            Quantity = quantity;    
+        }
     }
 }
 

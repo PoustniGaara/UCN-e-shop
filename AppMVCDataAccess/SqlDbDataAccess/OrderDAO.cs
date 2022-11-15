@@ -9,10 +9,15 @@ namespace DataAccessLayer.SqlDbDataAccess
     public class OrderDAO : IOrderDataAccess
     {
         private string connectionstring;
+        private ILineItemDataAccess lineItemDAO; 
+        private IProductDataAccess productDAO;
+
 
         public OrderDAO(string connectionstring)
         { 
             this.connectionstring = connectionstring;
+            lineItemDAO = new LineItemDAO(connectionstring);
+            productDAO = new ProductDAO(connectionstring);
         }
 
         public async Task<int> CreateOrderAsync(Order order)
@@ -28,24 +33,25 @@ namespace DataAccessLayer.SqlDbDataAccess
 
             try
             {
-                command.CommandText = "INSERT INTO dbo.Order ('orderStatus', 'customer') VALUES (@status, @customer); SELECT CAST(scope_identity() AS int)";
-                command.Parameters.AddWithValue("@status", order.Status);
-                command.Parameters.AddWithValue("@customer", order.User.Email);
-                id = (int)command.ExecuteScalar();
-                order.Id = id;
-
-                foreach(LineItem item in order.Items)
+                if(order.Status == Status.PLACED)
                 {
-                    command.CommandText = "INSERT INTO dbo.OrderLineItem ('order_id', 'product_id', 'amount') VALUES (@orderId, @productId, @amount)";
-                    command.Parameters.AddWithValue("@order_id", order.Id);
-                    command.Parameters.AddWithValue("@product_id", item.Id);
-                    command.Parameters.AddWithValue("@amount", item.Quantity);
-                    command.ExecuteNonQuery();
+                    command.CommandText = "INSERT INTO dbo.Order ('date', 'total', 'status', 'customer') VALUES (@date, @total, @status, @customer); SELECT CAST(scope_identity() AS int)";
+                    command.Parameters.AddWithValue("@date", DateTime.Now);
+                    command.Parameters.AddWithValue("@total", order.TotalPrice);
+                    command.Parameters.AddWithValue("@status", order.Status);
+                    command.Parameters.AddWithValue("@customer", order.User.Email);
+                    id = (int)command.ExecuteScalar();
+                    order.Id = id;
+
+                    foreach(LineItem item in order.Items)
+                    {
+                        await lineItemDAO.CreateLineItemAsync(id, item);
+                       // TO DO: update product stock!
+                    }
+
+                    transaction.Commit();
                 }
-
-                transaction.Commit();
-
-            } catch(Exception ex)
+            } catch
             {
                 transaction.Rollback();
             }
@@ -89,7 +95,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 while (reader.Read())
                 {
                     User? user = null; //UserDAO.GetByIdAsync(reader.GetString("customer"));
-                    List<LineItem>? items = null; //OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
+                    List<LineItem> items = (List<LineItem>) await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
                     orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("note"), user, items));
                 }
             }
