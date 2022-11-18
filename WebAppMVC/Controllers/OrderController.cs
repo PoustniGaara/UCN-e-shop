@@ -7,6 +7,7 @@ using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
 {
+    [ServiceFilter(typeof(ExceptionFilter))]
     public class OrderController : Controller
     {
         private IOrderClient _client;

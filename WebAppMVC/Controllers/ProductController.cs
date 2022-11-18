@@ -9,6 +9,7 @@ using WebApiClient.Interfaces;
 
 namespace WebAppMVC.Controllers
 {
+    [ServiceFilter(typeof(ExceptionFilter))]
     public class ProductController : Controller
     {
         private IProductClient _client;

@@ -49,11 +49,14 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //Logger manager config
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 
-//Register global filters
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<ExceptionFilter>();
-});
+//Register global filters -- out of service righ now, we use scoped filters
+//builder.Services.AddControllers(options =>
+//{
+//    options.Filters.Add<ExceptionFilter>();
+//});
+
+//Register scoped filters
+builder.Services.AddScoped<ExceptionFilter>();
 
 var app = builder.Build();
 

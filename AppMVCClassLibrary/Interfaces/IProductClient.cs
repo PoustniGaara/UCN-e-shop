@@ -13,10 +13,10 @@ namespace WebApiClient.Interfaces
     {
         Task<ProductDto> GetByIdAsync(int id);
         Task<IEnumerable<ProductDto>> GetAllAsync();
+        Task<IEnumerable<ProductDto>> GetAllByCategoryAsync(string? category);
         Task<bool> UpdateAsync(ProductDto entity);
         Task<bool> DeleteAsync(int id);
         Task<int> CreateAsync(ProductDto entity);
-
     }
 
 }

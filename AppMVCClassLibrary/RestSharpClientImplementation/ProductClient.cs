@@ -18,9 +18,21 @@ namespace WebApiClient.RestSharpClientImplementation
         RestClient _client;
         public ProductClient(string restUrl) => _client = new RestClient(restUrl);
 
+        public async Task<IEnumerable<ProductDto>> GetAllByCategoryAsync(string? category)
+        {
+            var response = await _client.ExecuteGetAsync<IEnumerable<ProductDto>>(new RestRequest($"{category}"));
+            if (!response.IsSuccessful)
+            {
+                throw new Exception($"Error in client retrieving all products. Message was {response.Content}");
+            }
+
+            return response.Data;
+        }
+
         public async Task<IEnumerable<ProductDto>> GetAllAsync()
         {
-            var response = await _client.RequestAsync<IEnumerable<ProductDto>>(Method.Get, $"products");
+            var response = await _client.ExecuteGetAsync<IEnumerable<ProductDto>>(new RestRequest());
+            //var response = await _client.RequestAsync<IEnumerable<ProductDto>>(Method.Get, $"products");
             if (!response.IsSuccessful)
             {
                 throw new Exception($"Error in client retrieving all products. Message was {response.Content}");
@@ -45,11 +57,6 @@ namespace WebApiClient.RestSharpClientImplementation
             request.AddBody(entity);
             var response = await _client.PutAsync(request);
 
-            //var request = new RestRequest($"api/products/{id}")
-            //      .AddJsonBody(entity);
-            //var response = await _restClient.ExecutePutAsync(request);
-
-            //var response = await _restClient.RequestAsync(Method.Put, $"products/{id}", entity);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 return true;
@@ -101,8 +108,6 @@ namespace WebApiClient.RestSharpClientImplementation
                 throw new Exception($"Error creating product. Message was {response.Content}");
             }
         }
-
-
 
 
     }

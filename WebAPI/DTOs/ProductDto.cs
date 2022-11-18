@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.DTOs
 {
-    public class ProductDto
+    public class ProductDto : IEntity
     {
         
         public int Id { get; set; }

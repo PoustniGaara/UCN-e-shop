@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApiClient.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using WebApiClient.RestSharpClientImplementation;
+using WebApi.ActionFilters;
 
 namespace IntegrationTests
 {
@@ -21,6 +25,7 @@ namespace IntegrationTests
                         typeof(DataAccessFactory));
                 if (descriptor != null)
                     services.Remove(descriptor);
+
                 //I do not add any other class for testing purposes
                 //services.AddDbContext<EmployeeContext>(options =>
                 //{
