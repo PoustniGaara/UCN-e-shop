@@ -1,4 +1,4 @@
-﻿using WebApi.DTOs;
+﻿using WebApiClient.DTOs;
 
 namespace WebAppMVC.ViewModels
 {

@@ -71,17 +71,16 @@ namespace DataAccessLayer.SqlDbDataAccess
 
         public async Task<int> CreateAsync(Product order)
         {
-            throw new NotImplementedException();
+            return 5;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
         }
 
         public async Task UpdateAsync(Product order)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public async Task<Product> GetByIdAsync(int id) 

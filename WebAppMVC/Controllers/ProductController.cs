@@ -2,21 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Dynamic;
-using WebApiClient;
 using WebApiClient.DTOs;
 using WebAppMVC.ViewModels;
 using WebAppMVC.ActionFilters;
-
+using WebApiClient.Interfaces;
 
 namespace WebAppMVC.Controllers
 {
-    [ServiceFilter(typeof(ExceptionFilter))]
     public class ProductController : Controller
     {
-        private IApiClient _client;
+        private IProductClient _client;
         private readonly IMapper _mapper;
 
-        public ProductController(IApiClient client, IMapper mapper)
+        public ProductController(IProductClient client, IMapper mapper)
         {
             _client = client;
             _mapper = mapper;
@@ -26,7 +24,7 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Index()
         {
             //Get the IEnumerable from API client
-            IEnumerable<GetProductDto> productDtoList = await _client.GetAllProductsAsync();
+            IEnumerable<ProductDto> productDtoList = await _client.GetAllAsync();
 
             //Create new view model
             ProductIndexVM productIndexVM = _mapper.Map<ProductIndexVM>(productDtoList);
@@ -38,7 +36,7 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Details(int id)
         {
             //NOT FINISHED
-            var blogPost = await _client.GetProductByIdAsync(id);
+            var blogPost = await _client.GetByIdAsync(id);
             //var author = await _client.GetProductByIdAsync(blogPost.AuthorId);
             dynamic model = new ExpandoObject();
             model.BlogPost = blogPost;
@@ -55,7 +53,7 @@ namespace WebAppMVC.Controllers
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(GetProductDto product)
+        public ActionResult Create(ProductDto product)
         {
             try
             {
@@ -76,7 +74,7 @@ namespace WebAppMVC.Controllers
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, GetProductDto product)
+        public ActionResult Edit(int id, ProductDto product)
         {
             try
             {
@@ -97,7 +95,7 @@ namespace WebAppMVC.Controllers
         // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, GetProductDto product)
+        public ActionResult Delete(int id, ProductDto product)
         {
             try
             {

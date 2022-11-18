@@ -1,20 +1,18 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.DTOs;
-using WebApiClient;
 using WebApiClient.DTOs;
+using WebApiClient.Interfaces;
 using WebAppMVC.ActionFilters;
 using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
 {
-    [ServiceFilter(typeof(ExceptionFilter))]
     public class OrderController : Controller
     {
-        private IApiClient _client;
+        private IOrderClient _client;
         private readonly IMapper _mapper;
 
-        public OrderController(IApiClient client, IMapper mapper)
+        public OrderController(IOrderClient client, IMapper mapper)
         {
             _client = client;
             _mapper = mapper;

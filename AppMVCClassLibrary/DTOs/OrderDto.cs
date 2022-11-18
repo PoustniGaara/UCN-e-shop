@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApi.DTOs
+namespace WebApiClient.DTOs
 {
     public class OrderDto
     {

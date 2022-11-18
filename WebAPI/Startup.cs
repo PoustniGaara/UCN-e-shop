@@ -8,69 +8,71 @@ using NLog;
 using WebApi.ActionFilters;
 using static WebApi.ActionFilters.ValidationFilter;
 
-namespace WebApi
-{
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            //Logger manager config
-            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+//namespace WebApi
+//{
+//    public class Startup
+//    {
+//        public Startup(IConfiguration configuration)
+//        {
+            
 
-            Configuration = configuration;
-        }
+//            Configuration = configuration;
+//        }
 
-        public IConfiguration Configuration { get; }
+//        public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            //Data access 
-            services.AddScoped((sc) => DataAccessFactory.CreateRepository<IProductDataAccess>(Configuration.GetConnectionString("DefaultConnection")));
+//        public void ConfigureServices(IServiceCollection services)
+//        {
+//            //Data access 
+//            services.AddScoped((sc) => DataAccessFactory.CreateRepository<IProductDataAccess>(Configuration.GetConnectionString("DefaultConnection")));
 
-            //AutoMapper config
-            services.AddAutoMapper(typeof(Startup));
+//            //AutoMapper config
+//            services.AddAutoMapper(typeof(Startup));
 
-            //Logger manager config
-            services.AddSingleton<ILoggerManager, LoggerManager>();
+//            //Logger manager config
+//            services.AddSingleton<ILoggerManager, LoggerManager>();
 
-            //Surppress default validation filters
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
+//            //Surppress default validation filters
+//            services.Configure<ApiBehaviorOptions>(options =>
+//            {
+//                options.SuppressModelStateInvalidFilter = true;
+//            });
 
-            //Register global filters
-            services.AddControllers(options =>
-            {
-                options.Filters.Add<ExceptionFilter>();
-                options.Filters.Add(new ValidationFilterAttribute()); 
-            });
+//            //Register global filters
+//            services.AddControllers(options =>
+//            {
+//                options.Filters.Add<ExceptionFilter>();
+//                //options.Filters.Add(new ValidationFilterAttribute()); 
+//            });
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-            });
-        }
+//            //Register scoped filters
+//            services.AddScoped<ValidationFilter>();
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
-            }
+//            services.AddSwaggerGen(c =>
+//            {
+//                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
+//            });
+//        }
 
-            app.UseHttpsRedirection();
+//        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+//        {
+//            if (env.IsDevelopment())
+//            {
+//                app.UseDeveloperExceptionPage();
+//                app.UseSwagger();
+//                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+//            }
 
-            app.UseRouting();
+//            app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+//            app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
-    }
-}
+//            app.UseAuthorization();
+
+//            app.UseEndpoints(endpoints =>
+//            {
+//                endpoints.MapControllers();
+//            });
+//        }
+//    }
+//}

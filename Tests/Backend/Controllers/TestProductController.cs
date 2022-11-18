@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
 using FakeItEasy;
@@ -24,7 +25,6 @@ namespace Testing.Backend.Controllers
         {
             _productDataAcces = A.Fake<IProductDataAccess>();
 
-
             //mapper config 
             var config = new MapperConfiguration(cfg => {
                 cfg.AddProfile(new ProductProfile());
@@ -35,7 +35,7 @@ namespace Testing.Backend.Controllers
         }
 
         [Fact]
-        public async Task Get_Products_WithoutQueryString_Success()
+        public async Task GetAll_Products_WithoutQueryString_Success()
         {
             //ARRANGE
             var products = A.Fake<IEnumerable<Product>>();
@@ -46,7 +46,23 @@ namespace Testing.Backend.Controllers
             //ASSERT
             result.Should().BeOfType<OkObjectResult>()
             .Which.StatusCode.Should().Be((int)HttpStatusCode.OK);
+        }
 
+        [Fact]
+        public async Task Delete_Success()
+        {
+            //ARRANGE
+            int idToDelete = 5;
+            Product product = new();
+            product.Id = idToDelete;
+
+            var products = A.Fake<IEnumerable<Product>>();
+            products.Append(product);
+            A.CallTo(() => _productDataAcces.DeleteAsync(idToDelete));
+            //ACT
+            var request = await _productsController.Delete(idToDelete);
+            //ASSERT
+            Assert.IsType<OkResult>(request);
 
         }
 

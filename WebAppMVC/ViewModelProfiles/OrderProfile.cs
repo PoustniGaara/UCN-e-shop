@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using WebApi.DTOs;
+using WebApiClient.DTOs;
 using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.ViewModelProfiles

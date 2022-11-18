@@ -10,7 +10,7 @@ using DataAccessLayer.Interfaces;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace WebApi.Controllers
         #region Default Crud Actions
         // GET: api/products/
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GetProductDto>>> Get([FromQuery] string? category)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> Get([FromQuery] string? category)
         {
             IEnumerable<Product> products;
             if (!string.IsNullOrEmpty(category)) 
@@ -40,26 +40,27 @@ namespace WebApi.Controllers
             {
                 products = await _dataAccess.GetAllAsync();
             }
-            IEnumerable<GetProductDto> productDtos = products.Select(s => _mapper.Map<GetProductDto>(s));
+            IEnumerable<ProductDto> productDtos = products.Select(s => _mapper.Map<ProductDto>(s));
 
             return Ok(productDtos);
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetProductDto>> Get(int id)
+        public async Task<ActionResult<ProductDto>> Get(int id)
         {
             var product = await _dataAccess.GetByIdAsync(id);
             if (product == null) { return NotFound(); }
 
-            GetProductDto productDto = _mapper.Map<GetProductDto>(product);
+            ProductDto productDto = _mapper.Map<ProductDto>(product);
             
            return Ok(productDto); 
         }
 
         //POST api/<ProductController>
+        [ServiceFilter(typeof(ValidationFilter))]
         [HttpPost]
-        public async Task<ActionResult<int>> Post([FromBody] PostProductDto newProductDto)
+        public async Task<ActionResult<int>> Post([FromBody] ProductDto newProductDto)
         {
             Product product = _mapper.Map<Product>(newProductDto);
 
@@ -69,17 +70,17 @@ namespace WebApi.Controllers
         }
 
         //PUT api/<ProductController>/5
+        [ServiceFilter(typeof(ValidationFilter))]
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] PostProductDto updatedProductDto)
+        public async Task<ActionResult> Put(int id, [FromBody] ProductDto updatedProductDto)
         {
             Product product = await _dataAccess.GetByIdAsync(id);
             if (product == null) { return NotFound(); }
 
             product = _mapper.Map<Product>(updatedProductDto);
+            await _dataAccess.UpdateAsync(product);
 
-            bool success = await _dataAccess.UpdateAsync(product);
-            if (success) return Ok();
-            else throw new Exception("Update was not successful");
+            return Ok();
         }
 
         // DELETE api/<ProductController>/5
@@ -88,6 +89,9 @@ namespace WebApi.Controllers
         {
            Product product = await _dataAccess.GetByIdAsync(id);
            if(product == null) { return NotFound(); }
+
+           await _dataAccess.DeleteAsync(id);
+
            return Ok();    
         }
         #endregion 
