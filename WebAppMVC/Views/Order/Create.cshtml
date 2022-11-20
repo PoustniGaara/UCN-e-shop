@@ -1,0 +1,71 @@
+﻿@model WebApiClient.DTOs.OrderDto
+
+@{
+    ViewData["Title"] = "New Order";
+}
+
+@if (Model == null)
+{
+    <h2>Unfortunately, your shopping cart is empty!</h2>
+    <hr />
+    @Html.ActionLink("<- Return to the store", "Index", "Home")
+} else
+{
+    <h1>Creating new order</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Note" class="control-label"></label>
+                    <input asp-for="Note" class="form-control" />
+                    <span asp-validation-for="Note" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserEmail" class="control-label"></label>
+                    <input asp-for="UserEmail" class="form-control" />
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <div class="cart">
+                <h2>Cart</h2>
+                <div class="cart-items">
+                    <ul>
+                        @foreach (var lineItem in @Model.Items)
+                        {
+                            <li>
+                                <div class="product-inner">
+                                    <div class="product-img">
+                                        <a href="@Url.Action("Details", "Product", new { id = lineItem.Id })">
+                                            <img src="~/images/1.jpg">
+                                        </a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="title">@Html.DisplayFor(modelItem => lineItem.Name)</div>
+                                        <div class="price">@Html.DisplayFor(modelItem => lineItem.Price)&nbsp;Kr</div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="total"></div>
+                <p class="price-total">Total price: @Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to store", "Index", "Home")
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

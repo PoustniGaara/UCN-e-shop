@@ -10,6 +10,38 @@ namespace WebAppMVC.Controllers
     [ServiceFilter(typeof(ExceptionFilter))]
     public class OrderController : Controller
     {
+
+        private readonly static List<OrderDto> orders = new List<OrderDto>()
+        {
+            new OrderDto()
+            {
+                Id = 1, Date = DateTime.Now.AddDays(-3), Status = 1, Note = "If possible, please, package as a gift. Thanks", TotalPrice = 450, UserEmail = "matejrolko2",
+                Items = new List<LineItemDto>()
+                {
+                    new LineItemDto()
+                    {
+                        Id = 0, Name = "Black T-Shirt", Description = "High quality T-shirt with the logo of UCN", Price = 100, Quantity = 2,
+                        Total = 200
+                    }, new LineItemDto()
+                    {
+                        Id = 1, Name = "Navy Blue Hoodie", Description = "High quality hoodie with embroided logo of UCN", Price = 250, Quantity = 1,
+                        Total = 250
+                    }
+                }
+            },new OrderDto()
+            {
+                Id = 2, Date = DateTime.Now.AddDays(-12), Status = 1, Note = "", TotalPrice = 100, UserEmail = "matejrolko2",
+                Items = new List<LineItemDto>()
+                {
+                    new LineItemDto()
+                    {
+                        Id = 0, Name = "White T-Shirt", Description = "High quality T-shirt with the logo of UCN", Price = 100, Quantity = 1,
+                        Total = 100
+                    }
+                }
+            },
+        };
+
         private IOrderClient _client;
         private readonly IMapper _mapper;
 
@@ -19,7 +51,19 @@ namespace WebAppMVC.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
+        {
+            IEnumerable<OrderDto> orderDtoList = orders; //await _client.GetAllOrdersAsync();
+            return View(orderDtoList);
+        }
+
+        public IActionResult Details(int id)
+        {
+            return View(orders.First(order => order.Id == id));
+           return View(_client.GetOrderByIdAsync(id));
+        }
+
+        public ActionResult Create()
         {
             return View();
         }
@@ -27,33 +71,17 @@ namespace WebAppMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(OrderDto order)
         {
+            int id = -1;
             try
             {
-                await _client.CreateOrderAsync(order);
+                id = await _client.CreateOrderAsync(order);
+                return RedirectToAction(nameof(Created));
             }
             catch (Exception ex)
             {
                 ViewBag.ErrorMessage = ex.Message;
             }
             return View();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> GetAll()
-        {
-            IEnumerable<OrderDto> orderDtoList = Enumerable.Empty<OrderDto>();
-
-            try
-            {
-                orderDtoList = await _client.GetAllOrdersAsync();
-            }
-            catch (Exception ex)
-            {
-                ViewBag.ErrorMessage = ex.Message;
-            }
-
-            OrderIndexVM orderIndexVM = _mapper.Map<OrderIndexVM>(orderDtoList);
-            return View(orderIndexVM);
         }
 
         [HttpPost]
@@ -69,20 +97,5 @@ namespace WebAppMVC.Controllers
             }
             return View();
         }
-
-        [HttpPost]
-        public async Task<ActionResult> GetById(int id)
-        {
-            try
-            {
-                await _client.GetOrderByIdAsync(id);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.ErrorMessage = ex.Message;
-            }
-            return View();
-        }
-
     }
 }

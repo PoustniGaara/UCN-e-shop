@@ -39,6 +39,7 @@ builder.Services.AddScoped<IProductClient>((cs) => productClient);
 //Order client 
 string orderUrl = "https://localhost:44346/api/v1/orders";
 IOrderClient orderClient = new OrderClient(orderUrl);
+builder.Services.AddScoped<IOrderClient>((cs) => orderClient);
 
 
 //builder.Services.AddScoped<IApiClient>((cs) => new ApiClient(Configuration["WebApiURI"]));

@@ -26,7 +26,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             using SqlConnection connection = new SqlConnection(connectionstring);
          
             connection.Open();
-            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
 
             SqlCommand command = connection.CreateCommand();
             command.Transaction = transaction;
@@ -35,7 +35,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             {
                 if(order.Status == Status.PLACED)
                 {
-                    command.CommandText = "INSERT INTO dbo.Order ('date', 'total', 'status', 'customer') VALUES (@date, @total, @status, @customer); SELECT CAST(scope_identity() AS int)";
+                    command.CommandText = "INSERT INTO dbo.[Order] ('date', 'total', 'status', 'customer') VALUES (@date, @total, @status, @customer); SELECT CAST(scope_identity() AS int)";
                     command.Parameters.AddWithValue("@date", DateTime.Now);
                     command.Parameters.AddWithValue("@total", order.TotalPrice);
                     command.Parameters.AddWithValue("@status", order.Status);
@@ -47,6 +47,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                     {
                         await lineItemDAO.CreateLineItemAsync(id, item);
                        // TO DO: update product stock!
+                       // productSizeDAO.Update
                     }
 
                     transaction.Commit();
@@ -61,25 +62,33 @@ namespace DataAccessLayer.SqlDbDataAccess
         public async Task<bool> DeleteOrderAsync(int id)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction();
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            
             try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("DELETE FROM Order WHERE id = " + id, connection);
-                int affected = command.ExecuteNonQuery();
-                if (affected == 1)
-                    return true;
-                else
-                    return false;
+                command.CommandText = "DELETE FROM Order WHERE id = @id";
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+
+                await lineItemDAO.DeleteOrderLineItemsAsync(id);
+
+                transaction.Commit();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured while deleting an account: " + ex);
+                transaction.Rollback();
+                Console.WriteLine("An error occured while deleting an Order: " + ex);
+                return false;
             }
             finally
             {
                 connection.Close();
             }
-            return false;
+            return true;
         }
 
         public async Task<IEnumerable<Order>> GetAllAsync()
@@ -126,7 +135,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
                 User user = null; //UserDAO.GetByIdAsync(reader.GetString("customer"));
-                List<LineItem> items = null; //OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
+                List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
                 return new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("note"), user, items);
             }
             catch (SqlException sqlex)

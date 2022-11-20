@@ -74,7 +74,7 @@ namespace WebApi.Controllers
         public async Task<ActionResult<int>> Post([FromBody] OrderDto newOrderDto)
         {
             int id = await _dataAccess.CreateOrderAsync(_mapper.Map<Order>(newOrderDto));
-            return Created("api/orders/" + id, id);
+            return Created("api/v1/orders/" + id, id);
         }
 
         // PUT api/<OrderController>/1

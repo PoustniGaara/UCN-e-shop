@@ -1,0 +1,73 @@
+﻿@model WebApiClient.DTOs.OrderDto
+
+@{
+    ViewData["Title"] = "Order #" + Model.Id;
+}
+
+<div>
+    <h2>Order #@Html.DisplayFor(model => model.Id)</h2>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            Total Price
+        </dt>   
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalPrice) Kr.
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+    </dl>
+    <div class="order-items">
+        <h5>Order products:</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lineItem in @Model.Items)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => lineItem.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => lineItem.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => lineItem.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => lineItem.Total)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
