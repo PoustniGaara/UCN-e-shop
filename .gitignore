@@ -400,3 +400,6 @@ AppMVCDataAccess/DataAccessLayer.csproj
 AppMVCDataAccess/DataAccessLayer.csproj
 *.csproj
 GlobalErrorHandlingLogs/internal_logs/internallog.txt
+/WebAppMVC/nlog.config
+GlobalErrorHandlingWebAppLogs/internal_logs/internallog.txt
+WebAppMVC/nlog.config
