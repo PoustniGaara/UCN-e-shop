@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.DTOs
 {
-    public class IEntity
+    public interface IEntity
     {
     }
 }

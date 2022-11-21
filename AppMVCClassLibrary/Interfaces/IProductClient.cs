@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,10 @@ namespace WebApiClient.Interfaces
 {
     public interface IProductClient
     {
-        Task<ProductDto> GetByIdAsync(int id);
-        Task<IEnumerable<ProductDto>> GetAllAsync();
-        Task<IEnumerable<ProductDto>> GetAllByCategoryAsync(string? category);
-        Task<bool> UpdateAsync(ProductDto entity);
-        Task<bool> DeleteAsync(int id);
-        Task<int> CreateAsync(ProductDto entity);
+        Task<ProductDto?> GetByIdAsync(int id);
+        Task<IEnumerable<ProductDto>?> GetAllAsync();
+        Task<IEnumerable<ProductDto>?> GetAllByCategoryAsync(string? category);
+
     }
 
 }
