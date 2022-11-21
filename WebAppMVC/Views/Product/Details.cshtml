@@ -1,30 +1,14 @@
 ﻿@model WebApiClient.DTOs.ProductDto
 
 @{
-    ViewData["Title"] = "Detials";
+    ViewData["Title"] = @Html.DisplayFor(model => model.Name);
 }
 
-<h1>Detials</h1>
-
 <div>
-    <h4>ProductDto</h4>
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <hr />
+    <img src="~/images/1.jpg">
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
@@ -40,22 +24,41 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Category)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Size)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Size)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
     </dl>
-    @Html.ActionLink("Add to Cart", "Add", new {Model.Size = "M"})
+    @foreach (var size in Model.SizesStock.Keys)
+    {
+        <ul>
+            <li>@Html.DisplayFor(model => model.SizesStock.Keys)</li>
+        </ul>
+    }
+    <form action="https://formsreceiver.codesamples.dk/" method="post" enctype="application/x-www-form-urlencoded" name="dj_application_form">
+        @Html.ActionLink("Add to Cart", "Add", new {})
+        <input type="hidden" name="selected_size" />
+    </form><input type="submit" value="submit form"/>
+    
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+<script>
+    var hiddenSelectedSizeField = document.querySelector("form[name='size_selection'] input[name='selected_size']");
+    var sizes = document.querySelectorAll(".sizes");
+    for (const size of sizes) {
+        size.addEventListener('click',
+            function sizeClicked(event) {
+                unselectSizes();
+                this.classList.toggle("selected");
+                hiddenSelectedSizeField.value = this.querySelector("span.sizeName").innerText;
+            });
+    }
+
+    function unselectSizes() {
+        for (const selectedSizes of sizes) {
+            selectedSizes.classList.remove("selected");
+        }
+    }
+
+</script>

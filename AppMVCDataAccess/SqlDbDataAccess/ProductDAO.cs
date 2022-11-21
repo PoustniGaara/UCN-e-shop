@@ -116,6 +116,11 @@ namespace DataAccessLayer.SqlDbDataAccess
             throw new NotImplementedException();
         }
 
+        Task<Product> GetByCategoryAsync(string category)
+        {
+            throw new NotImplementedException();
+        }
+
         Task<Product> IProductDataAccess.GetByCategoryAsync(string category)
         {
             throw new NotImplementedException();

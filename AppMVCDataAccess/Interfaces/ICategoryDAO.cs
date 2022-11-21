@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer.Interfaces
 {
-    public interface IProductDataAccess 
+    public interface ICategoryDAO 
     {
         public Task<IEnumerable<Product>> GetAllAsync();
         public Task<Product> GetByIdAsync(int id);

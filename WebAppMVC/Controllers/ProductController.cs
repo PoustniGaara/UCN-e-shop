@@ -7,6 +7,7 @@ using WebAppMVC.ViewModels;
 using WebAppMVC.ActionFilters;
 using WebApiClient.Interfaces;
 using WebAppMVC.Tools;
+using System.Drawing;
 
 namespace WebAppMVC.Controllers
 {
@@ -34,7 +35,7 @@ namespace WebAppMVC.Controllers
             return View(productIndexVM);
         }
 
-        public async Task<ActionResult> Add(int id)
+        public async Task<ActionResult> Add(int id,[FromQuery] int sizeId)
         {
             var cart = HttpContext.GetCart();
             cart.Items.Add(new LineItemDto { Id = id, Name = "item"});

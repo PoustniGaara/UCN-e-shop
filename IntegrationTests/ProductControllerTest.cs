@@ -17,7 +17,7 @@ namespace IntegrationTests
         public ProductControllerTest(TestingWebAppFactory<Program> factory)
             => _client = factory.CreateClient();
 
-        IProductDataAccess _productDataAcces = A.Fake<IProductDataAccess>();
+        ISizeDAO _productDataAcces = A.Fake<ISizeDAO>();
 
 
         //DELETE COMPLETE

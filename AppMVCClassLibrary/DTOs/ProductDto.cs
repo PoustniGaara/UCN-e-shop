@@ -19,11 +19,9 @@ namespace WebApiClient.DTOs
         [Required(ErrorMessage = "Category is required")]
         [StringLength(20, ErrorMessage = "Name length can't be more than 20.")]
         public string Category { get; set; }
+        
+        // key: id of size, value: stock
+        public Dictionary<int, int> SizesStock { get; set; } = new Dictionary<int, int>();
 
-        [Required(ErrorMessage = "Size is required")]
-        public string Size { get; set; }
-
-        [Required(ErrorMessage = "Stock is required")]
-        public int Stock { get; set; }
     }
 }

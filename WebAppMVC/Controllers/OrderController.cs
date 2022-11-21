@@ -22,11 +22,9 @@ namespace WebAppMVC.Controllers
                     new LineItemDto()
                     {
                         Id = 0, Name = "Black T-Shirt", Description = "High quality T-shirt with the logo of UCN", Price = 100, Quantity = 2,
-                        Total = 200
                     }, new LineItemDto()
                     {
                         Id = 1, Name = "Navy Blue Hoodie", Description = "High quality hoodie with embroided logo of UCN", Price = 250, Quantity = 1,
-                        Total = 250
                     }
                 }
             },new OrderDto()
@@ -37,7 +35,6 @@ namespace WebAppMVC.Controllers
                     new LineItemDto()
                     {
                         Id = 0, Name = "White T-Shirt", Description = "High quality T-shirt with the logo of UCN", Price = 100, Quantity = 1,
-                        Total = 100
                     }
                 }
             },
