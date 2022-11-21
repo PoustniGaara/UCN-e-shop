@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
 using WebAppMVC.ActionFilters;
+using WebAppMVC.Tools;
 using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
@@ -53,6 +54,7 @@ namespace WebAppMVC.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
+            HttpContext.Session.Set<OrderDto>("shopping_cart", null);
             IEnumerable<OrderDto> orderDtoList = orders; //await _client.GetAllOrdersAsync();
             return View(orderDtoList);
         }
@@ -60,7 +62,7 @@ namespace WebAppMVC.Controllers
         public IActionResult Details(int id)
         {
             return View(orders.First(order => order.Id == id));
-           return View(_client.GetOrderByIdAsync(id));
+           //return View(_client.GetOrderByIdAsync(id));
         }
 
         public ActionResult Create()

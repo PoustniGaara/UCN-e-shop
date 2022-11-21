@@ -6,6 +6,7 @@ using WebApiClient.DTOs;
 using WebAppMVC.ViewModels;
 using WebAppMVC.ActionFilters;
 using WebApiClient.Interfaces;
+using WebAppMVC.Tools;
 
 namespace WebAppMVC.Controllers
 {
@@ -24,6 +25,7 @@ namespace WebAppMVC.Controllers
         // GET: ProductController
         public async Task<ActionResult> Index()
         {
+            HttpContext.GetCart();
             //Get the IEnumerable from API client
             IEnumerable<ProductDto> productDtoList = await _client.GetAllAsync();
 
@@ -37,12 +39,10 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Details(int id)
         {
             //NOT FINISHED
-            var blogPost = await _client.GetByIdAsync(id);
+            var product = await _client.GetByIdAsync(id);
             //var author = await _client.GetProductByIdAsync(blogPost.AuthorId);
-            dynamic model = new ExpandoObject();
-            model.BlogPost = blogPost;
             //model.Author = author;
-            return View(model);
+            return View();
         }
 
         // GET: ProductController/Create

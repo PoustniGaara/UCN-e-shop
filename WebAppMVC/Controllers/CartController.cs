@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebAppMVC.Models;
+using WebAppMVC.Tools;
 
 namespace WebAppMVC.Controllers
 {
@@ -20,7 +21,7 @@ namespace WebAppMVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(HttpContext.GetCart());
         }
 
 
