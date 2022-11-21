@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
-    internal class CategoryDAO
+    public class CategoryDAO
     {
+
     }
 }

@@ -30,7 +30,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             Category.Name = "Gifts";
             Category.Description = "Lovely gifts";
 
-            ProductSize productSize = new ProductSize();
+            ProductSizeStock productSize = new ProductSizeStock();
             productSize.Size = "M";
             productSize.Stock = 1;
 
@@ -39,14 +39,12 @@ namespace DataAccessLayer.SqlDbDataAccess
             P1.Name = "Bottle1";
             P1.Description = "Big bottle";
             P1.Price = 20;
-            P1.ProductSize = productSize;
             P1.Category = Category;
 
             Product P2 = new Product();
             P2.Name = "Bottle2";
             P2.Description = "Medium bottle";
             P2.Price = 10;
-            P2.ProductSize = productSize;
             P2.Category = Category;
 
 
@@ -54,7 +52,6 @@ namespace DataAccessLayer.SqlDbDataAccess
             P3.Name = "Bottle3";
             P3.Description = "Small bottle";
             P3.Price = 5;
-            P3.ProductSize = productSize;
             P3.Category = Category;
 
 
@@ -89,7 +86,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             Category.Name = "Gifts";
             Category.Description = "Lovely gifts";
 
-            ProductSize productSize = new ProductSize();
+            ProductSizeStock productSize = new ProductSizeStock();
             productSize.Size = "M";
             productSize.Stock = 1;
 
@@ -98,14 +95,12 @@ namespace DataAccessLayer.SqlDbDataAccess
             P1.Name = "Bottle1";
             P1.Description = "Big bottle";
             P1.Price = 20;
-            P1.ProductSize = productSize;
             P1.Category = Category;
 
             Product P2 = new Product();
             P2.Name = "Bottle2";
             P2.Description = "Medium bottle";
             P2.Price = 10;
-            P2.ProductSize = productSize;
             P2.Category = Category;
 
             return P1;

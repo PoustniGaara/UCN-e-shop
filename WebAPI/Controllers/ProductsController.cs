@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         #endregion
 
         #region Default Crud Actions
-        // GET: api/products/
+        // GET: api/products?category=
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> Get([FromQuery] string? category)
         {

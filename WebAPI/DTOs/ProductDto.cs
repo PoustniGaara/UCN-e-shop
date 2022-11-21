@@ -1,11 +1,11 @@
-﻿using System.ComponentModel;
+﻿using DataAccessLayer.Model;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.DTOs
 {
     public class ProductDto : IEntity
     {
-        
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
@@ -22,11 +22,7 @@ namespace WebApi.DTOs
         [StringLength(20, ErrorMessage = "Name length can't be more than 20.")]
         public string Category { get; set; }
 
-        [Required(ErrorMessage = "Size is required")]
-        public string Size { get; set; }
-
-        [Required(ErrorMessage = "Stock is required")]
-        public int Stock { get; set; }
+        public IEnumerable<ProductSizeStockDto> ProductSizeStocks { get; set; }
 
     }
 }
