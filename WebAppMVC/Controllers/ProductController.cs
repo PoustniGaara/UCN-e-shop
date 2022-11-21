@@ -25,7 +25,6 @@ namespace WebAppMVC.Controllers
         // GET: ProductController
         public async Task<ActionResult> Index()
         {
-            HttpContext.GetCart();
             //Get the IEnumerable from API client
             IEnumerable<ProductDto> productDtoList = await _client.GetAllAsync();
 
@@ -35,6 +34,15 @@ namespace WebAppMVC.Controllers
             return View(productIndexVM);
         }
 
+        public async Task<ActionResult> Add(int id)
+        {
+            var cart = HttpContext.GetCart();
+            cart.Items.Add(new LineItemDto { Id = id, Name = "item"});
+            HttpContext.SaveCart(cart);
+            return Redirect("/product/details/" + id);
+            
+        }
+
         // GET: ProductController/Details/5
         public async Task<ActionResult> Details(int id)
         {
@@ -42,7 +50,7 @@ namespace WebAppMVC.Controllers
             var product = await _client.GetByIdAsync(id);
             //var author = await _client.GetProductByIdAsync(blogPost.AuthorId);
             //model.Author = author;
-            return View();
+            return View(product);
         }
 
         // GET: ProductController/Create

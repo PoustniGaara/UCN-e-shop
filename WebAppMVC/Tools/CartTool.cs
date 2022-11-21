@@ -14,5 +14,10 @@ namespace WebAppMVC.Tools
             }
             return context.Session.Get<OrderDto>(shoppingCartKey);
         }
+
+        public static void SaveCart(this HttpContext context, OrderDto cart)
+        {
+            context.Session.Set<OrderDto>(shoppingCartKey, cart);
+        }
     }
 }
