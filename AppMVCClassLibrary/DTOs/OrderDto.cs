@@ -12,7 +12,7 @@ namespace WebApiClient.DTOs
         public string Note { get; set; }
         public string UserEmail { get; set; }
         
-        public IEnumerable<LineItemDto> Items { get; set; }
+        public List<LineItemDto> Items { get; set; } = new List<LineItemDto>();
 
     }
 }
