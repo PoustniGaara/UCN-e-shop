@@ -35,10 +35,10 @@ namespace WebAppMVC.Controllers
             return View(productIndexVM);
         }
 
-        public async Task<ActionResult> Add(int id,[FromQuery] int sizeId)
+        public async Task<ActionResult> Add(int id,[FromQuery] int size)
         {
             var cart = HttpContext.GetCart();
-            cart.Items.Add(new LineItemDto { Id = id, Name = "item"});
+            cart.Items.Add(new LineItemDto { Id = id, SizeId = size});
             HttpContext.SaveCart(cart);
             return Redirect("/product/details/" + id);
             
