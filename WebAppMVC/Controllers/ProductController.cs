@@ -8,6 +8,7 @@ using WebAppMVC.ActionFilters;
 using WebApiClient.Interfaces;
 using WebAppMVC.Tools;
 using System.Drawing;
+using NLog.Fluent;
 
 namespace WebAppMVC.Controllers
 {
@@ -16,6 +17,27 @@ namespace WebAppMVC.Controllers
     {
         private IProductClient _client;
         private readonly IMapper _mapper;
+
+        private readonly static List<ProductDto> products = new List<ProductDto>()
+        {
+            new ProductDto()
+            {
+                Id = 1, Name = "Black T-Shirt", Category = "Clothing", Description= "High quality T-shirt with the logo of UCN", 
+                Price = 100, ProductSizeStocks = new List<ProductSizeStockDto>()
+                {
+                    new ProductSizeStockDto()
+                    {
+                        Id = 1, Size = "S", Stock = 50
+                    }, new ProductSizeStockDto()
+                    {
+                        Id = 2, Size = "M", Stock = 40
+                    }, new ProductSizeStockDto()
+                    {
+                        Id = 3, Size = "L", Stock = 7
+                    }
+                }
+            }
+        };
 
         public ProductController(IProductClient client, IMapper mapper)
         {
@@ -30,15 +52,15 @@ namespace WebAppMVC.Controllers
             IEnumerable<ProductDto> productDtoList = await _client.GetAllAsync();
 
             //Create new view model
-            ProductIndexVM productIndexVM = _mapper.Map<ProductIndexVM>(productDtoList);
+            ProductIndexVM productIndexVM = _mapper.Map<ProductIndexVM>(products);
 
             return View(productIndexVM);
         }
 
-        public async Task<ActionResult> Add(int id,[FromQuery] int size)
+        public async Task<ActionResult> Add(int id,[FromQuery] string size)
         {
             var cart = HttpContext.GetCart();
-            cart.Items.Add(new LineItemDto { Id = id, SizeId = size});
+            cart.Items.Add(new LineItemDto { Id = id, SizeId = 0});
             HttpContext.SaveCart(cart);
             return Redirect("/product/details/" + id);
             
@@ -48,10 +70,11 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Details(int id)
         {
             //NOT FINISHED
-            var product = await _client.GetByIdAsync(id);
+            var producsdsd = await _client.GetByIdAsync(id);
             //var author = await _client.GetProductByIdAsync(blogPost.AuthorId);
             //model.Author = author;
-            return View(product);
+            
+            return View(products.First());
         }
 
         // GET: ProductController/Create

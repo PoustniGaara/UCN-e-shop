@@ -3,39 +3,34 @@
 @{
     ViewData["Title"] = @Html.DisplayFor(model => model.Name);
 }
-
 <div>
-    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <hr />
-    <div class="col-sm-6">
-        <img src="~/images/1.jpg" width="200" height="300">
+    <div class="col-sm-6 product-picture">
+        <img src="~/images/1.jpg" class="product-image">
     </div>
-    <div class="col-sm-6">
-        <dl class="row">
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Price)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Category)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Category)
-            </dd>
-        </dl>
-        <div>
+    <div class="col-sm-6 product-info">
+        <div class="product-title">
+            <h2>@Html.DisplayFor(model => model.Name)</h2>
+        </div>
+        <div class="product-category">
+            <span>@Html.DisplayFor(model => model.Category)</span>
+        </div>
+        <div class="product-price">
+            <p>@Html.DisplayFor(model => model.Price) DKK</p>
+        </div>
+        <div class="product-description">
+            <p>@Html.DisplayFor(model => model.Description)</p>
+        </div>
+        <div class="product-sizes-container">
+            <p>Sizes</p>
             @foreach (var sizestock in Model.ProductSizeStocks)
             {
-                <div class="sizes"><span class="sizeName">Size: @sizestock.Size</span></div>
+                <div class="sizes"><span class="sizeName">@sizestock.Size</span></div>
             }
         </div>
-        <div>
-            <button type="button" class="btn btn-primary">@Html.ActionLink("Add to Cart", "Add", new {Model.Id})</button>
+        <br />
+        <div >
+            <button type="button" class="btn add-to-cart-btn">@Html.ActionLink("Add to Cart", "Add", new {Model.Id})</button>
         </div>
     </div>
 </div>
@@ -44,23 +39,21 @@
 </div>
 
 <script>
-    var hiddenSelectedSizeField = document.querySelector("form[name='size_selection_form'] input[name='selected_size']");
-    var sizes = document.querySelectorAll(".sizes");
-    for (const size of sizes) {
-        size.addEventListener('click',
+    var sizeDivElements = document.querySelectorAll("div.sizes");
+    for (const sizeButton of sizeDivElements) {
+        sizeButton.addEventListener('click',
             function sizeClicked(event) {
                 unselectSizes();
                 this.classList.toggle("selected");
                 const url = new URL(window.location);
                 url.searchParams.set('size', this.querySelector("span.sizeName").innerText);
                 window.history.pushState(null, '', url.toString());
-            });
+        });
     }
 
     function unselectSizes() {
-        for (const selectedSizes of sizes) {
+        for (const selectedSizes of sizeDivElements) {
             selectedSizes.classList.remove("selected");
         }
     }
-
 </script>

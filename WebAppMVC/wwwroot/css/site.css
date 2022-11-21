@@ -523,11 +523,6 @@ select {
     font-weight: 500;
 }
 
-
-
-
-
-
 .sproduct-size {
 }
 
@@ -535,4 +530,70 @@ select {
     margin-top: 30px;
     margin-bottom: 10px;
     display: flex;
+}
+
+/*
+    Product Details Page
+*/
+
+img.product-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px;
+    width: auto;
+}
+
+.product-info {
+    display: block;
+    float: left;
+    width: 40%;
+}
+
+.product-picture {
+    display: block;
+    float: left;
+    width: 60%;
+}
+
+.product-info h2 {
+    font-size: 24px;
+    margin: 0 0 4px 0;
+}
+
+div.sizes {
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 6px 6px 0;
+    padding: 9px 12px;
+    border: 2px solid grey;
+}
+
+div.sizes:hover, div.selected {
+        border: 2px solid black;
+}
+
+.product-category {
+    font-size: 16px;
+    color: dimgray;
+    margin: 0 0 30px 0;
+}
+
+.product-price {
+    font-size: 20px;
+    margin: 0 0 30px 0;
+}
+
+.product-description {
+    font-size: 20px;
+    margin: 0 0 80px 0;
+}
+
+.product-sizes-container p {
+    font-size: 20px;
+    margin: 0 0 5px 0;
 }
