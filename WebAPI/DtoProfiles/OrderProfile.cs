@@ -12,7 +12,6 @@ namespace WebApi.DtoProfiles
             CreateMap<Order, OrderDto>()
                     .ForMember(dest => dest.Status, act => act.MapFrom(src => src.Status))
                     .ForMember(dest => dest.UserEmail, act => act.MapFrom(src => src.User.Email))
-                    .ForMember(dest => dest.Items, act => act.MapFrom(src => src.Items))
                     .ReverseMap();
         }
     }

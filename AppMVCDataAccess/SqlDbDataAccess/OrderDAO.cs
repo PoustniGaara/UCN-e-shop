@@ -33,9 +33,10 @@ namespace DataAccessLayer.SqlDbDataAccess
 
             try
             {
-                command.CommandText = "INSERT INTO dbo.[Order] ('date', 'total', 'note', 'status', 'customer') VALUES (@date, @total, @note, @status, @customer); SELECT CAST(scope_identity() AS int)";
+                command.CommandText = "INSERT INTO dbo.[Order] (date, total, address, note, status, customer) VALUES (@date, @total, @address, @note, @status, @customer); SELECT CAST(scope_identity() AS int)";
                 command.Parameters.AddWithValue("@date", DateTime.Now);
                 command.Parameters.AddWithValue("@total", order.TotalPrice);
+                command.Parameters.AddWithValue("@address", order.Address);
                 command.Parameters.AddWithValue("@note", order.Note);
                 command.Parameters.AddWithValue("@status", order.Status);
                 command.Parameters.AddWithValue("@customer", order.User.Email);
@@ -44,7 +45,7 @@ namespace DataAccessLayer.SqlDbDataAccess
 
                 foreach(LineItem item in order.Items)
                 {
-                    await lineItemDAO.CreateLineItemAsync(id, item);
+                    await lineItemDAO.CreateLineItemAsync(connection, id, item);
                     // TO DO: update product stock!
                     // productSizeDAO.Update
                 }
@@ -103,7 +104,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 {
                     User? user = null; //UserDAO.GetByIdAsync(reader.GetString("customer"));
                     List<LineItem> items = (List<LineItem>) await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
-                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("note"), user, items));
+                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items));
                 }
             }
             catch (SqlException sqlex)
@@ -135,7 +136,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 reader.Read();
                 User user = null; //UserDAO.GetByIdAsync(reader.GetString("customer"));
                 List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
-                return new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("note"), user, items);
+                return new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items);
             }
             catch (SqlException sqlex)
             {
@@ -165,7 +166,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 while (reader.Read())
                 {
                     List<LineItem> items = null; //OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
-                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("note"), user, items));
+                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items));
                 }
             }
             catch (SqlException sqlex)
