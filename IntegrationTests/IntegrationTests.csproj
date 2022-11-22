@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -31,7 +31,6 @@
     <ProjectReference Include="..\LoggerService\LoggerService.csproj" />
     <ProjectReference Include="..\Tests\Tests.csproj" />
     <ProjectReference Include="..\WebAPI\WebApi.csproj" />
-    <ProjectReference Include="..\WebAppMVC\WebAppMVC.csproj" />
   </ItemGroup>
 
 </Project>

@@ -41,12 +41,13 @@
                         <li>
                             <div class="product-inner">
                                 <div class="product-img">
-                                    <a href="@Url.Action("Details", "Product", new { id = productDto.Id })">
-                                        @{
-                                            int productId = productDto.Id;
-                                        }
-                                        <img src="~/images/@(productId).jpg">
+                                    <a href="@Url.Action("QuickDetails", "Product", productDto)">
+                                        <img src="~/images/@(productDto.Id).jpg">
                                     </a>
+                                    @*<a href="@Url.Action("Details", "Product", new { id = productDto.Id })">
+
+                                        <img src="~/images/@(productDto.Id).jpg">
+                                    </a>*@
                                 </div>
                                 <div class="row">
                                     <div class="title">@Html.DisplayFor(modelItem => productDto.Name)</div>

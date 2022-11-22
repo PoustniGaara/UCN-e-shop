@@ -29,8 +29,8 @@ builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IProductDa
 builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IOrderDataAccess>(connectionString));
 
 //AutoMapper config
-//builder.Services.AddAutoMapper(typeof(Startup));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(Program));
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //Logger manager config
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();

@@ -12,7 +12,7 @@ namespace DataAccessLayer.Model
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public IEnumerable<ProductSizeStock>  ProductSizeStocks { get; set; }
+        public IEnumerable<ProductSizeStock> ProductSizeStocks { get; set; }
         public string Category { get; set; }
 
         public Product(int id, string name, string description, decimal price, IEnumerable<ProductSizeStock> productSizeStocks, string category)

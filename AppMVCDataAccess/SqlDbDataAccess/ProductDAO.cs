@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApiClient.DTOs;
+using ProductSizeStock = DataAccessLayer.Model.ProductSizeStock;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
