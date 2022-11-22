@@ -1,15 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using RestSharp;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
-using WebAppMVC.Exceptions;
 
 namespace WebApiClient.RestSharpClientImplementation
 {

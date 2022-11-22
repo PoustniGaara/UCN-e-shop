@@ -8,16 +8,13 @@ namespace WebApi.MapperProfiles
     {
         public ProductProfile()
         {
-            //GetProductDto to Product mapper
-            CreateMap<Product, ProductDto>()
-                .ForMember(dest => dest.ProductSizeStocks, act => act.MapFrom(src => src.ProductSizeStocks))
-                .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name))
-                .ReverseMap();
+            CreateMap<Product, ProductDto>();
+            //    .ForMember(dest => dest.ProductSizeStocks, act => act.MapFrom(src => src.ProductSizeStocks))
+            //    .ReverseMap();
 
-            CreateMap<ProductDto, Product>()
-                .ForMember(dest => dest.ProductSizeStocks, act => act.MapFrom(src => src.ProductSizeStocks))
-                .ForPath(dest => dest.Category.Name, act => act.MapFrom(src => src.Category))
-                .ReverseMap();
+            //CreateMap<ProductDto, Product>()
+            //    .ForMember(dest => dest.ProductSizeStocks, act => act.MapFrom(src => src.ProductSizeStocks))
+            //    .ReverseMap();
         }
     }
 }
