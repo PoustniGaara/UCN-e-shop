@@ -60,7 +60,7 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Add(int id,[FromQuery] string size)
         {
             var cart = HttpContext.GetCart();
-            cart.Items.Add(new LineItemDto { Id = id, SizeId = 0});
+           // cart.Items.Add(new LineItemDto { ProductId = id, SizeId = 0});
             HttpContext.SaveCart(cart);
             return Redirect("/product/details/" + id);
             

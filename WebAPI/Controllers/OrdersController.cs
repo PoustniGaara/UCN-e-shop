@@ -26,23 +26,8 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderDto>>> Get()
         {
-            IEnumerable<Order>? orders = null;
-            ICollection<OrderDto>? ordersDTO = new Collection<OrderDto>();
-
-            if (!string.IsNullOrEmpty("")) 
-            {
-                orders = null;
-            }
-            else
-            {
-                orders = await _dataAccess.GetAllAsync();
-            }
-
-            foreach (Order order in orders)
-            {
-                OrderDto orderDto = _mapper.Map<OrderDto>(order);
-                ordersDTO.Add(orderDto);
-            }
+            IEnumerable<Order> orders = await _dataAccess.GetAllAsync();
+            IEnumerable<OrderDto> ordersDTO = orders.Select(order => _mapper.Map<OrderDto>(order));
             return Ok(ordersDTO);
         }
 
@@ -50,23 +35,22 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderDto>> Get(int id)
         {
-            var order = await _dataAccess.GetOrderByIdAsync(id);
+            Order order = await _dataAccess.GetOrderByIdAsync(id);
+            if (order == null)
+                return NotFound();
+
             OrderDto orderDto = _mapper.Map<OrderDto>(order);
-            if (order == null) { return NotFound(); }
-            else { return Ok(orderDto); }
+            return Ok(orderDto);
         }
 
         // DELETE api/<OrderController>/1
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-
-            var isdeleted = await _dataAccess.DeleteOrderAsync(id);
-            if (isdeleted == false)
-            {
+            if (await _dataAccess.DeleteOrderAsync(id))
+                return Ok(); 
+            else 
                 return NotFound();
-            }
-            else return Ok(isdeleted);
         }
 
          //POST api/<OrderController>
@@ -79,12 +63,14 @@ namespace WebApi.Controllers
 
         // PUT api/<OrderController>/1
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] OrderDto updatedOrderDto)
+        public async Task<ActionResult> Put([FromBody] OrderDto updatedOrderDto)
         {
-            return Ok(await _dataAccess.UpdateOrderAsync(_mapper.Map<Order>(updatedOrderDto)));
+            if (await _dataAccess.UpdateOrderAsync(_mapper.Map<Order>(updatedOrderDto)))
+                return Ok();
+            else
+                return NotFound();
         }
         #endregion
-
     }
 }
 

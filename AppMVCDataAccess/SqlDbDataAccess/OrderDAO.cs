@@ -33,25 +33,23 @@ namespace DataAccessLayer.SqlDbDataAccess
 
             try
             {
-                if(order.Status == Status.PLACED)
+                command.CommandText = "INSERT INTO dbo.[Order] ('date', 'total', 'note', 'status', 'customer') VALUES (@date, @total, @note, @status, @customer); SELECT CAST(scope_identity() AS int)";
+                command.Parameters.AddWithValue("@date", DateTime.Now);
+                command.Parameters.AddWithValue("@total", order.TotalPrice);
+                command.Parameters.AddWithValue("@note", order.Note);
+                command.Parameters.AddWithValue("@status", order.Status);
+                command.Parameters.AddWithValue("@customer", order.User.Email);
+                id = (int)command.ExecuteScalar();
+                order.Id = id;
+
+                foreach(LineItem item in order.Items)
                 {
-                    command.CommandText = "INSERT INTO dbo.[Order] ('date', 'total', 'status', 'customer') VALUES (@date, @total, @status, @customer); SELECT CAST(scope_identity() AS int)";
-                    command.Parameters.AddWithValue("@date", DateTime.Now);
-                    command.Parameters.AddWithValue("@total", order.TotalPrice);
-                    command.Parameters.AddWithValue("@status", order.Status);
-                    command.Parameters.AddWithValue("@customer", order.User.Email);
-                    id = (int)command.ExecuteScalar();
-                    order.Id = id;
-
-                    foreach(LineItem item in order.Items)
-                    {
-                        await lineItemDAO.CreateLineItemAsync(id, item);
-                       // TO DO: update product stock!
-                       // productSizeDAO.Update
-                    }
-
-                    transaction.Commit();
+                    await lineItemDAO.CreateLineItemAsync(id, item);
+                    // TO DO: update product stock!
+                    // productSizeDAO.Update
                 }
+
+                transaction.Commit();
             } catch
             {
                 transaction.Rollback();
@@ -133,6 +131,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
+                
                 reader.Read();
                 User user = null; //UserDAO.GetByIdAsync(reader.GetString("customer"));
                 List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));

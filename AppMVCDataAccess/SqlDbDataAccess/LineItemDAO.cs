@@ -25,10 +25,10 @@ namespace DataAccessLayer.SqlDbDataAccess
 
             connection.Open();
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO dbo.OrderLineItem ('order_id', 'product_id', 'size_id', 'amount') VALUES (@orderId, @productId, @sizeId, @amount)";
+            command.CommandText = "INSERT INTO dbo.OrderLineItem ('order_id', 'product_id', 'size_id', 'amount') VALUES (@order_id, @product_id, @size_id, @amount)";
             command.Parameters.AddWithValue("@order_id", orderId);
             command.Parameters.AddWithValue("@product_id", item.ProductId);
-            command.Parameters.AddWithValue("@sizeId", item.SizeId);
+            command.Parameters.AddWithValue("@size_id", item.SizeId);
             command.Parameters.AddWithValue("@amount", item.Quantity);
             command.ExecuteNonQuery();
         }

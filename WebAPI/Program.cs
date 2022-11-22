@@ -11,7 +11,8 @@ using Microsoft.OpenApi.Models;
 using WebApi.ActionFilters;
 using WebApi.DTOs;
 using NLog;
-
+using WebApi.DtoProfiles;
+using WebApi.MapperProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,11 +26,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //Data acces
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IProductDataAccess>(connectionString));
+builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IOrderDataAccess>(connectionString));
 
 //AutoMapper config
 //builder.Services.AddAutoMapper(typeof(Startup));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 
 //Logger manager config
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();

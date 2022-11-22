@@ -38,6 +38,11 @@ namespace DataAccessLayer.Model
             User = user;
             Items = items;
         }
+
+        public Order()
+        {
+
+        }
     }
 
     public enum Status

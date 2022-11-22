@@ -12,34 +12,6 @@ namespace WebAppMVC.Controllers
     public class OrderController : Controller
     {
 
-        private readonly static List<OrderDto> orders = new List<OrderDto>()
-        {
-            new OrderDto()
-            {
-                Id = 1, Date = DateTime.Now.AddDays(-3), Status = 1, Note = "If possible, please, package as a gift. Thanks", TotalPrice = 450, UserEmail = "matejrolko2",
-                Items = new List<LineItemDto>()
-                {
-                    new LineItemDto()
-                    {
-                        Id = 0, Name = "Black T-Shirt", Description = "High quality T-shirt with the logo of UCN", Price = 100, Quantity = 2,
-                    }, new LineItemDto()
-                    {
-                        Id = 1, Name = "Navy Blue Hoodie", Description = "High quality hoodie with embroided logo of UCN", Price = 250, Quantity = 1,
-                    }
-                }
-            },new OrderDto()
-            {
-                Id = 2, Date = DateTime.Now.AddDays(-12), Status = 1, Note = "", TotalPrice = 100, UserEmail = "matejrolko2",
-                Items = new List<LineItemDto>()
-                {
-                    new LineItemDto()
-                    {
-                        Id = 0, Name = "White T-Shirt", Description = "High quality T-shirt with the logo of UCN", Price = 100, Quantity = 1,
-                    }
-                }
-            },
-        };
-
         private IOrderClient _client;
         private readonly IMapper _mapper;
 
@@ -52,14 +24,13 @@ namespace WebAppMVC.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             HttpContext.Session.Set<OrderDto>("shopping_cart", null);
-            IEnumerable<OrderDto> orderDtoList = orders; //await _client.GetAllOrdersAsync();
+            IEnumerable<OrderDto> orderDtoList = await _client.GetAllOrdersAsync();
             return View(orderDtoList);
         }
 
         public IActionResult Details(int id)
         {
-            return View(orders.First(order => order.Id == id));
-           //return View(_client.GetOrderByIdAsync(id));
+           return View(_client.GetOrderByIdAsync(id));
         }
 
         public ActionResult Create()
@@ -74,6 +45,7 @@ namespace WebAppMVC.Controllers
             try
             {
                 id = await _client.CreateOrderAsync(order);
+                order.Id = id;
                 return RedirectToAction(nameof(Created));
             }
             catch (Exception ex)
