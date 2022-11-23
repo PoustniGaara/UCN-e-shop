@@ -19,9 +19,8 @@ namespace DataAccessLayer.SqlDbDataAccess
             this.connectionstring = connectionstring;
         }
 
-        public async Task CreateLineItemAsync(SqlConnection connection, int orderId, LineItem item)
+        public async Task CreateLineItemAsync(SqlCommand command, int orderId, LineItem item)
         {
-            SqlCommand command = connection.CreateCommand();
             command.CommandText = "INSERT INTO dbo.OrderLineItem (order_id, product_id, size_id, amount) VALUES (@order_id, @product_id, @size_id, @amount)";
             command.Parameters.AddWithValue("@order_id", orderId);
             command.Parameters.AddWithValue("@product_id", item.ProductId);

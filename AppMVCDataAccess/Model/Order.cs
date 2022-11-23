@@ -29,6 +29,7 @@ namespace DataAccessLayer.Model
             Date = date;
             TotalPrice = totalPrice;
             Status = status;
+            Address = address;
             Note = note;
             User = user;
             Items = items;

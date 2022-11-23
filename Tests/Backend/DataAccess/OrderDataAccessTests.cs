@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Interfaces;
 
-namespace Tests.Backend.Controllers
+namespace Tests.Backend.DataAccess
 {
     public class OrderDataAccessTests
     {
@@ -23,13 +23,13 @@ namespace Tests.Backend.Controllers
 
         [Fact]
         public async void Test_Creating_New_Order_Async()
-        {            
+        {
             //ARRANGE & ACT
-            _order = new Order(DateTime.Now, 100, Status.PLACED, "Vesterbro 25, 9000 Aalborg", "empty..", new User(), new List<LineItem>() { new LineItem(1, 2, 1)  });
+            _order = new Order(DateTime.Now, 100, Status.PLACED, "Vesterbro 25, 9000 Aalborg", "empty..", new User() { Email = "email@email.com" }, new List<LineItem>() { new LineItem(1, 2, 1) });
             _order.Id = await _orderDAO.CreateOrderAsync(_order);
-            
+
             //ASSERT
-            Assert.True(_order.Id >0);
+            Assert.True(_order.Id > 0);
         }
 
         [Fact]
@@ -47,11 +47,11 @@ namespace Tests.Backend.Controllers
         {
             //ARRANGE
             _order.Note = "Updated note text!";
-            
+
             //ACT
             await _orderDAO.UpdateOrderAsync(_order);
             var updatedOrder = await _orderDAO.GetOrderByIdAsync(_order.Id);
-            
+
             //ASSERT
             Assert.Equal(updatedOrder.Note, _order.Note);
         }
@@ -60,7 +60,7 @@ namespace Tests.Backend.Controllers
         public async Task Test_Getting_All_Orders_Async()
         {
             //ARRANGE & ACT
-            List<Order> orders = (List<Order>) await _orderDAO.GetAllAsync();
+            List<Order> orders = (List<Order>)await _orderDAO.GetAllAsync();
 
             //ASSERT
             Assert.True(orders.Count > 0);

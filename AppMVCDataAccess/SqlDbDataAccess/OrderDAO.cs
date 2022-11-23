@@ -38,14 +38,14 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@total", order.TotalPrice);
                 command.Parameters.AddWithValue("@address", order.Address);
                 command.Parameters.AddWithValue("@note", order.Note);
-                command.Parameters.AddWithValue("@status", order.Status);
+                command.Parameters.AddWithValue("@status", Convert.ToInt32(order.Status));
                 command.Parameters.AddWithValue("@customer", order.User.Email);
                 id = (int)command.ExecuteScalar();
                 order.Id = id;
 
                 foreach(LineItem item in order.Items)
                 {
-                    await lineItemDAO.CreateLineItemAsync(connection, id, item);
+                    await lineItemDAO.CreateLineItemAsync(command, id, item);
                     // TO DO: update product stock!
                     // productSizeDAO.Update
                 }
