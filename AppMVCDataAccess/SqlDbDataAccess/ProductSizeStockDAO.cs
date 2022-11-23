@@ -72,5 +72,32 @@ namespace DataAccessLayer.SqlDbDataAccess
         {
             throw new NotImplementedException();
         }
+
+        public Task DecreaseStockWithCheck(int productId, int sizeId, int amoutToDecrease)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
+
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            try
+            {
+                command = new SqlCommand("SELECT stock FROM ProductStock WHERE product_id = @productId AND size_id = sizeId", connection);
+                SqlDataReader reader = command.ExecuteReader();
+                int stockAmount = reader.GetInt32("amount");
+                if(stockAmount < amoutToDecrease) { throw new ProductOutOfStockException(); }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occured while updateing name of an account: " + ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return false;
+        }
     }
 }

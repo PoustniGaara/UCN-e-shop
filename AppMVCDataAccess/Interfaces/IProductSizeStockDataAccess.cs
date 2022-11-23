@@ -13,5 +13,6 @@ namespace DataAccessLayer.Interfaces
         public Task<ProductSizeStock> GetByIdAsync(int id);
         public Task CreateAsync(ProductSizeStock productSizeStock);
         public Task DeleteAsync(int id);
+        public Task DecreaseStockWithCheck(int productId, int sizeId, int amoutToDecrease);
     }
 }
