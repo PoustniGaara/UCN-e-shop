@@ -1,4 +1,4 @@
-﻿namespace WebApi.Exceptions
+﻿namespace DataAccessLayer.Exceptions
 {
 
     [Serializable]

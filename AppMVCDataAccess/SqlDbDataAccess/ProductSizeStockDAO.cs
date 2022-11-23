@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Interfaces;
+﻿using DataAccessLayer.Exceptions;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
@@ -73,7 +75,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             throw new NotImplementedException();
         }
 
-        public Task DecreaseStockWithCheck(int productId, int sizeId, int amoutToDecrease)
+        public async Task<bool> DecreaseStockWithCheck(int productId, int sizeId, int amountToDecrease)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -83,21 +85,33 @@ namespace DataAccessLayer.SqlDbDataAccess
             command.Transaction = transaction;
             try
             {
+                //Get the stock
+                command.Parameters.AddWithValue("@product_id", productId);
+                command.Parameters.AddWithValue("@size_id", sizeId);
                 command = new SqlCommand("SELECT stock FROM ProductStock WHERE product_id = @productId AND size_id = sizeId", connection);
                 SqlDataReader reader = command.ExecuteReader();
-                int stockAmount = reader.GetInt32("amount");
-                if(stockAmount < amoutToDecrease) { throw new ProductOutOfStockException(); }
 
+                //Check the stock 
+                int stockAmount = reader.GetInt32("amount");
+                if(stockAmount < amountToDecrease) { throw new ProductOutOfStockException();}
+
+                //Decrease the stock
+                command.Parameters.AddWithValue("@amountToDecrease", amountToDecrease);
+                command = new SqlCommand("UPDATE ProductStock SET stock = stock - @amountToDecrease WHERE product_id = @productId AND size_id = sizeId", connection);
+                command.ExecuteReader();
+
+                transaction.Commit();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured while updateing name of an account: " + ex);
+                transaction.Rollback();
+                throw new Exception("An error occured while updateing name of an account: " + ex);
             }
             finally
             {
                 connection.Close();
             }
-            return false;
+            return true;
         }
     }
 }
