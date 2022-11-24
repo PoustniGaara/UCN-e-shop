@@ -25,7 +25,7 @@ namespace Tests.Backend.DataAccess
         public async void Test_Creating_New_Order_Async()
         {
             //ARRANGE & ACT
-            _order = new Order(DateTime.Now, 100, Status.PLACED, "Vesterbro 25, 9000 Aalborg", "empty..", new User() { Email = "email@email.com" }, new List<LineItem>() { new LineItem(1, 2, 1) });
+            _order = new Order(DateTime.Now, 100, Status.PLACED, "Vesterbro 25, 9000 Aalborg", "empty..", new User() { Email = "email@email.com" }, new List<LineItem>() { new LineItem(new Product() { }, 2, 1) });
             _order.Id = await _orderDAO.CreateOrderAsync(_order);
 
             //ASSERT

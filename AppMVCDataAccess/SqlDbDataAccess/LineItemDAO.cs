@@ -13,17 +13,19 @@ namespace DataAccessLayer.SqlDbDataAccess
     public class LineItemDAO : ILineItemDataAccess
     {
         private string connectionstring;
+        private IProductDataAccess productDAO;
 
         public LineItemDAO(string connectionstring)
         {
             this.connectionstring = connectionstring;
+            productDAO = new ProductDAO(connectionstring);
         }
 
         public async Task CreateLineItemAsync(SqlCommand command, int orderId, LineItem item)
         {
             command.CommandText = "INSERT INTO dbo.OrderLineItem (order_id, product_id, size_id, amount) VALUES (@order_id, @product_id, @size_id, @amount)";
             command.Parameters.AddWithValue("@order_id", orderId);
-            command.Parameters.AddWithValue("@product_id", item.ProductId);
+            command.Parameters.AddWithValue("@product_id", item.Product.Id);
             command.Parameters.AddWithValue("@size_id", item.SizeId);
             command.Parameters.AddWithValue("@amount", item.Quantity);
             command.ExecuteNonQuery();
@@ -35,12 +37,12 @@ namespace DataAccessLayer.SqlDbDataAccess
 
             using SqlConnection connection = new SqlConnection(connectionstring);
             connection.Open();
-            SqlCommand command = new SqlCommand("SELECT * FROM OrderLineItems WHERE order_id = @orderId", connection);
+            SqlCommand command = new SqlCommand("SELECT * FROM OrderLineItem WHERE order_id = @orderId", connection);
             command.Parameters.AddWithValue("@orderId", orderId);
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                items.Add(new LineItem(reader.GetInt32("product_id"), reader.GetInt32("size_id"), reader.GetInt32("amount")));
+                items.Add(new LineItem(await productDAO.GetByIdAsync(reader.GetInt32("product_id")), reader.GetInt32("size_id"), reader.GetInt32("amount")));
             }
             return items;     
         }
@@ -56,9 +58,9 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("DELETE FROM OrderLineItems WHERE order_id = @order_id, product_id = @product_id, size_id = @size_id", connection);
+                SqlCommand command = new SqlCommand("DELETE FROM OrderLineItem WHERE order_id = @order_id, product_id = @product_id, size_id = @size_id", connection);
                 command.Parameters.AddWithValue("@order_id", orderId);
-                command.Parameters.AddWithValue("@product_id", item.ProductId);
+                command.Parameters.AddWithValue("@product_id", item.Product.Id);
                 command.Parameters.AddWithValue("@sizeId", item.SizeId); 
                 int affected = command.ExecuteNonQuery();
                 if (affected == 1)
@@ -81,7 +83,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("DELETE FROM OrderLineItems WHERE order_id = @order_id", connection);
+                SqlCommand command = new SqlCommand("DELETE FROM OrderLineItem WHERE order_id = @order_id", connection);
                 command.Parameters.AddWithValue("@order_id", orderId);
                 int affected = command.ExecuteNonQuery();
                 if (affected > 0)

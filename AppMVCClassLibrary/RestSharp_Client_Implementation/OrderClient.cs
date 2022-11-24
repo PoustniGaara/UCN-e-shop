@@ -15,46 +15,35 @@ namespace WebApiClient.RestSharpClientImplementation
         RestClient _client;
         public OrderClient(string restUrl) => _client = new RestClient(restUrl);
 
-        public async Task<int> CreateOrderAsync(OrderDto entity)
+        public async Task<int> CreateOrderAsync(OrderDto orderDto)
         {
-            var response = await _client.RequestAsync<int>(Method.Post, "orders", entity);
-            if (!response.IsSuccessful)
-                throw new Exception($"Error creating Order with id={entity.Id}. Message was {response.Content}");
-            return response.Data;
+            var request = new RestRequest();
+            request.AddBody(orderDto);
+            return  await _client.PostAsync<int>(request);
         }
-        public async Task<IEnumerable<OrderDto>> GetAllOrdersAsync()
+       
+        public async Task<IEnumerable<OrderDto>?> GetAllOrdersAsync()
         {
-            var response = await _client.RequestAsync<IEnumerable<OrderDto>>(Method.Get, "orders");
-            if (!response.IsSuccessful)
-                throw new Exception($"Error retrieving all orders. Message was {response.Content}");
-            return response.Data;
+            return await _client.GetAsync<IEnumerable<OrderDto>>(new RestRequest());
         }
 
-        public async Task<OrderDto> GetOrderByIdAsync(int id)
+        public async Task<OrderDto?> GetOrderByIdAsync(int id)
         {
-            var response = await _client.RequestAsync<OrderDto>(Method.Get, $"order/{id}");
-            if (!response.IsSuccessful)
-                throw new Exception($"Error retrieving all orders. Message was {response.Content}");
-            return response.Data;
+            var request = new RestRequest($"{id}");
+            return await _client.GetAsync<OrderDto?>(request);
         }
 
-        public async Task<bool> UpdateOrderAsync(OrderDto entity)
+        public async Task<bool> UpdateOrderAsync(OrderDto orderDto)
         {
-            var response = await _client.RequestAsync(Method.Put, $"orders/{entity.Id}", entity);
-            if (response.StatusCode == HttpStatusCode.OK)
-                return true;
-            else
-                throw new Exception($"Error updating order with id={entity.Id}. Message was {response.Content}");
+            var request = new RestRequest($"{orderDto.Id}");
+            request.AddBody(orderDto);
+            return await _client.PutAsync<bool>(request);
         }
 
         public async Task<bool> DeleteOrderAsync(int id)
         {
-            var response = await _client.RequestAsync(Method.Delete, $"orders/{id}");
-            if (response.StatusCode == HttpStatusCode.OK)
-                return true;
-            else
-                throw new Exception($"Error deleting order with id={id}. Message was {response.Content}");
+            var request = new RestRequest($"{id}");
+            return await _client.DeleteAsync<bool>(request);
         }
-
     }
 }

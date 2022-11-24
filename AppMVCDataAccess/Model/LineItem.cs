@@ -3,14 +3,14 @@ namespace DataAccessLayer.Model
 {
     public class LineItem
     {
-        public int ProductId { get; set; }
+        public Product Product { get; set; }
         public int SizeId { get; set; }
         public int Quantity { get; set; }
 
 
-        public LineItem(int productId, int sizeId, int quantity)
+        public LineItem(Product product, int sizeId, int quantity)
         {
-            ProductId = productId;
+            Product = product;
             SizeId = sizeId;
             Quantity = quantity;    
         }

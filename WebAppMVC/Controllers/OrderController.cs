@@ -21,16 +21,18 @@ namespace WebAppMVC.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<ActionResult> IndexAsync()
         {
             HttpContext.Session.Set<OrderDto>("shopping_cart", null);
             IEnumerable<OrderDto> orderDtoList = await _client.GetAllOrdersAsync();
             return View(orderDtoList);
         }
 
-        public IActionResult Details(int id)
+        public async Task<ActionResult> DetailsAsync(int id)
         {
-           return View(_client.GetOrderByIdAsync(id));
+            var order = await _client.GetOrderByIdAsync(id);
+            OrderDetailVM ordervm = _mapper.Map<OrderDetailVM>(order);
+            return View(ordervm);
         }
 
         public ActionResult Create()

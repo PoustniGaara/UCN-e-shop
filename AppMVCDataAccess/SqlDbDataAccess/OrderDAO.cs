@@ -69,7 +69,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             
             try
             {
-                command.CommandText = "DELETE FROM Order WHERE id = @id";
+                command.CommandText = "DELETE FROM [Order] WHERE id = @id";
                 command.Parameters.AddWithValue("@id", id);
                 command.ExecuteNonQuery();
 
@@ -97,12 +97,15 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();
-                SqlCommand selectCommand = new SqlCommand("Select * from Order");
+                SqlCommand selectCommand = new SqlCommand("Select * from [Order]");
                 selectCommand.Connection = connection;
                 SqlDataReader reader = selectCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    User? user = null; //UserDAO.GetByIdAsync(reader.GetString("customer"));
+                    User user = new User()
+                    {
+                        Email = reader.GetString("customer")
+                    }; //UserDAO.GetByIdAsync(reader.GetString("customer"));
                     List<LineItem> items = (List<LineItem>) await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
                     orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items));
                 }
@@ -128,13 +131,16 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();
-                string query = "SELECT * FROM Order WHERE id = @id";
+                string query = "SELECT * FROM [Order] WHERE id = @id";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
                 
                 reader.Read();
-                User user = null; //UserDAO.GetByIdAsync(reader.GetString("customer"));
+                User user = new User()
+                {
+                    Email = reader.GetString("customer")
+                }; //UserDAO.GetByIdAsync(reader.GetString("customer"));
                 List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
                 return new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items);
             }
@@ -160,12 +166,12 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();
-                SqlCommand selectCommand = new SqlCommand("Select * from Order where customer = " + user.Email);
+                SqlCommand selectCommand = new SqlCommand("Select * from [Order] where customer = " + user.Email);
                 selectCommand.Connection = connection;
                 SqlDataReader reader = selectCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    List<LineItem> items = null; //OrderLineItemsDAO.GetByIdAsync(reader.GetInt32("id"));
+                    List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
                     orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items));
                 }
             }
@@ -196,9 +202,11 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("UPDATE Order SET date = @date, total = @total, orderStatus = @staus WHERE id = @id", connection);
+                SqlCommand command = new SqlCommand("UPDATE [Order] SET date = @date, total = @total, address = @address, note = @note, orderStatus = @staus WHERE id = @id", connection);
                 command.Parameters.AddWithValue("@date", order.Date);
                 command.Parameters.AddWithValue("@total", order.TotalPrice);
+                command.Parameters.AddWithValue("@address", order.Address);
+                command.Parameters.AddWithValue("@note", order.Note);
                 command.Parameters.AddWithValue("@status", (int)order.Status);
                 command.Parameters.AddWithValue("@id", order.Id);
                 int affected = command.ExecuteNonQuery();
