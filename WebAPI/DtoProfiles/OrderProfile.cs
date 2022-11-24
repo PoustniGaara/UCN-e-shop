@@ -9,6 +9,10 @@ namespace WebApi.DtoProfiles
     {
         public OrderProfile()
         {
+            CreateMap<LineItem, LineItemDto>()
+                .ForMember(dest => dest.ProductName, act => act.MapFrom(src => src.Product.Name))
+                .ReverseMap();
+
             CreateMap<Order, OrderDto>()
                     .ForMember(dest => dest.Status, act => act.MapFrom(src => src.Status))
                     .ForMember(dest => dest.UserEmail, act => act.MapFrom(src => src.User.Email))

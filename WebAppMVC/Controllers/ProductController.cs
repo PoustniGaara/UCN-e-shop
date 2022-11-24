@@ -49,19 +49,11 @@ namespace WebAppMVC.Controllers
         // GET: ProductController/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var producsdsd = await _client.GetByIdAsync(id);
-            //var author = await _client.GetProductByIdAsync(blogPost.AuthorId);
-            //model.Author = author;
-            
-            return View();
+            var productDto = await _client.GetByIdAsync(id);
+            ProductDetailsVM productDetailsVM = _mapper.Map<ProductDetailsVM>(productDto);
+
+            return View(productDetailsVM);
         }
-
-        public async Task<ActionResult> QuickDetails(ProductDto productDto)
-        {
-
-            return View(productDto);
-        }
-
 
     }
 }

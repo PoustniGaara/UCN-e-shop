@@ -21,7 +21,7 @@ namespace WebApiClient.DTOs
         [StringLength(20, ErrorMessage = "Name length can't be more than 20.")]
         public string Category { get; set; }
 
-        public IEnumerable<ProductSizeStock> ProductSizeStocks { get; set; }
+        public IEnumerable<ProductSizeStockDto> ProductSizeStocks { get; set; }
 
     }
 }

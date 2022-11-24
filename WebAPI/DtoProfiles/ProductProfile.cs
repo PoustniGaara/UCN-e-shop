@@ -3,6 +3,7 @@ using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Reflection;
 using WebApi.DTOs;
 
 namespace WebApi.MapperProfiles
@@ -11,9 +12,11 @@ namespace WebApi.MapperProfiles
     {
         public ProductProfile()
         {
+            CreateMap<ProductSizeStock, ProductSizeStockDto>()
+                .ReverseMap();
+
             CreateMap<Product, ProductDto>()
-            //.ForPath(dest => dest.ProductSizeStocks, act => act.MapFrom(src => src.ProductSizeStocks))
-            .ReverseMap();
+                .ReverseMap();
 
             //CreateMap<Product, ProductDto>();
             //CreateMap<IEnumerable<ProductSizeStock>, IEnumerable<ProductSizeStockDto>>()

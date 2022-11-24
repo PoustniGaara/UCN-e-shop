@@ -1,10 +1,9 @@
-﻿using DataAccessLayer.Model;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using WebApiClient.DTOs;
 
-namespace WebApi.DTOs
+namespace WebAppMVC.ViewModels
 {
-    public class ProductDto : IEntity
+    public class ProductDetailsVM
     {
         public int Id { get; set; }
 
@@ -23,6 +22,13 @@ namespace WebApi.DTOs
         public string Category { get; set; }
 
         public IEnumerable<ProductSizeStockDto> ProductSizeStocks { get; set; }
-
+        public string PageTitle
+        {
+            get
+            {
+                return Name.Length <1 ? "No products in this category" : "Products page";
+            }
+            set { }
+        }
     }
 }

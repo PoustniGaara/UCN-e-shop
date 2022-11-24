@@ -11,7 +11,8 @@ namespace WebAppMVC.ViewModelProfiles
             CreateMap<IEnumerable<OrderDto>, OrderIndexVM>()
             .ForMember(dest => dest.Orders, act => act.MapFrom(src => src));
 
-            CreateMap<OrderDto, OrderDetailVM>().ForMember(dest => dest.Order, act => act.MapFrom(src => src));
+            CreateMap<OrderDto, OrderDetailVM>()
+                .ReverseMap();
 
         }
     }

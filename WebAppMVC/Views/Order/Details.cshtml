@@ -4,32 +4,32 @@
 </head>
 <body>
     <div>
-        <h2>Order #@Html.DisplayFor(model => model.Order.Id)</h2>
+        <h2>Order #@Html.DisplayFor(model => model.Id)</h2>
         <hr />
         <dl class="row">
             <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Order.Date)
+                @Html.DisplayNameFor(model => model.Date)
             </dt>
             <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Order.Date)
+                @Html.DisplayFor(model => model.Date)
             </dd>
             <dt class = "col-sm-2">
                 Total Price
             </dt>   
             <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Order.TotalPrice) Kr.
+                @Html.DisplayFor(model => model.TotalPrice) Kr.
             </dd>
             <dt class="col-sm-2">
                 Shipping address
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Order.Address)
+                @Html.DisplayFor(model => model.Address)
             </dd>
             <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Order.Note)
+                @Html.DisplayNameFor(model => model.Note)
             </dt>
             <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Order.Note)
+                @Html.DisplayFor(model => model.Note)
             </dd>
         </dl>
         <div class="order-items">
@@ -55,23 +55,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var lineItem in @Model.Order.Items)
+                    @foreach (var lineItemDto in @Model.Items)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(productItem => lineItem.Product.Name)
+                                @Html.DisplayFor(productItem => lineItemDto.ProductName)
                             </td>
                              <td>
-                                @Html.DisplayFor(productItem => lineItem.SizeId)
+                                @Html.DisplayFor(productItem => lineItemDto.SizeId)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => lineItem.Product.Price)
+                                @Html.DisplayFor(modelItem => lineItemDto.Price)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => lineItem.Quantity)
+                                @Html.DisplayFor(modelItem => lineItemDto.Quantity)
                             </td>
                             <td>
-                                @(lineItem.Product.Price * lineItem.Quantity) Kr
+                                @(lineItemDto.Price * lineItemDto.Quantity) Kr
                             </td>
                         </tr>
                     }
