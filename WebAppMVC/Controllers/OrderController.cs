@@ -13,6 +13,7 @@ namespace WebAppMVC.Controllers
     {
 
         private IOrderClient _client;
+        private IOrderClient _productClient;
         private readonly IMapper _mapper;
 
         public OrderController(IOrderClient client, IMapper mapper)
@@ -23,7 +24,6 @@ namespace WebAppMVC.Controllers
 
         public async Task<ActionResult> IndexAsync()
         {
-            HttpContext.Session.Set<OrderDto>("shopping_cart", null);
             IEnumerable<OrderDto> orderDtoList = await _client.GetAllOrdersAsync();
             return View(orderDtoList);
         }
@@ -37,7 +37,7 @@ namespace WebAppMVC.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(HttpContext.GetCart());
         }
 
         [HttpPost]

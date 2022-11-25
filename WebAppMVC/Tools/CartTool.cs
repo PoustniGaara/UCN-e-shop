@@ -8,9 +8,10 @@ namespace WebAppMVC.Tools
 
         public static OrderDto GetCart(this HttpContext context)
         {
-            if(context.Session.Get<OrderDto>(shoppingCartKey) == null)
+            var cart = context.Session.Get<OrderDto>(shoppingCartKey);
+            if (cart == null || cart.Items == null)
             {
-                context.Session.Set<OrderDto>(shoppingCartKey, new OrderDto());
+                context.Session.Set<OrderDto>(shoppingCartKey, new OrderDto() { Items = new List<LineItemDto>() });
             }
             return context.Session.Get<OrderDto>(shoppingCartKey);
         }

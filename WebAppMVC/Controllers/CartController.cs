@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using WebApiClient.DTOs;
 using WebAppMVC.Models;
 using WebAppMVC.Tools;
 
@@ -21,7 +22,14 @@ namespace WebAppMVC.Controllers
 
         public IActionResult Index()
         {
-            return View(HttpContext.GetCart());
+            var cart = HttpContext.GetCart();
+            return View(cart);
+        }
+
+        public IActionResult Clear()
+        {
+            HttpContext.SaveCart(new OrderDto());
+            return Redirect("/cart");
         }
 
 

@@ -11,73 +11,55 @@
     <div class="separator">
         <div class="home-title">Home / Cart</div>
     </div>
-
-    <div class="cc">
+    @if (@Model.Items == null || @Model.Items.Count() == 0)
+    {
+        <h2>Unfortunately, your shopping cart is empty!</h2>
+        <hr />
+        @Html.ActionLink("<- Return to the store", "Index", "Home")
+    } else {
+        <div class="cc">
         
-        <div class='cartcontainer'>
-            <h5>Item</h5>
-            <h5>Price</h5>
-            <h5>Quantity</h5>
-            <h5>Subtotal</h5>
-            <div></div>
-        </div>
+            <div class='cartcontainer'>
+                <h5>Item</h5>
+                <h5>Price</h5>
+                <h5>Quantity</h5>
+                <h5>Subtotal</h5>
+                <div></div>
+            </div>
 
-        <hr class="hr" />
+            <hr class="hr" />
 
-        <div class="cartitems">
-            <div>Item name</div>
-            <div>666600DKK</div>
-            <div class="price">
-                <button>-</button>
-                <div>2</div>
-                <button>+</button>
+            @foreach (var lineItem in @Model.Items)
+            {
+                <div class="cartitems">
+                    <div>@Html.DisplayFor(model => lineItem.ProductName) </div>
+                    <div>@Html.DisplayFor(model => lineItem.Price) Kr.</div>
+                    <div>@Html.DisplayFor(model => lineItem.Quantity) </div>
+                    <div>@(lineItem.Quantity * lineItem.Price) Kr.</div>
+                </div>
+            }
+            <hr class="hr" />
+            @*
+                Add clear shopping cart button -> Clear() method in CartController
+            *@
+            <button type="button" class="btn add-to-cart-btn">@Html.ActionLink("Clear Cart", "Clear")</button>
+            <div class="totalcontainer">
+                <div class="subtotal">
+                    <div class="stitle">Subtotal: </div>
+                    <div>10000DKK</div>
+                </div>
+                <div class="fee">
+                    <div class="feetitle">Shipping fee: </div>
+                    <div>10000DKK</div>
+                </div>
+                <hr />
+                <div class="ordertotal">
+                    <div class="oc">Order Total:</div>
+                    <div>10000DKK</div>
+                </div>
+                <hr />
+                <button type="button" class="btn btn-primary">@Html.ActionLink("To payment", "Create", "Order")</button>
             </div>
-            <div>900DKK</div>
-            <button>R</button>
         </div>
-        <div class="cartitems">
-            <div>Item name</div>
-            <div>300DKK</div>
-            <div class="price">
-                <button>-</button>
-                <div>2</div>
-                <button>+</button>
-            </div>
-            <div>900DKK</div>
-            <button>R</button>
-        </div>
-        <div class="cartitems">
-            <div>Item name</div>
-            <div>300DKK</div>
-            <div class="price">
-                <button>-</button>
-                <div>2</div>
-                <button>+</button>
-            </div>
-            <div>900DKK</div>
-            <button>R</button>
-        </div>
-
-        <hr class="hr" />
-
-        <button class="clearbutton"> Clear shopping cart </button>
-
-        <div class="totalcontainer">
-            <div class="subtotal">
-                <div class="stitle">Subtotal: </div>
-                <div>10000DKK</div>
-            </div>
-            <div class="fee">
-                <div class="feetitle">Shipping fee: </div>
-                <div>10000DKK</div>
-            </div>
-            <hr />
-            <div class="ordertotal">
-                <div class="oc">Order Total:</div>
-                <div>10000DKK</div>
-            </div>
-            <hr />
-            <button type="button" class="btn btn-primary">@Html.ActionLink("To payment", "Create", "Order")</button>
-        </div>
-    </div>
+    }
 </body>

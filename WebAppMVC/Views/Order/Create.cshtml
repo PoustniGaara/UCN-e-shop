@@ -4,7 +4,7 @@
     ViewData["Title"] = "New Order";
 }
 
-@if (Model == null)
+@if (@Model == null || @Model.Items == null || @Model.Items.Count() == 0)
 {
     <h2>Unfortunately, your shopping cart is empty!</h2>
     <hr />
@@ -37,22 +37,22 @@
                 <h2>Cart</h2>
                 <div class="cart-items">
                     <ul>
-@*                        @foreach (var lineItem in @Model.Items)
+                        @foreach (var lineItem in @Model.Items)
                         {
                             <li>
                                 <div class="product-inner">
                                     <div class="product-img">
-                                        <a href="@Url.Action("Details", "Product", new { id = lineItem.Id })">
+                                        <a href="@Url.Action("Details", "Product", new { id = lineItem.ProductId })">
                                             <img src="~/images/1.jpg">
                                         </a>
                                     </div>
                                     <div class="row">
-                                        <div class="title">@Html.DisplayFor(modelItem => lineItem.Name)</div>
+                                        <div class="title">@Html.DisplayFor(modelItem => lineItem.ProductName)</div>
                                         <div class="price">@Html.DisplayFor(modelItem => lineItem.Price)&nbsp;Kr</div>
                                     </div>
                                 </div>
                             </li>
-                        }*@
+                        }
                     </ul>
                 </div>
                 <div class="total"></div>

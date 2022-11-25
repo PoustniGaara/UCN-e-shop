@@ -40,8 +40,16 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Add(int id,[FromQuery] string size)
         {
             var cart = HttpContext.GetCart();
-           // cart.Items.Add(new LineItemDto { ProductId = id, SizeId = 0});
+            var items = cart.Items.ToList();
+           
+            // Todo:
+            // - Map Size string to Ids
+            // - increase Quantity if the same product & size
+            var productDto = await _client.GetByIdAsync(id);
+            items.Add(new LineItemDto { ProductId = id, SizeId = 0, Price = productDto.Price, ProductName = productDto.Name, Quantity = 1 });
+            cart.Items = items;
             HttpContext.SaveCart(cart);
+
             return Redirect("/product/details/" + id);
             
         }
