@@ -67,7 +67,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             return 5;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             try
@@ -91,11 +91,12 @@ namespace DataAccessLayer.SqlDbDataAccess
             {
                 connection.Close();
             }
+            return true;
         }
 
-        public async Task UpdateAsync(Product product)
+        public async Task<bool> UpdateAsync(Product product)
         {
-            return;
+            return true;
         }
 
         public async Task<Product> GetByIdAsync(int id) 

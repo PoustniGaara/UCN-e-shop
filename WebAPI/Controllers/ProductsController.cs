@@ -66,9 +66,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromBody] ProductDto newProductDto)
         {
-            Product product = _mapper.Map<Product>(newProductDto);
-
-            int id = await _dataAccess.CreateAsync(product);
+            int id = await _dataAccess.CreateAsync(_mapper.Map<Product>(newProductDto));
 
             return Ok(id);
         }

@@ -10,13 +10,13 @@ using DataAccessLayer.Interfaces;
 
 namespace Tests.Backend.DataAccess
 {
-    public class OrderDataAccessTests
+    public class TestOrderDA
     {
         private IOrderDataAccess _orderDAO;
         private Order _order;
 
 
-        public OrderDataAccessTests()
+        public TestOrderDA()
         {
             _orderDAO = new OrderDAO("Server=hildur.ucn.dk;Database=CSC-CSD-S212_10407569;User Id=CSC-CSD-S212_10407569;Password=Password1!;");
         }

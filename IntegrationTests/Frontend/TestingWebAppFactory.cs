@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApiClient.RestSharpClientImplementation;
 using WebApi.ActionFilters;
 
-namespace IntegrationTests
+namespace IntegrationTests.Frontend
 {
     public class TestingWebAppFactory<TEntryPoint> : WebApplicationFactory<Program> where TEntryPoint : Program
     {

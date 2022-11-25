@@ -8,13 +8,13 @@ using System.Web;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace IntegrationTests
+namespace IntegrationTests.Frontend
 {
-    public class ProductControllerTest : IClassFixture<TestingWebAppFactory<Program>>
+    public class TestProductsController : IClassFixture<TestingWebAppFactory<Program>>
     {
         private readonly HttpClient _client;
         private string productUrl = "https://localhost:44346/api/v1/products";
-        public ProductControllerTest(TestingWebAppFactory<Program> factory)
+        public TestProductsController(TestingWebAppFactory<Program> factory)
             => _client = factory.CreateClient();
 
         IProductDataAccess _productDataAcces = A.Fake<IProductDataAccess>();
@@ -33,7 +33,7 @@ namespace IntegrationTests
         {
             int id = 5;
             var response = await _client.DeleteAsync($"{productUrl}/{id}");
-            HttpStatusCode statusCode = (HttpStatusCode)response.StatusCode;
+            HttpStatusCode statusCode = response.StatusCode;
             Assert.Equal(resultingStatusCode, statusCode);
         }
 
@@ -50,7 +50,7 @@ namespace IntegrationTests
         {
             int id = 5;
             var response = await _client.DeleteAsync($"{productUrl}/{id}");
-            HttpStatusCode statusCode = (HttpStatusCode)response.StatusCode;
+            HttpStatusCode statusCode = response.StatusCode;
             Assert.Equal(resultingStatusCode, statusCode);
         }
 
@@ -70,7 +70,7 @@ namespace IntegrationTests
             var json = JsonConvert.SerializeObject(entity);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PutAsync($"{productUrl}", content);
-            HttpStatusCode statusCode = (HttpStatusCode)response.StatusCode;
+            HttpStatusCode statusCode = response.StatusCode;
             Assert.Equal(resultingStatusCode, statusCode);
         }
 
@@ -83,9 +83,9 @@ namespace IntegrationTests
             var json = JsonConvert.SerializeObject(entity);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             //ACT
-            var response = await _client.PutAsync($"{productUrl}/put",content);
+            var response = await _client.PutAsync($"{productUrl}/put", content);
             //ASSERT
-            HttpStatusCode statusCode = (HttpStatusCode)response.StatusCode;
+            HttpStatusCode statusCode = response.StatusCode;
             Assert.Equal(HttpStatusCode.UnprocessableEntity, statusCode);
         }
 
@@ -98,7 +98,7 @@ namespace IntegrationTests
             //ACT
             var response = await _client.PutAsync($"{productUrl}/put", content);
             //ASSERT
-            HttpStatusCode statusCode = (HttpStatusCode)response.StatusCode;
+            HttpStatusCode statusCode = response.StatusCode;
             Assert.Equal(HttpStatusCode.BadRequest, statusCode);
         }
 
@@ -117,7 +117,7 @@ namespace IntegrationTests
             var json = JsonConvert.SerializeObject(entity);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync($"{productUrl}", content);
-            HttpStatusCode statusCode = (HttpStatusCode)response.StatusCode;
+            HttpStatusCode statusCode = response.StatusCode;
             Assert.Equal(resultingStatusCode, statusCode);
         }
 
@@ -131,7 +131,7 @@ namespace IntegrationTests
             //ACT
             var response = await _client.PostAsync($"{productUrl}", content);
             //ASSERT
-            HttpStatusCode statusCode = (HttpStatusCode)response.StatusCode;
+            HttpStatusCode statusCode = response.StatusCode;
             Assert.Equal(HttpStatusCode.UnprocessableEntity, statusCode);
         }
 
@@ -140,11 +140,11 @@ namespace IntegrationTests
         {
             //ARRANGE
             var json = JsonConvert.SerializeObject("");
-            var content = new StringContent(json, Encoding.UTF8,"application/json");
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
             //ACT
             var response = await _client.PostAsync($"{productUrl}", content);
             //ASSERT
-            HttpStatusCode statusCode = (HttpStatusCode)response.StatusCode;
+            HttpStatusCode statusCode = response.StatusCode;
             Assert.Equal(HttpStatusCode.BadRequest, statusCode);
         }
 
@@ -160,7 +160,7 @@ namespace IntegrationTests
         private async Task Assert_That_GetProducts_HandlesGivenException(Exception givenException, HttpStatusCode resultingStatusCode)
         {
             var response = await _client.GetAsync($"{productUrl}");
-            HttpStatusCode statusCode = (HttpStatusCode)response.StatusCode;
+            HttpStatusCode statusCode = response.StatusCode;
             Assert.Equal(resultingStatusCode, statusCode);
         }
 
