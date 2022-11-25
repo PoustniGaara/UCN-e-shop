@@ -9,6 +9,7 @@ using WebApiClient.Interfaces;
 using WebAppMVC.Tools;
 using System.Drawing;
 using NLog.Fluent;
+using System.Collections.Generic;
 
 namespace WebAppMVC.Controllers
 {
@@ -41,12 +42,12 @@ namespace WebAppMVC.Controllers
         {
             var cart = HttpContext.GetCart();
             var items = cart.Items.ToList();
-           
+            int sizeId = SizeToIdConverter.ConvertSizeToId(size);
+
             // Todo:
-            // - Map Size string to Ids
             // - increase Quantity if the same product & size
             var productDto = await _client.GetByIdAsync(id);
-            items.Add(new LineItemDto { ProductId = id, SizeId = 0, Price = productDto.Price, ProductName = productDto.Name, Quantity = 1 });
+            items.Add(new LineItemDto { ProductId = id, SizeId = sizeId, Price = productDto.Price, ProductName = productDto.Name, Quantity = 1 });
             cart.Items = items;
             HttpContext.SaveCart(cart);
 
