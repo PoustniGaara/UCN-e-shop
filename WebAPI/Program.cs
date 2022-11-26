@@ -27,6 +27,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IProductDataAccess>(connectionString));
 builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IOrderDataAccess>(connectionString));
+builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IUserDataAccess>(connectionString));
 
 //AutoMapper config
 builder.Services.AddAutoMapper(typeof(Program));
