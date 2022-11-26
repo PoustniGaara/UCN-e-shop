@@ -5,25 +5,23 @@ namespace WebAppMVC.Tools
 {
 	public static class SizeToIdConverter
 	{
+        private static readonly Dictionary<string, int> Sizes = new Dictionary<string, int> {
+            { "XS", 1 },
+            { "S", 2 },
+            { "M", 3 },
+            { "L", 4 },
+            { "XL", 5 },
+            { "XXL", 6 },
+            { "O/S", 7 },
+            { "500 ML", 8 },
+            { "750 ML", 9 },
+            { "1 L", 10 },
+        };
 
         public static int ConvertSizeToId(string size)
         {
-            int sizeId;
-
-            Dictionary<size, sizeId> sizes = new Dictionary<size, sizeId>();
-            sizes.Add("XS", 0);
-            sizes.Add("S", 1);
-            sizes.Add("M", 2);
-            sizes.Add("L", 3);
-            sizes.Add("XL", 4);
-            sizes.Add("O/S", 5);
-            sizes.Add("500 ml", 6);
-
-            foreach size in sizes
-                return sizeId;
-        }
-
-        
+            return Sizes[size];
+        }  
     }
 }
 

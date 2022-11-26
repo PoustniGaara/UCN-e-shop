@@ -38,21 +38,24 @@ namespace WebAppMVC.Controllers
             return View(productIndexVM);
         }
 
-        public async Task<ActionResult> Add(int id,[FromQuery] string size)
+        public async Task<ActionResult> Add(int id, [FromQuery] string size)
         {
             var cart = HttpContext.GetCart();
             var items = cart.Items.ToList();
             int sizeId = SizeToIdConverter.ConvertSizeToId(size);
-
-            // Todo:
-            // - increase Quantity if the same product & size
             var productDto = await _client.GetByIdAsync(id);
-            items.Add(new LineItemDto { ProductId = id, SizeId = sizeId, Price = productDto.Price, ProductName = productDto.Name, Quantity = 1 });
+           
+            foreach (var item in items)
+            {
+                if (item.ProductId == id && item.SizeId == sizeId)
+                    item.Quantity += 1;
+                else
+                    items.Add(new LineItemDto { ProductId = id, SizeId = sizeId, Price = productDto.Price, ProductName = productDto.Name, Quantity = 1 });
+            }
             cart.Items = items;
             HttpContext.SaveCart(cart);
 
             return Redirect("/product/details/" + id);
-            
         }
 
         // GET: ProductController/Details/5

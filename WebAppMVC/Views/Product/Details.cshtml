@@ -1,6 +1,5 @@
 ﻿@model WebAppMVC.ViewModels.ProductDetailsVM
 
-
 <div>
     <hr />
     <div class="col-sm-6 product-picture">
@@ -24,11 +23,13 @@
             @foreach (var sizestock in Model.ProductSizeStocks)
             {
                 <div class="sizes"><span class="sizeName">@sizestock.Size</span></div>
-            }
+            }           
         </div>
         <br />
-        <div >
-            <button type="button" class="btn add-to-cart-btn">@Html.ActionLink("Add to Cart", "Add", new {Model.Id})</button>
+        <div class="add-to-cart-container">
+            <button type="button" class="btn add-to-cart-btn" onclick="AddToCart()">
+                Add to cart
+            </button>
         </div>
     </div>
 </div>
@@ -37,7 +38,14 @@
 </div>
 
 <script>
+
+</script>
+
+
+
+<script>
     var sizeDivElements = document.querySelectorAll("div.sizes");
+    var size = "";
     for (const sizeButton of sizeDivElements) {
         sizeButton.addEventListener('click',
             function sizeClicked(event) {
@@ -45,8 +53,16 @@
                 this.classList.toggle("selected");
                 const url = new URL(window.location);
                 url.searchParams.set('size', this.querySelector("span.sizeName").innerText);
+                size = this.querySelector("span.sizeName").innerText;
                 window.history.pushState(null, '', url.toString());
+                const productId = thePath.substring(thePath.lastIndexOf('/') + 1)
         });
+    }
+    
+    function AddToCart(){
+        @*/Product/Add/5?size=L"*@
+        window.open("/Product/Add/" + thePath.substring(thePath.lastIndexOf('/') + 1) + "?size=" + size, "_self");
+        @*document.getElementById("add-to-cart-link").setAttribute("onclick", "window.open('/Product/Add/" + thePath.substring(thePath.lastIndexOf('/') + 1) + "?size=" + size +"')");*@
     }
 
     function unselectSizes() {
