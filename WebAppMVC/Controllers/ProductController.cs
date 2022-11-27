@@ -10,6 +10,7 @@ using WebAppMVC.Tools;
 using System.Drawing;
 using NLog.Fluent;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace WebAppMVC.Controllers
 {
@@ -45,13 +46,13 @@ namespace WebAppMVC.Controllers
             int sizeId = SizeToIdConverter.ConvertSizeToId(size);
             var productDto = await _client.GetByIdAsync(id);
            
-            foreach (var item in items)
-            {
-                if (item.ProductId == id && item.SizeId == sizeId)
-                    item.Quantity += 1;
-                else
-                    items.Add(new LineItemDto { ProductId = id, SizeId = sizeId, Price = productDto.Price, ProductName = productDto.Name, Quantity = 1 });
+            if(items.Where(i => i.ProductId == id && i.SizeId == sizeId).Any()) {
+                int index = items.FindIndex(i => i.ProductId == id && i.SizeId == sizeId);
+                items[index].Quantity = items[index].Quantity + 1;
+            } else { 
+                items.Add(new LineItemDto { ProductId = id, SizeName = size, SizeId = sizeId, Price = productDto.Price, ProductName = productDto.Name, Quantity = 1 });
             }
+
             cart.Items = items;
             HttpContext.SaveCart(cart);
 

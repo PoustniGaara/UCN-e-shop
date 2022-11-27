@@ -37,7 +37,8 @@ namespace WebAppMVC.Controllers
 
         public ActionResult Create()
         {
-            return View(HttpContext.GetCart());
+            var cart = HttpContext.GetCart();
+            return View(cart);
         }
 
         [HttpPost]
@@ -46,9 +47,10 @@ namespace WebAppMVC.Controllers
             int id = -1;
             try
             {
+                order.Items = HttpContext.GetCart().Items;
                 id = await _client.CreateOrderAsync(order);
                 order.Id = id;
-                return RedirectToAction(nameof(Created));
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {

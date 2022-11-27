@@ -25,10 +25,9 @@
                 <div class="sizes"><span class="sizeName">@sizestock.Size</span></div>
             }           
         </div>
-        <br />
         <div class="add-to-cart-container">
-            <button type="button" class="btn add-to-cart-btn" onclick="AddToCart()">
-                Add to cart
+            <button type="button" id="add-to-cart-button" class="btn-primary" onclick="AddToCart()">
+                <a id="add-to-cart-button-link">Add to cart</a>
             </button>
         </div>
     </div>
@@ -38,24 +37,23 @@
 </div>
 
 <script>
-
-</script>
-
-
-
-<script>
     var sizeDivElements = document.querySelectorAll("div.sizes");
     var size = "";
+    const thePath = window.location.href;
+    const addToCartButton = document.getElementById('add-to-cart-button');
+    addToCartButton.disabled = true;
+    var addToCartLink = document.getElementById('add-to-cart-button-link');
+    addToCartLink.textContent = "Select a size";
+    const productId = thePath.substring(thePath.lastIndexOf('/') + 1);               
+
     for (const sizeButton of sizeDivElements) {
         sizeButton.addEventListener('click',
             function sizeClicked(event) {
                 unselectSizes();
                 this.classList.toggle("selected");
-                const url = new URL(window.location);
-                url.searchParams.set('size', this.querySelector("span.sizeName").innerText);
                 size = this.querySelector("span.sizeName").innerText;
-                window.history.pushState(null, '', url.toString());
-                const productId = thePath.substring(thePath.lastIndexOf('/') + 1)
+                addToCartLink.href = "/Product/Add/" + thePath.substring(thePath.lastIndexOf('/') + 1) + "?size=" + size;
+                addToCartButton.disabled = false;
         });
     }
     

@@ -20,7 +20,6 @@
                 <div class="form-group">
                     <label asp-for="Note" class="control-label"></label>
                     <input asp-for="Note" class="form-control" />
-                    <span asp-validation-for="Note" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="UserEmail" class="control-label"></label>
@@ -41,14 +40,16 @@
                         {
                             <li>
                                 <div class="product-inner">
-                                    <div class="product-img">
-                                        <a href="@Url.Action("Details", "Product", new { id = lineItem.ProductId })">
-                                            <img src="~/images/1.jpg">
-                                        </a>
-                                    </div>
                                     <div class="row">
-                                        <div class="title">@Html.DisplayFor(modelItem => lineItem.ProductName)</div>
-                                        <div class="price">@Html.DisplayFor(modelItem => lineItem.Price)&nbsp;Kr</div>
+                                         <div class="cartitems">
+                                            <div>
+                                                <a href="@Url.Action("Details", "Product", new { id = lineItem.ProductId })">@Html.DisplayFor(model => lineItem.ProductName)</a>
+                                            </div>
+                                            <div>@Html.DisplayFor(model => lineItem.SizeName)</div>
+                                            <div>@Html.DisplayFor(model => lineItem.Price) Kr.</div>
+                                            <div>@Html.DisplayFor(model => lineItem.Quantity)</div>
+                                            <div>@(lineItem.Quantity * lineItem.Price) Kr.</div>
+                                        </div>
                                     </div>
                                 </div>
                             </li>

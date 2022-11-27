@@ -574,7 +574,7 @@ div.sizes {
 }
 
 div.sizes:hover, div.selected {
-        border: 2px solid black;
+    border: 2px solid black;
 }
 
 .product-category {
@@ -593,11 +593,19 @@ div.sizes:hover, div.selected {
     margin: 0 0 80px 0;
 }
 
+.product-sizes-container {
+    display: block;
+}
+
 .product-sizes-container p {
     font-size: 20px;
     margin: 0 0 5px 0;
 }
 
-.add-to-cart-btn {
+.add-to-cart-container {
+    display: block;
+}
 
+.add-to-cart-btn {
+    display: block;
 }
