@@ -14,7 +14,7 @@ namespace WebApi.DTOs
         public string Address { get; set; }
         public string Note { get; set; }
         public string UserEmail { get; set; }
-        public IEnumerable<LineItemDto> Items { get; set; } /*= new List<LineItem>()*/
+        public IEnumerable<LineItemDto> Items { get; set; } 
 
     }
 }

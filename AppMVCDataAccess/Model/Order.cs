@@ -10,7 +10,7 @@ namespace DataAccessLayer.Model
         public string Address { get; set; }
         public string Note { get; set; }
         public User User { get; set; }
-        public IEnumerable<LineItem> Items { get; set; } = new List<LineItem>();
+        public IEnumerable<LineItem> Items { get; set; }
         
         public Order(int id, DateTime date, decimal totalPrice, Status status, string address, string note, User user, List<LineItem> items)
         {

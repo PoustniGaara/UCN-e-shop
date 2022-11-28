@@ -9,10 +9,12 @@ namespace DataAccessLayer.SqlDbDataAccess
     public class UserDAO : IUserDataAccess
     {
         private string connectionstring;
+        private IOrderDataAccess orderDataAccess;
 
         public UserDAO(string connectionstring)
         {
             this.connectionstring = connectionstring;
+            orderDataAccess = DataAccessFactory.CreateRepository<IOrderDataAccess>(connectionstring);
         }
 
         public async Task<string> CreateUserAsync(User user)
@@ -117,6 +119,8 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@email", email);
                 SqlDataReader reader = command.ExecuteReader();
+
+
 
                 reader.Read();
                 //dorobit

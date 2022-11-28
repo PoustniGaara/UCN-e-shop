@@ -3,7 +3,7 @@ using WebApiClient.DTOs;
 
 namespace WebAppMVC.ViewModels
 {
-    public class OrderDetailVM
+    public class OrderDetailsVM
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }

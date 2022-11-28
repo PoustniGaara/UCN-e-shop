@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Principal;
-using WebApi.DTOs;
+using WebAppMVC.ViewModels;
 
-namespace WebApi.ActionFilters
+namespace WebAppMVC.ActionFilters
 {
         public class ValidationFilter : IActionFilter
         {

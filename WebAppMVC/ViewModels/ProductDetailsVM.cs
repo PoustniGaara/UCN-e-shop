@@ -3,7 +3,7 @@ using WebApiClient.DTOs;
 
 namespace WebAppMVC.ViewModels
 {
-    public class ProductDetailsVM
+    public class ProductDetailsVM 
     {
         public int Id { get; set; }
 

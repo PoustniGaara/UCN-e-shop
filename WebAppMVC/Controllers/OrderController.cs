@@ -31,7 +31,7 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> DetailsAsync(int id)
         {
             var order = await _client.GetOrderByIdAsync(id);
-            OrderDetailVM ordervm = _mapper.Map<OrderDetailVM>(order);
+            OrderDetailsVM ordervm = _mapper.Map<OrderDetailsVM>(order);
             return View(ordervm);
         }
 

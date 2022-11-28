@@ -16,18 +16,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\NewFolder\**" />
-    <Content Remove="Views\NewFolder\**" />
-    <EmbeddedResource Remove="Views\NewFolder\**" />
-    <None Remove="Views\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
   </ItemGroup>
 
-  <ItemGroup>
+
+
+
+
+	<!--show internal to integration tests-->
+	<ItemGroup>
+		<InternalsVisibleTo Include="IntegrationTests" />
+	</ItemGroup>
+	
+	<ItemGroup>
     <ProjectReference Include="..\AppMVCClassLibrary\WebApiClient.csproj" />
     <ProjectReference Include="..\LoggerService\LoggerService.csproj" />
   </ItemGroup>

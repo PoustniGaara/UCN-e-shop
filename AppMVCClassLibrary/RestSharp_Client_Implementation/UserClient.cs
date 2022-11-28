@@ -16,32 +16,27 @@ namespace WebApiClient.RestSharpClientImplementation
         RestClient _client;
         public UserClient(string restUrl) => _client = new RestClient(restUrl);
 
-        public async Task<string> CreateUserAsync(UserDto userDto)
+        public async Task<string> CreateAsync(UserDto userDto)
         {
             var request = new RestRequest();
             request.AddBody(userDto);
             return await _client.PostAsync<string>(request);
         }
 
-        public async Task<IEnumerable<UserDto>?> GetAllAsync()
-        {
-            return await _client.GetAsync<IEnumerable<UserDto>>(new RestRequest());
-        }
-
-        public async Task<UserDto?> GetUserByEmailAsync(string email)
+        public async Task<UserDto?> GetByEmailAsync(string email)
         {
             var request = new RestRequest($"{email}");
             return await _client.GetAsync<UserDto?>(request);
         }
 
-        public async Task<bool> UpdateUserAsync(UserDto userDto)
+        public async Task<bool> UpdateAsync(UserDto userDto)
         {
             var request = new RestRequest($"{userDto.Email}");
             request.AddBody(userDto);
             return await _client.PutAsync<bool>(request);
         }
 
-        public async Task<bool> DeleteUserAsync(string email)
+        public async Task<bool> DeleteAsync(string email)
         {
             var request = new RestRequest($"{email}");
             return await _client.DeleteAsync<bool>(request);

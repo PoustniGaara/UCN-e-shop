@@ -2,7 +2,7 @@
 
 namespace WebAppMVC.ViewModels
 {
-    public class ProductIndexVM
+    public class ProductIndexVM 
     {
         public IEnumerable<ProductDto> Products { get; set; } 
         public string PageTitle { get

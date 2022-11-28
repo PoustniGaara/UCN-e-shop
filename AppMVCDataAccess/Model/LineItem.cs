@@ -14,6 +14,10 @@ namespace DataAccessLayer.Model
             SizeId = sizeId;
             Quantity = quantity;    
         }
+
+        public LineItem()
+        {
+        }
     }
 }
 

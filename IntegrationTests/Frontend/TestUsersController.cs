@@ -28,7 +28,7 @@
 //        private async Task Assert_That_DeleteUser_HandlesGivenException(Exception givenException, HttpStatusCode resultingStatusCode)
 //        {
 //            string email = "best@ucn.dk";
-//            var response = await _client.DeleteAsync($"{UserUrl}/{email}");
+//            var response = await _client.SendAsync($"{UserUrl}/{email}");
 //            HttpStatusCode statusCode = response.StatusCode;
 //            Assert.Equal(resultingStatusCode, statusCode);
 //        }
