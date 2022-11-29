@@ -6,7 +6,6 @@ using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
 {
-    [ServiceFilter(typeof(ExceptionFilter))]
     public class UserController : Controller
     {
         private IUserClient _userClient;

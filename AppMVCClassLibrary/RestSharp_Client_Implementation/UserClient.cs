@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using WebApi.DTOs;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
 
@@ -25,8 +24,10 @@ namespace WebApiClient.RestSharpClientImplementation
 
         public async Task<UserDto?> GetByEmailAsync(string email)
         {
+            
             var request = new RestRequest($"{email}");
-            return await _client.GetAsync<UserDto?>(request);
+            var user = await _client.GetAsync<UserDto?>(request);
+            return user;
         }
 
         public async Task<bool> UpdateAsync(UserDto userDto)

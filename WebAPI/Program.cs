@@ -43,7 +43,7 @@ builder.Services.AddSwaggerGen();
 //Add controllers with option with global filters
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add<ExceptionFilter>();
+    //options.Filters.Add<ExceptionFilter>();
 });
 
 //Register scoped filters

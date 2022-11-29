@@ -41,8 +41,11 @@ string orderUrl = "https://localhost:44346/api/v1/orders";
 IOrderClient orderClient = new OrderClient(orderUrl);
 builder.Services.AddScoped<IOrderClient>((cs) => orderClient);
 
+//User client 
+string userUrl = "https://localhost:44346/api/v1/users";
+IUserClient userClient = new UserClient(userUrl);
+builder.Services.AddScoped<IUserClient>((cs) => userClient);
 
-//builder.Services.AddScoped<IApiClient>((cs) => new ApiClient(Configuration["WebApiURI"]));
 
 //AutoMapper config
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

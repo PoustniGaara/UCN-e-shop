@@ -10,6 +10,7 @@ body {
     padding-bottom: 10px;
     margin: 0 auto;
     max-width: 1200px;
+    border-bottom: 2px solid #E0E3E6;
 }
 
 .navbar {
@@ -21,14 +22,68 @@ body {
 .logo {
     width: 100px;
 }
-
-
-/**********************
+/*USER DETAILS PAGE
 **********************
 **********************
 **********************/
 
+.account-title {
+    align-self: center;
+    text-align: center;
+    margin: 40px 0;
+}
 
+.acount-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.acount-info-child {
+    width: 33%;
+    flex: 1;
+}
+
+
+.questions-box {
+    padding: 30px;
+    border: 2px solid;
+    border-color: black;
+    
+}
+
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table;
+    text-indent: initial;
+}
+
+.thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+
+/*GENERAL
+**********************
+**********************
+**********************/
+
+.p-center {
+    align-self: center;
+    text-align: center;
+}
+/*********************
+**********************
+**********************
+**********************/
 .menu {
     display: flex;
 }

@@ -35,7 +35,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.CommandText = "INSERT INTO dbo.[User] (email, name, surename, phone, address, username, password, isAdmin) VALUES (@email, @name, @surename, @phone, @address, @username, @password, @isAdmin);)";
                 command.Parameters.AddWithValue("@email", user.Email);
                 command.Parameters.AddWithValue("@name", user.Name);
-                command.Parameters.AddWithValue("@surename", user.Surename);
+                command.Parameters.AddWithValue("@surename", user.Surname);
                 command.Parameters.AddWithValue("@phone", user.PhoneNumber);
                 command.Parameters.AddWithValue("@address", user.Address);
                 command.Parameters.AddWithValue("@username", user.Username);
@@ -68,12 +68,6 @@ namespace DataAccessLayer.SqlDbDataAccess
 
                 transaction.Commit();
             }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                Console.WriteLine("An error occured while deleting a User: " + ex);
-                return false;
-            }
             finally
             {
                 connection.Close();
@@ -96,14 +90,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                     // dorobit
                     users.Add(new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin")));
                 }
-            }
-            catch (SqlException sqlex)
-            {
-                Console.WriteLine("An sql error occured while trying to retrieve all the users from the database: " + sqlex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An unspecified error occured while trying to retrieve all the users from the database: " + ex);
             }
             finally
             {
@@ -147,11 +133,11 @@ namespace DataAccessLayer.SqlDbDataAccess
                 User user = new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surename"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin"));
                 return user;
             }
-            catch (Exception ex)
+            finally
             {
-                throw new Exception($"Error logging in for author with email {email}: '{ex.Message}'.", ex);
+                connection.Close();
             }
-            
+
         }
 
         public async Task<bool> UpdateUserAsync(User user)
@@ -164,7 +150,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlCommand command = new SqlCommand("UPDATE [User] SET email = @email, name = @name, surename = @surename, phone = @phone, adddress = @address, username = @username, password = @password, isAdmin = @isAdmin WHERE email = @email", connection);
                 command.Parameters.AddWithValue("@email", user.Email);
                 command.Parameters.AddWithValue("@name", user.Name);
-                command.Parameters.AddWithValue("@surename", user.Surename);
+                command.Parameters.AddWithValue("@surename", user.Surname);
                 command.Parameters.AddWithValue("@phone", user.PhoneNumber);
                 command.Parameters.AddWithValue("@address", user.Address);
                 command.Parameters.AddWithValue("@username", user.Username);
@@ -175,10 +161,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                     return true;
                 else
                     return false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occured while updating User " + ex);
             }
             finally
             {

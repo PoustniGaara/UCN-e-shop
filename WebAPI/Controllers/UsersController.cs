@@ -36,6 +36,7 @@ namespace WebApi.Controllers
         [HttpGet("{email}")]
         public async Task<ActionResult<UserDto>> Get(string email)
         {
+            if(email == null) { throw new ArgumentNullException("email"); }
             User user = await _userDataAccess.GetUserByEmailAsync(email);
             if (user == null) { return NotFound(); }
             UserDto userDto = _mapper.Map<UserDto>(user);

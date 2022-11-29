@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using WebApiClient.DTOs;
 using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.ViewModelProfiles
@@ -7,9 +8,7 @@ namespace WebAppMVC.ViewModelProfiles
     {
         public UserProfile()
         {
-            //CreateMap<IEnumerable<ProductDto>, ProductIndexVM>()
-            //   .ForMember(dest => dest.Products, act => act.MapFrom(src => src))
-            //   .ReverseMap();
+            CreateMap<UserDto, UserDetailsVM>();
         }
     }
 }
