@@ -11,7 +11,7 @@ namespace DataAccessLayer.Model
         public string Note { get; set; }
         public User User { get; set; }
         public IEnumerable<LineItem> Items { get; set; }
-        
+
         public Order(int id, DateTime date, decimal totalPrice, Status status, string address, string note, User user, List<LineItem> items)
         {
             Id = id;

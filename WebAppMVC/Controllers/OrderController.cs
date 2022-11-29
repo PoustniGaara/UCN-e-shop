@@ -31,6 +31,7 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> DetailsAsync(int id)
         {
             var order = await _client.GetOrderByIdAsync(id);
+
             OrderDetailsVM ordervm = _mapper.Map<OrderDetailsVM>(order);
             return View(ordervm);
         }
@@ -48,6 +49,8 @@ namespace WebAppMVC.Controllers
             try
             {
                 order.Items = HttpContext.GetCart().Items;
+                order.TotalPrice = CalculateTotalOrderPrice(order);
+                order.Address = order.Street + (order.AptNumber.HasValue ? ", " + order.AptNumber : "") + ", " + order.City + " " + order.PostalCode;
                 id = await _client.CreateOrderAsync(order);
                 order.Id = id;
                 return RedirectToAction(nameof(Index));
@@ -57,6 +60,13 @@ namespace WebAppMVC.Controllers
                 ViewBag.ErrorMessage = ex.Message;
             }
             return View();
+        }
+
+        private decimal CalculateTotalOrderPrice(OrderDto order)
+        {
+            var Shipping = 35;
+            decimal total = Shipping + order.Items.Sum(i => i.Price * i.Quantity);
+            return total;
         }
 
         [HttpPost]

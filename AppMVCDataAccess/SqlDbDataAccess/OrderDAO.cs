@@ -9,15 +9,15 @@ namespace DataAccessLayer.SqlDbDataAccess
     public class OrderDAO : IOrderDataAccess
     {
         private string connectionstring;
-        private ILineItemDataAccess lineItemDAO; 
-        private IProductDataAccess productDAO;
+        private ILineItemDataAccess lineItemDAO;
+        private IProductSizeStockDataAccess productSizeStockDAO;
 
 
         public OrderDAO(string connectionstring)
         { 
             this.connectionstring = connectionstring;
             lineItemDAO = new LineItemDAO(connectionstring);
-            productDAO = new ProductDAO(connectionstring);
+            productSizeStockDAO = new ProductSizeStockDAO(connectionstring);
         }
 
         public async Task<int> CreateOrderAsync(Order order)
@@ -30,14 +30,13 @@ namespace DataAccessLayer.SqlDbDataAccess
 
             SqlCommand command = connection.CreateCommand();
             command.Transaction = transaction;
-
             try
             {
                 command.CommandText = "INSERT INTO dbo.[Order] (date, total, address, note, status, customer) VALUES (@date, @total, @address, @note, @status, @customer); SELECT CAST(scope_identity() AS int)";
                 command.Parameters.AddWithValue("@date", DateTime.Now);
                 command.Parameters.AddWithValue("@total", order.TotalPrice);
                 command.Parameters.AddWithValue("@address", order.Address);
-                command.Parameters.AddWithValue("@note", order.Note);
+                command.Parameters.AddWithValue("@note", (order.Note == null ? "" : order.Note));
                 command.Parameters.AddWithValue("@status", Convert.ToInt32(order.Status));
                 command.Parameters.AddWithValue("@customer", order.User.Email);
                 id = (int)command.ExecuteScalar();
@@ -45,11 +44,9 @@ namespace DataAccessLayer.SqlDbDataAccess
 
                 foreach(LineItem item in order.Items)
                 {
+                    await productSizeStockDAO.DecreaseStockWithCheck(command, item.Product.Id, item.SizeId, item.Quantity);
                     await lineItemDAO.CreateLineItemAsync(command, id, item);
-                    // TO DO: update product stock!
-                    // productSizeDAO.Update
                 }
-
                 transaction.Commit();
             } catch
             {

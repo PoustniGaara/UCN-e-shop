@@ -15,49 +15,85 @@
     <hr />
     <div class="row">
         <div class="col-md-6">
+            <h2>Contact information</h2>
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Note" class="control-label"></label>
-                    <input asp-for="Note" class="form-control" />
+                 <div class="form-group">
+                    <label asp-for="Name" class="control-label">Name:*</label>
+                    <input asp-for="Name" style="display: block;" required class=" form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                 <div class="form-group">
+                    <label asp-for="Surname" class="control-label">Surname:*</label>
+                    <input asp-for="Surname" style="display: block;" required class="form-control input-custom" />
+                    <span asp-validation-for="Surname" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="UserEmail" class="control-label"></label>
-                    <input asp-for="UserEmail" class="form-control" />
-                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                    <label asp-for="Phone" class="control-label">Phone:</label>
+                    <input asp-for="Phone" style="display: block; width: 450px;" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserEmail" class="control-label">E-mail:*</label>
+                    <input asp-for="UserEmail" style="display: block;" class="form-control" />
+                    <span asp-validation-for="UserEmail" class="text-danger">
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Note" class="control-label">Note:</label>
+                    <input asp-for="Note" style="display: block;" class="form-control" />
+                </div>
+                <hr>
+                <h2>Address</h2>
+                <div class="form-group">
+                    <label asp-for="Street" class="control-label">Street and house number:*</label>
+                    <input asp-for="Street" style="display: block;" required class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+                 <div class="form-group">
+                    <label asp-for="AptNumber" class="control-label">Apartment number:</label>
+                    <input asp-for="AptNumber" style="display: block; width: 450px;" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PostalCode" class="control-label">Postal code:*</label>
+                    <input asp-for="PostalCode" style="display: block;" required class="form-control" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="City" class="control-label">City:*</label>
+                    <input asp-for="City" style="display: block;" required class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </form>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="cart">
                 <h2>Cart</h2>
-                <div class="cart-items">
-                    <ul>
+                <div class="cart-item-box">
+                    <ul class="cart-list">
                         @foreach (var lineItem in @Model.Items)
                         {
-                            <li>
-                                <div class="product-inner">
-                                    <div class="row">
-                                         <div class="cartitems">
-                                            <div>
-                                                <a href="@Url.Action("Details", "Product", new { id = lineItem.ProductId })">@Html.DisplayFor(model => lineItem.ProductName)</a>
-                                            </div>
-                                            <div>@Html.DisplayFor(model => lineItem.SizeName)</div>
-                                            <div>@Html.DisplayFor(model => lineItem.Price) Kr.</div>
-                                            <div>@Html.DisplayFor(model => lineItem.Quantity)</div>
-                                            <div>@(lineItem.Quantity * lineItem.Price) Kr.</div>
-                                        </div>
-                                    </div>
+                            <li class="item-product">
+                                <div class="cart-items">
+                                    <h3 class="title">
+                                        <a href="@Url.Action("Details", "Product", new { id = lineItem.ProductId })">@Html.DisplayFor(model => lineItem.ProductName), @Html.DisplayFor(model => lineItem.SizeName)</a>
+                                        <span class="img">
+                                            <img src="~/images/@(lineItem.ProductId).jpg" alt=@lineItem.ProductName width="100" height="100">
+                                        </span>
+                                    </h3>
+                                    <p class="count">@Html.DisplayFor(model => lineItem.Quantity) pcs</p>
+                                    <p class="price">@(lineItem.Quantity * lineItem.Price) Kr.</p>
                                 </div>
                             </li>
                         }
                     </ul>
                 </div>
-                <div class="total"></div>
-                <p class="price-total">Total price: @Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr</p>
+                <div class="total">
+                    <p class="price-total-text">Total price:</p>
+                    <p class="price-total">@Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr</p>
+                </div>
             </div>
         </div>
     </div>

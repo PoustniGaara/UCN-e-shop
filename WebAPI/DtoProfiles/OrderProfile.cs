@@ -11,6 +11,7 @@ namespace WebApi.DtoProfiles
         {
             CreateMap<LineItem, LineItemDto>()
                 .ForMember(dest => dest.ProductName, act => act.MapFrom(src => src.Product.Name))
+                .ForMember(dest => dest.Price, act => act.MapFrom(src => src.Product.Price))
                 .ReverseMap();
 
             CreateMap<Order, OrderDto>()
