@@ -29,8 +29,8 @@ namespace WebApiClient.RestSharpClientImplementation
 
         public async Task<IEnumerable<ProductDto>?> GetAllAsync()
         {
-            return await _client.GetAsync<IEnumerable<ProductDto>>(new RestRequest());
 
+            return await _client.GetAsync<IEnumerable<ProductDto>>(new RestRequest());
             //var response = await _client.ExecuteGetAsync<IEnumerable<ProductDto>>(new RestRequest());
             //if (!response.IsSuccessful)
             //{

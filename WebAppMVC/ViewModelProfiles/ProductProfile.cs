@@ -13,12 +13,11 @@ namespace WebAppMVC.ViewModelProfiles
             CreateMap<ProductDto, ProductDetailsVM>()
                 .ReverseMap();
 
+            CreateMap<IEnumerable<ProductDto>, IEnumerable<ProductDetailsVM>>();
+
             CreateMap<IEnumerable<ProductDto>, ProductIndexVM>()
-                .ForMember(dest => dest.Products, act => act.MapFrom(src => src))
-                .ReverseMap();
+                .ForMember(dest => dest.Products, act => act.MapFrom(src => src));
 
         }
-
-
     }
 }

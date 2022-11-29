@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebApiClient.Interfaces;
+using WebAppMVC.ActionFilters;
 using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
 {
+    [ServiceFilter(typeof(ExceptionFilter))]
     public class UserController : Controller
     {
         private IUserClient _userClient;
@@ -19,9 +21,9 @@ namespace WebAppMVC.Controllers
         {
             var userDto = await _userClient.GetByEmailAsync(email);
 
-            UserDetailsVM userDetailVM = _mapper.Map<UserDetailsVM>(userDto);
+            UserDetailsVM userDetailsVM = _mapper.Map<UserDetailsVM>(userDto);
 
-            return View(userDetailVM);
+            return View(userDetailsVM);
         }
 
         public IActionResult Register()

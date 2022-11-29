@@ -411,3 +411,4 @@ GlobalErrorHandlingWebApiLogs/internal_logs/internallog.txt
 GlobalErrorHandlingWebApiLogs/internal_logs/internallog.txt
 GlobalErrorHandlingWebAppLogs/internal_logs/internallog.txt
 GlobalErrorHandlingWebAppLogs/internal_logs/internallog.txt
+*.txt
