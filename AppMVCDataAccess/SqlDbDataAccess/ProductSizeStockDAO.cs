@@ -75,43 +75,36 @@ namespace DataAccessLayer.SqlDbDataAccess
             throw new NotImplementedException();
         }
 
-        public async Task<bool> DecreaseStockWithCheck(int productId, int sizeId, int amountToDecrease)
+        public async Task<bool> DecreaseStockWithCheck(SqlCommand command, int productId, int sizeId, int amountToDecrease)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
-
-            SqlCommand command = connection.CreateCommand();
-            command.Transaction = transaction;
             try
             {
                 //Get the stock
+                command.Parameters.Clear();
+                command = new SqlCommand("SELECT stock FROM ProductStock WHERE product_id = @productId AND size_id = sizeId");
                 command.Parameters.AddWithValue("@product_id", productId);
                 command.Parameters.AddWithValue("@size_id", sizeId);
-                command = new SqlCommand("SELECT stock FROM ProductStock WHERE product_id = @productId AND size_id = sizeId", connection);
                 SqlDataReader reader = command.ExecuteReader();
 
                 //Check the stock 
                 int stockAmount = reader.GetInt32("amount");
-                if(stockAmount < amountToDecrease) { throw new ProductOutOfStockException();}
+                if(stockAmount < amountToDecrease) 
+                    throw new ProductOutOfStockException();
 
                 //Decrease the stock
+                command.Parameters.Clear();
+                command = new SqlCommand("UPDATE ProductStock SET stock = stock - @amountToDecrease WHERE product_id = @productId AND size_id = sizeId");
                 command.Parameters.AddWithValue("@amountToDecrease", amountToDecrease);
-                command = new SqlCommand("UPDATE ProductStock SET stock = stock - @amountToDecrease WHERE product_id = @productId AND size_id = sizeId", connection);
+                command.Parameters.AddWithValue("@product_id", productId);
+                command.Parameters.AddWithValue("@size_id", sizeId);
                 command.ExecuteReader();
-
-                transaction.Commit();
+                return true;
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+                return false;
                 throw new Exception("An error occured while updateing name of an account: " + ex);
             }
-            finally
-            {
-                connection.Close();
-            }
-            return true;
         }
     }
 }

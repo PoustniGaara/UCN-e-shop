@@ -23,6 +23,7 @@ namespace DataAccessLayer.SqlDbDataAccess
 
         public async Task CreateLineItemAsync(SqlCommand command, int orderId, LineItem item)
         {
+            command.Parameters.Clear();
             command.CommandText = "INSERT INTO dbo.OrderLineItem (order_id, product_id, size_id, amount) VALUES (@order_id, @product_id, @size_id, @amount)";
             command.Parameters.AddWithValue("@order_id", orderId);
             command.Parameters.AddWithValue("@product_id", item.Product.Id);
@@ -42,7 +43,8 @@ namespace DataAccessLayer.SqlDbDataAccess
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                items.Add(new LineItem(await productDAO.GetByIdAsync(reader.GetInt32("product_id")), reader.GetInt32("size_id"), reader.GetInt32("amount")));
+                Product product = await productDAO.GetByIdAsync(reader.GetInt32("product_id"));
+                items.Add(new LineItem(product, reader.GetInt32("size_id"), reader.GetInt32("amount")));
             }
             return items;     
         }
