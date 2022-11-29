@@ -40,11 +40,8 @@ namespace WebApi.Controllers
             {
                 products = await _dataAccess.GetAllAsync();
             }
-            //products.Select(product => product.ProductSizeStocks => p => _mapper.Map<ProductSizeStockDto>(p));
 
             IEnumerable<ProductDto> productDtos = products.Select(product => _mapper.Map<ProductDto>(product));
-
-            //productDtos = productDtos.Select(product => _mapper.Map<ProductSizeStockDto>(product.ProductSizeStocks));
 
             return Ok(productDtos);
         }
