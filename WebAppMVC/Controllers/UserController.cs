@@ -7,17 +7,17 @@ namespace WebAppMVC.Controllers
 {
     public class UserController : Controller
     {
-        private IUserClient _client;
+        private IUserClient _userClient;
         private readonly IMapper _mapper;
-        public UserController(IUserClient client, IMapper mapper)
+        public UserController(IUserClient userClient, IMapper mapper)
         {
-            _client = client;
+            _userClient = userClient;
             _mapper = mapper;
         }
 
         public async Task<ActionResult> Details(string email)
         {
-            var userDto = await _client.GetByEmailAsync(email);
+            var userDto = await _userClient.GetByEmailAsync(email);
 
             UserDetailsVM userDetailVM = _mapper.Map<UserDetailsVM>(userDto);
 

@@ -18,15 +18,6 @@ namespace WebApi.MapperProfiles
             CreateMap<Product, ProductDto>()
                 .ReverseMap();
 
-            //CreateMap<Product, ProductDto>();
-            //CreateMap<IEnumerable<ProductSizeStock>, IEnumerable<ProductSizeStockDto>>()
-            //    .ForMember(dest => dest.GetType().GetGenericArguments()[0].Name , act => act.MapFrom(src => src.GetType().GetGenericArguments()[0].Name));
-
-
-            //CreateMap<ProductDto, Product>()
-            //    .ForMember(dest => dest.ProductSizeStocks, act => act.MapFrom(src => src.ProductSizeStocks))
-            //    .ForPath(dest => dest.Category.Name, act => act.MapFrom(src => src.Category))
-            //    .ReverseMap();
         }
     }
 }

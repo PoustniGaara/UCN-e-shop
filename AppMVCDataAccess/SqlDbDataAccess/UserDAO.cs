@@ -3,6 +3,9 @@ using System.Security.Principal;
 using System.Data.SqlClient;
 using System.Data;
 using DataAccessLayer.Interfaces;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
@@ -91,7 +94,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 while (reader.Read())
                 {
                     // dorobit
-                    users.Add(new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surename"), reader.GetInt32("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin")));
+                    users.Add(new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin")));
                 }
             }
             catch (SqlException sqlex)
@@ -109,7 +112,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             return users;
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
             try
@@ -120,35 +123,39 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@email", email);
                 SqlDataReader reader = command.ExecuteReader();
 
-
-
                 reader.Read();
-                //dorobit
-                return new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surename"), reader.GetInt32("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin"));
-            }
-            catch (SqlException sqlex)
-            {
-                Console.WriteLine("An sql error occured while trying to retrieve user from the database: " + sqlex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An unspecified error occured while trying to retrieve user from the database: " + ex);
+                IEnumerable<Order> customersOrders = await orderDataAccess.GetOrdersByUserAsync(email);
+                return new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin"), customersOrders);
+
             }
             finally
             {
                 connection.Close();
             }
-            return null;
         }
 
+        public async Task<User?> LoginAsync(string email, string password)
+        {
+            using SqlConnection connection = new SqlConnection(connectionstring);
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT * from [User] where email = @email and password = @password", connection);
+                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@name", password);
+                SqlDataReader reader = command.ExecuteReader();
+                User user = new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surename"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin"));
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error logging in for author with email {email}: '{ex.Message}'.", ex);
+            }
+            
+        }
 
         public async Task<bool> UpdateUserAsync(User user)
         {
-            if (user == null)
-            {
-                return false;
-                throw new NullReferenceException();
-            }
 
             using SqlConnection connection = new SqlConnection(connectionstring);
             try

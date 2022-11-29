@@ -159,20 +159,20 @@ namespace DataAccessLayer.SqlDbDataAccess
             return null;
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersByUserAsync(User user)
+        public async Task<IEnumerable<Order>> GetOrdersByUserAsync(string email)
         {
             List<Order> orders = new List<Order>();
             using SqlConnection connection = new SqlConnection(connectionstring);
             try
             {
                 connection.Open();
-                SqlCommand selectCommand = new SqlCommand("Select * from [Order] where customer = " + user.Email);
+                SqlCommand selectCommand = new SqlCommand("Select * from [Order] where customer = " + email);
                 selectCommand.Connection = connection;
                 SqlDataReader reader = selectCommand.ExecuteReader();
                 while (reader.Read())
                 {
                     List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
-                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items));
+                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), new User { Email = email, }, items));
                 }
             }
             catch (SqlException sqlex)
