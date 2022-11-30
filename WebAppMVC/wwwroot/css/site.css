@@ -1,9 +1,27 @@
+/**********************
+        General
+**********************/
+html {
+    margin:0;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.5;
     font-size: 0.875rem;
     scroll-behavior: smooth;
+    height: 100%;
+    margin: 0;
 }
+
+.p-center {
+    align-self: center;
+    text-align: center;
+}
+
+/*********************
+        Menu
+**********************/
 
 .header {
     padding-top: 10px;
@@ -22,9 +40,194 @@ body {
 .logo {
     width: 100px;
 }
-/*USER DETAILS PAGE
-**********************
-**********************
+.menu {
+    display: flex;
+}
+
+.menu * {
+    margin-left: 70px;
+}
+
+.menu a {
+    font-size: 25px;
+    font-weight: 500;
+    color: #004050;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.menu2 {
+    display: flex;
+}
+
+.menu2 * {
+    margin-left: 30px;
+}
+
+.menu2 a {
+    font-size: 20px;
+    font-weight: 400;
+    color: #004050;
+    text-decoration: none;
+}
+
+.menu2 a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/**********************
+        Homepage
+**********************/
+
+.intro {
+    padding-top: 10vh;
+    padding-bottom: 5vh;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+}
+
+.h-title {
+    padding-top: 100px;
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.hometext{
+    width: 30vw;
+    display:inline-block;
+}
+
+.main-button {
+    padding-right: 15%;
+    padding-top: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cnt {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding-bottom: 10vh;
+}
+
+.shop-now-button {
+    background-color: #002129;
+    border: 2px solid #002129;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px 36px;
+    text-decoration: none;
+}
+
+.shop-now-button:hover {
+    background-color: #005266;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 20px -10px 0;
+    padding: 0;
+}
+
+.product-list li {
+    width: 33%;
+}
+
+.product-list li img {
+    display: block;
+    margin: 0 auto 12px;
+    width: 100%;
+}
+
+.fproducts {
+    padding-bottom: 5vh;
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.ftitle {
+    background-color: #004050;
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 500;
+    padding: 6vh 0 6vh 0;
+    align-self: center;
+}
+
+.fproduct {
+    margin-top: 5vh;
+}
+
+.fitems {
+    padding-bottom: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.product-img {
+    width: 22vw;
+    height: auto;
+}
+
+.fproduct-name {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 2vh 0 2vh 0;
+}
+
+.more-products-container {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.more-products-button {
+    background-color: #002129;
+    border: 2px solid #002129;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px 36px;
+    text-decoration: none;
+    width: 15vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.more-products-button:hover {
+    background-color: #005266;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+/**********************
+    USER DETAILS
 **********************/
 
 .account-title {
@@ -68,141 +271,6 @@ body {
     display: table-row;
     vertical-align: inherit;
     border-color: inherit;
-}
-
-
-/*GENERAL
-**********************
-**********************
-**********************/
-
-.p-center {
-    align-self: center;
-    text-align: center;
-}
-/*********************
-**********************
-**********************
-**********************/
-.menu {
-    display: flex;
-}
-
-.menu * {
-    margin-left: 70px;
-}
-
-.menu a {
-    font-size: 25px;
-    font-weight: 500;
-    color: #004050;
-    text-decoration: none;
-}
-
-.menu a:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.menu2 {
-    display: flex;
-}
-
-.menu2 * {
-    margin-left: 30px;
-}
-
-.menu2 a {
-    font-size: 20px;
-    font-weight: 400;
-    color: #004050;
-    text-decoration: none;
-}
-
-.menu2 a:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-
-/**********************
-**********************
-**********************
-**********************/
-
-.intro {
-    padding-top: 10vh;
-    padding-bottom: 5vh;
-    margin: 0 auto;
-    max-width: 1200px;
-    display: flex;
-}
-
-.h-title {
-    padding-top: 100px;
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-
-/**********************
-**********************
-**********************
-**********************/
-
-.cnt {
-    background-color: #004050;
-}
-
-.product-list {
-    display: flex;
-    flex-wrap: wrap;
-    list-style-type: none;
-    margin: 20px -10px 0;
-    padding: 0;
-}
-
-    .product-list li {
-        width: 33%;
-    }
-
-        .product-list li img {
-            display: block;
-            margin: 0 auto 12px;
-            width: 100%;
-        }
-
-.fproducts {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    max-width: 1200px;
-}
-
-.ftitle {
-    font-size: 2.5rem;
-    font-weight: 500;
-    padding-bottom: 50px;
-    align-self: center;
-}
-
-.fitems {
-    padding-bottom: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.product-img {
-    width: 200px;
-    height: 200px;
-    background-color: brown;
-}
-
-.fbutton {
-    align-self: center;
-    width: 200px;
 }
 
 /**********************
@@ -266,11 +334,6 @@ body {
 .products {
     display: flex;
     flex-wrap: wrap;
-}
-
-.fproduct {
-    margin-top: 50px;
-    margin-right: 125px;
 }
 
 .settings input[type=text] {
@@ -783,4 +846,15 @@ ul li {
     line-height: 1.3;
     width: 48%;
     margin: 0 0 0 0px;
+}
+
+/********************
+        Footer
+********************/
+
+.custom-footer {
+    background-color: #0083A3;
+    width: 100%;
+    position: relative;
+    bottom: 0;
 }

@@ -3,46 +3,57 @@
 }
 
 <div class="body" id="content">
-
-		<div class="intro">
-			<div class="hometext">
-				<div class="h-title">Represent your favourite school!</div>
-				<div class="h-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, at sed omnis corporis doloremque possimus velit!
-				Repudiandae nisi odit, aperiam odio ducimus, obcaecati libero et quia tempora excepturi quis alias?</div>
-				<button>SHOP NOW</button>
+	<div class="intro">
+		<div class="hometext">
+			<div class="h-title">Represent your university proudly!</div>
+			<div class="main-button">
+				<a href=@Url.Action("Index", "Product") class="shop-now-button">SHOP NOW</a>
 			</div>
+		</div>
+		<div class="main-image">
 			<img src="https://www.ucn.dk/Files//Billeder/Kontakt/Afdelinger/SD.jpg">
 		</div>
-
-		<div class="cnt">
-			<div class="fproducts">
-				<div class="ftitle">Featured products</div>
-				<div class="fitems">
-					<div class="fproduct">
-						<div class="img">img</div>
-						<div class="row">
-							<div class="title">Product 1</div>
-							<div class="price">$599.99</div>
+	</div>
+	<div class="cnt">
+		<div class="fproducts">
+			<div class="ftitle">Featured products</div>
+			<div class="fitems">
+				<div class="fproduct">
+					<a href="/Product/Details/1">
+						<div class="img">
+							<img class="product-img" src="~/images/1.jpg">
 						</div>
-					</div>
-					<div class="fproduct">
-						<div class="img">img</div>
-						<div class="row">
-							<div class="title">Product 2</div>
-							<div class="price">$599.99</div>
-						</div>
-					</div>
-					<div class="fproduct">
-						<div class="img">img</div>
-						<div class="row">
-							<div class="title">Product 3</div>
-							<div class="price">$599.99</div>
-						</div>
+					</a>
+					<div class="row">
+						<div class="fproduct-name">Black Unisex T-shirt</div>
 					</div>
 				</div>
-				<button class="fbutton">Show All products</button>
+				<div class="fproduct">
+					<a href="/Product/Details/2">
+						<div class="img">
+							<img class="product-img" src="~/images/2.jpg">
+						</div>
+					</a>
+					<div class="row">
+						<div class="fproduct-name">Red Unisex T-shirt</div>
+					</div>
+				</div>
+				<div class="fproduct">
+					<a href="/Product/Details/7">
+						<div class="img">
+							<img class="product-img" src="~/images/7.jpg">
+						</div>
+					</a>
+					<div class="row">
+						<div class="fproduct-name">Blue Ballpoint Pen</div>
+					</div>
+				</div>
+			</div>
+			<div class="more-products-container">
+				<a href=@Url.Action("Index", "Product") class="more-products-button">More products</a>
 			</div>
 		</div>
+	</div>
 
 
 	</div>
