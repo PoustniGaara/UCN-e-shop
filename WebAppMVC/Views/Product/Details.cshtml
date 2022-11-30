@@ -19,16 +19,16 @@
             <p>@Html.DisplayFor(model => model.Description)</p>
         </div>
         <div class="product-sizes-container">
-            <p>Sizes</p>
-            @foreach (var sizestock in Model.ProductSizeStocks)
-            {
-                <div class="sizes"><span class="sizeName">@sizestock.Size</span></div>
-            }           
+            <p>Available Sizes</p>
+            <div class="sizes-flexbox">
+                @foreach (var sizestock in Model.ProductSizeStocks)
+                {
+                    <div class="sizes"><span class="sizeName">@sizestock.Size</span></div>
+                }  
+            </div>
         </div>
         <div class="add-to-cart-container">
-            <button type="button" id="add-to-cart-button" class="btn-primary" onclick="AddToCart()">
-                <a id="add-to-cart-button-link">Add to cart</a>
-            </button>
+            <a id="add-to-cart-button" onclick="AddToCart()">Add to cart</a>
         </div>
     </div>
 </div>
@@ -41,9 +41,8 @@
     var size = "";
     const thePath = window.location.href;
     const addToCartButton = document.getElementById('add-to-cart-button');
-    addToCartButton.disabled = true;
-    var addToCartLink = document.getElementById('add-to-cart-button-link');
-    addToCartLink.textContent = "Select a size";
+    addToCartButton.classList.toggle("disabled");
+    addToCartButton.textContent = "Select a size"
     const productId = thePath.substring(thePath.lastIndexOf('/') + 1);               
 
     for (const sizeButton of sizeDivElements) {
@@ -52,8 +51,9 @@
                 unselectSizes();
                 this.classList.toggle("selected");
                 size = this.querySelector("span.sizeName").innerText;
-                addToCartLink.href = "/Product/Add/" + thePath.substring(thePath.lastIndexOf('/') + 1) + "?size=" + size;
-                addToCartButton.disabled = false;
+                addToCartButton.href = "/Product/Add/" + thePath.substring(thePath.lastIndexOf('/') + 1) + "?size=" + size;
+                addToCartButton.classList.remove("disabled");
+                addToCartButton.textContent = "Add to cart";
         });
     }
     

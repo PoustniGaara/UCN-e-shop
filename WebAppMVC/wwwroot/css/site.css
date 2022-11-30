@@ -345,10 +345,51 @@ body {
 }
 
 /**********************
-**********************
-**********************
+       USER EDIT
 **********************/
 
+.form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-forms {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.update-profile-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vh;
+}
+
+.update-profile-button {
+    background-color: #002129;
+    border: 2px solid #002129;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+    width: 15vw;
+    height: 7vh;
+    text-decoration: none;
+    margin: 0;
+    flex-direction: row;
+    align-content: center;
+}
+
+    .update-profile-button:hover {
+        background-color: #005266;
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+/**********************
+**********************/
 .separator {
     background-color: aliceblue;
 }
@@ -574,12 +615,6 @@ select {
 /* ===== Google Font Import - Poformsins ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-
-
-
-
-
-
 .password {
     max-width: 730px;
 }
@@ -745,9 +780,9 @@ select {
     display: flex;
 }
 
-/*
+/****************************
     Product Details Page
-*/
+****************************/
 
 img.product-image {
     display: block;
@@ -774,20 +809,40 @@ img.product-image {
     margin: 0 0 4px 0;
 }
 
+.sizes-flexbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
 div.sizes {
-    float: left;
     text-align: center;
     cursor: pointer;
-    display: inline-block;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1;
     margin: 0 6px 6px 0;
-    padding: 9px 12px;
+    padding: 0;
+    width: 40px;
+    height: 40px;
     border: 2px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.sizes p {
+    vertical-align: middle;
 }
 
 div.sizes:hover, div.selected {
     border: 2px solid black;
+}
+
+span.sizeName {
+    text-align: center;
+    display: inline-block;
 }
 
 .product-category {
@@ -812,15 +867,37 @@ div.sizes:hover, div.selected {
 
 .product-sizes-container p {
     font-size: 20px;
-    margin: 0 0 5px 0;
+    margin: 0 0 10px 0;
 }
 
 .add-to-cart-container {
     display: block;
 }
 
-.add-to-cart-btn {
-    display: block;
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.7;
+}
+
+#add-to-cart-button {
+    background-color: #002129;
+    border: 2px solid #002129;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px 36px;
+    text-decoration: none;
+    margin-top: 25px;
+}
+
+.add-to-cart-button:hover {
+    background-color: #005266;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 /*

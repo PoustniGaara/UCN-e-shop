@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
+using WebApiClient.RestSharpClientImplementation;
 using WebAppMVC.ActionFilters;
+using WebAppMVC.Tools;
 using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
@@ -34,6 +37,24 @@ namespace WebAppMVC.Controllers
             return View(userDetailsVM);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> UpdateProfile(UserEditVM user)
+        {
+            var succes = await _userClient.UpdateAsync(_mapper.Map<UserDto>(user));
+            if (succes) 
+                return View();
+            else 
+                return null;       
+        }
 
+        [HttpPost]
+        public async Task<ActionResult> UpdatePassword(UserEditVM user)
+        {
+            var succes = await _userClient.UpdateAsync(_mapper.Map<UserDto>(user));
+            if (succes)
+                return View();
+            else
+                return null;
+        }
     }
 }
