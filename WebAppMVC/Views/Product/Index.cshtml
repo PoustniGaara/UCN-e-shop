@@ -9,7 +9,6 @@
     <div class="productscontainer">
         <div class="categories">
             <div class="ctitle">Categories</div>
-
             <input type="checkbox" id="Category1" name="vehicle1" value="Bike">
             <label for="vehicle1"> Category 1 </label><br>
             <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
@@ -36,22 +35,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="title">@Html.DisplayFor(modelItem => productDto.Name)</div>
-                                    <div class="price">@Html.DisplayFor(modelItem => productDto.Price)  </div>
+                                    <div class="price">@Html.DisplayFor(modelItem => productDto.Price) Kr.</div>
                                 </div>
                             </div>
                         </li>
                     }
                 </ul>
-                @*<div class="fproduct">
-                    <div class="img">img</div>
-                    <div class="row">
-                        <div class="title">Product 1</div>
-                        <div class="price">$599.99</div>
-                    </div>
-                </div>*@
-                
             </div>
         </div>
     </div>
-
 </body>
