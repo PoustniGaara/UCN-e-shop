@@ -16,6 +16,15 @@ namespace WebAppMVC.Controllers
             _mapper = mapper;
         }
 
+        public async Task<ActionResult> Edit(string email)
+        {
+            var userDto = await _userClient.GetByEmailAsync(email);
+
+            UserEditVM userEditVM = _mapper.Map<UserEditVM>(userDto);
+
+            return View(userEditVM);
+        }
+
         public async Task<ActionResult> Details(string email)
         {
             var userDto = await _userClient.GetByEmailAsync(email);
@@ -25,14 +34,6 @@ namespace WebAppMVC.Controllers
             return View(userDetailsVM);
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
     }
 }

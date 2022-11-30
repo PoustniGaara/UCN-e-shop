@@ -37,7 +37,7 @@
         <div class="questions-box">
             <p>Questions?</p>
             <p>
-                <a href="">
+                <a class="a-link" href="mailto:ucnwebshop@@gmail.com">
                     customerservice.dk@@ucn.com
                 </a>
             </p>
@@ -46,33 +46,41 @@
 
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a class="a-link" href='@Url.Action("Edit","User",new { Model.Email })'> Edit Account</a>
 </div>
 
 <hr />
 <h3 class="account-title">Order history</h3>
-<div class="scrollable-table">
-    <table>
-        <thead>
-            <tr>
-                <th>DATE</th>
-                <th>ORDER ID</th>
-                <th>COST</th>
-                <th>STATUS</th>
-                <th>ACTION</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                @foreach(var order in Model.Orders){
-                    <td>@order.Date</td>
-                    <td>@order.Id</td>
-                    <td>@order.TotalPrice</td>
-                    <td>@order.Status</td>
-                    <td><a href="@Url.Action("Details", "Order", new {order.Id})">View details</a></td>
-                }
-            </tr>
-        </tbody>
-    </table>
-</div>
+@*If there are no orders*@
+@if(Model.Orders.Count() < 1){
+    <p class="p-center">You don't have any orders.</p>
+}
+@*If there are orders*@
+else{
+    <div class="scrollable-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>DATE</th>
+                    <th>ORDER ID</th>
+                    <th>COST</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @foreach (var order in Model.Orders)
+                    {
+                        <td>@order.Date</td>
+                        <td>@order.Id</td>
+                        <td>@order.TotalPrice</td>
+                        <td>@order.Status</td>
+                        <td><a href="@Url.Action("Details", "Order", new {order.Id})">View details</a></td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}
+

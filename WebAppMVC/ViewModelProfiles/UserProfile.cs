@@ -9,6 +9,8 @@ namespace WebAppMVC.ViewModelProfiles
         public UserProfile()
         {
             CreateMap<UserDto, UserDetailsVM>();
+
+            CreateMap<UserDto, UserEditVM>();
         }
     }
 }

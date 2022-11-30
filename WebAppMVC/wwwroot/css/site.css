@@ -40,6 +40,77 @@ body {
 .logo {
     width: 100px;
 }
+<<<<<<< Updated upstream
+=======
+/*USER DETAILS PAGE
+**********************
+**********************
+**********************/
+
+.account-title {
+    align-self: center;
+    text-align: center;
+    margin: 40px 0;
+}
+
+.acount-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.acount-info-child {
+    width: 33%;
+    flex: 1;
+}
+
+
+.questions-box {
+    padding: 30px;
+    border: 2px solid;
+    border-color: black;
+    
+}
+
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table;
+    text-indent: initial;
+}
+
+.thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+
+/*GENERAL
+**********************
+**********************
+**********************/
+
+.p-center {
+    align-self: center;
+    text-align: center;
+}
+
+.a-link {
+    font-weight: 500;
+    color: #004050;
+    text-decoration: none;
+}
+/*********************
+**********************
+**********************
+**********************/
+>>>>>>> Stashed changes
 .menu {
     display: flex;
 }
