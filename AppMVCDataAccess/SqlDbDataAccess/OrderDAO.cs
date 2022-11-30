@@ -26,13 +26,14 @@ namespace DataAccessLayer.SqlDbDataAccess
             using SqlConnection connection = new SqlConnection(connectionstring);
          
             connection.Open();
-            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
 
             SqlCommand command = connection.CreateCommand();
             command.Transaction = transaction;
             try
             {
-                command.CommandText = "INSERT INTO dbo.[Order] (date, total, address, note, status, customer) VALUES (@date, @total, @address, @note, @status, @customer); SELECT CAST(scope_identity() AS int)";
+                command.CommandText = "INSERT INTO dbo.[Order] (date, total, address, note, status, customer) VALUES " +
+                            "(@date, @total, @address, @note, @status, @customer); SELECT CAST(scope_identity() AS int)";
                 command.Parameters.AddWithValue("@date", DateTime.Now);
                 command.Parameters.AddWithValue("@total", order.TotalPrice);
                 command.Parameters.AddWithValue("@address", order.Address);
