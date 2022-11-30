@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApi.DTOs
+namespace DataAccessLayer.Interfaces
 {
     public interface IEntity
     {

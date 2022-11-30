@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using WebApi.DTOs;
 using WebApi.ActionFilters;
 using DataAccessLayer.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
@@ -60,6 +61,7 @@ namespace WebApi.Controllers
 
         //POST api/<ProductController>
         [ServiceFilter(typeof(ValidationFilter))]
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromBody] ProductDto newProductDto)
         {
@@ -70,6 +72,7 @@ namespace WebApi.Controllers
 
         //PUT api/<ProductController>/5
         [ServiceFilter(typeof(ValidationFilter))]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] ProductDto updatedProductDto)
         {
@@ -84,6 +87,7 @@ namespace WebApi.Controllers
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult> Delete(int id)
         {
            Product product = await _dataAccess.GetByIdAsync(id);

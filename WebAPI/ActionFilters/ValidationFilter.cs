@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Principal;
 using WebApi.DTOs;
+using DataAccessLayer.Interfaces;
 
 namespace WebApi.ActionFilters
 {

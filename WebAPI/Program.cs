@@ -13,15 +13,36 @@ using WebApi.DTOs;
 using NLog;
 using WebApi.DtoProfiles;
 using WebApi.MapperProfiles;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//JWT authentication
+builder.Services.AddAuthentication(opt => {
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "https://localhost:5001",
+            ValidAudience = "https://localhost:5001",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+        };
+    });
 
 //Logger manager config
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
-// Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+//// Add services to the container.
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 //Data acces
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -43,7 +64,7 @@ builder.Services.AddSwaggerGen();
 //Add controllers with option with global filters
 builder.Services.AddControllers(options =>
 {
-    //options.Filters.Add<ExceptionFilter>();
+    options.Filters.Add<ExceptionFilter>();
 });
 
 //Register scoped filters
