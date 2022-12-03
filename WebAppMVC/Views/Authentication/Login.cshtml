@@ -1,0 +1,22 @@
+﻿@model WebAppMVC.ViewModels.LoginModelVM
+
+<h1 class="account-title">Login</h1>
+<div class="login-div">
+    <form method="post" action="@Url.Action("Login", "Authentication")" class="login-form">
+        <div class="login-input-field">
+            <input type="text" name="email" placeholder="Email" class="form-control" />
+            <input type="password" name="password" placeholder="Password" class="form-control" />
+            <input type="submit" value="Login" class="button-1" />
+        </div>
+
+    </form>
+
+    <div class="login-signup">
+        <span class="text">
+            Not a member?
+            <a class="a-link" href='@Url.Action("Register","User")'>Register Now</a>
+        </span>
+    </div>
+</div>
+
+

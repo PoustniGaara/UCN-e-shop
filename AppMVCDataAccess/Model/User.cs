@@ -30,14 +30,13 @@ namespace DataAccessLayer.Model
             Orders = orders;
         }
 
-        public User(string email, string name, string surename, string phoneNumber, string address, string username, string password, bool isAdmin)
+        public User(string email, string name, string surename, string phoneNumber, string address, string password, bool isAdmin)
         {
             Email = email;
             Name = name;
             Surname = surename;
             PhoneNumber = phoneNumber;
             Address = address;
-            Username = username;
             Password = password;
             IsAdmin = isAdmin;
         }

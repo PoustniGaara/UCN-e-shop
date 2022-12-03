@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApiClient.Interfaces
+namespace WebApi.C
 {
-    public interface ILoginClient
+    public interface IEntity
     {
     }
 }

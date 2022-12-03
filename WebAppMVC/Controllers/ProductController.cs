@@ -11,6 +11,7 @@ using System.Drawing;
 using NLog.Fluent;
 using System.Collections.Generic;
 using System.Collections;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppMVC.Controllers
 {

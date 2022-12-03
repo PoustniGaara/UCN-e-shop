@@ -1,25 +1,8 @@
-//namespace WebAppMVC
-//{
-//    public class Program
-//    {
-//        public static void Main(string[] args)
-//        {
-//            CreateHostBuilder(args).Build().Run();
-//        }
-
-//        public static IHostBuilder CreateHostBuilder(string[] args) =>
-//            Host.CreateDefaultBuilder(args)
-//                .ConfigureWebHostDefaults(webBuilder =>
-//                {
-//                    webBuilder.UseStartup<Startup>();
-//                });
-//    }
-//}
-
-
 using LoggerService;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using WebApiClient;
 using WebApiClient.Interfaces;
+using WebApiClient.RestSharp_Client_Implementation;
 using WebApiClient.RestSharpClientImplementation;
 using WebAppMVC;
 using WebAppMVC.ActionFilters;
@@ -45,6 +28,20 @@ builder.Services.AddScoped<IOrderClient>((cs) => orderClient);
 string userUrl = "https://localhost:44346/api/v1/users";
 IUserClient userClient = new UserClient(userUrl);
 builder.Services.AddScoped<IUserClient>((cs) => userClient);
+
+//Authentication client 
+string authUrl = "https://localhost:44346/api/v1/authentication";
+IAuthenticationClient authenticationClient = new AuthenticationClient(authUrl);
+builder.Services.AddScoped<IAuthenticationClient>((cs) => authenticationClient);
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, 
+            options =>
+            {
+                options.LoginPath = "/Authentication/Login";
+                options.LogoutPath = "/Authentication/LogOut";
+
+            });
 
 
 //AutoMapper config
@@ -87,7 +84,9 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

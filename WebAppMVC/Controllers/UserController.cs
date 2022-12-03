@@ -37,7 +37,21 @@ namespace WebAppMVC.Controllers
             return View(userDetailsVM);
         }
 
-<<<<<<< Updated upstream
+        [HttpPost]
+        public async Task<ActionResult> Create(UserEditVM userVM)
+        {
+            UserDto userDto = _mapper.Map<UserDto>(userVM);
+
+            await _userClient.CreateAsync(userDto);
+
+            return RedirectToAction("Login", "Authentication");
+        }
+
+
+        public async Task<ActionResult> Register() => View(new UserEditVM());
+       
+
+
         [HttpPost]
         public async Task<ActionResult> UpdateProfile(UserEditVM user)
         {
@@ -57,7 +71,5 @@ namespace WebAppMVC.Controllers
             else
                 return null;
         }
-=======
->>>>>>> Stashed changes
     }
 }

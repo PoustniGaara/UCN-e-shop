@@ -1,0 +1,29 @@
+﻿@model WebAppMVC.ViewModels.UserEditVM
+
+<h1 class="account-title">Register</h1>
+<div class="login-div">
+    <form asp-action="Create" class="login-form">
+            @*<div class="input-field">
+                <input type="text" placeholder="Enter your name" required>
+                <i class="uil uil-user"></i>
+            </div>*@
+            <div class="login-input-field">
+                <input type="text" name="Name" placeholder="Enter your name" class="form-control" />
+            <input type="text" name="Surname" placeholder="Enter your Surname" class="form-control" />
+                <input type="text" name="Email" placeholder="Enter your Email" class="form-control" />
+                <input type="password" name="Password" placeholder="Enter your password" class="form-control" />
+            <input type="password" name="Password" placeholder="Confirm your password" class="form-control" />
+            <input type="text" name="PhoneNumber" placeholder="Enter your phone number" class="form-control" />
+                <input type="text" name="Address" placeholder="Enter your full address" class="form-control" />
+                <input type="submit" value="Create" class="button-1">
+            </div>
+        </form>
+
+    <div class="login-signup">
+        <span class="text">
+            Already a member?
+            <a class="a-link" href='@Url.Action("Login","Authentication")'>Login Now</a>
+        </span>
+    </div>
+</div>
+

@@ -10,7 +10,8 @@ namespace WebAppMVC.ViewModelProfiles
         {
             CreateMap<UserDto, UserDetailsVM>();
 
-            CreateMap<UserDto, UserEditVM>();
+            CreateMap<UserDto, UserEditVM>()
+                .ReverseMap();
         }
     }
 }

@@ -8,7 +8,6 @@ using WebApi.DTOs;
 namespace WebApi.Controllers
 {
     [Route("api/v1/[controller]")]
-    [Authorize]
     [ApiController]
     public class UsersController : ControllerBase
     {

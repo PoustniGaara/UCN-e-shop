@@ -25,29 +25,19 @@ namespace DataAccessLayer.SqlDbDataAccess
             using SqlConnection connection = new SqlConnection(connectionstring);
 
             connection.Open();
-            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
 
             SqlCommand command = connection.CreateCommand();
-            command.Transaction = transaction;
 
-            try
-            {
-                command.CommandText = "INSERT INTO dbo.[User] (email, name, surename, phone, address, username, password, isAdmin) VALUES (@email, @name, @surename, @phone, @address, @username, @password, @isAdmin);)";
-                command.Parameters.AddWithValue("@email", user.Email);
-                command.Parameters.AddWithValue("@name", user.Name);
-                command.Parameters.AddWithValue("@surename", user.Surname);
-                command.Parameters.AddWithValue("@phone", user.PhoneNumber);
-                command.Parameters.AddWithValue("@address", user.Address);
-                command.Parameters.AddWithValue("@username", user.Username);
-                command.Parameters.AddWithValue("@password", user.Password);
-                command.Parameters.AddWithValue("@isAdmin", user.IsAdmin);
+            command.CommandText = "INSERT INTO dbo.[User] (email, name, surname, phone, address, password, isAdmin) VALUES (@email, @name, @surname, @phone, @address, @password, @isAdmin)";
+            command.Parameters.AddWithValue("@email", user.Email);
+            command.Parameters.AddWithValue("@name", user.Name);
+            command.Parameters.AddWithValue("@surname", user.Surname);
+            command.Parameters.AddWithValue("@phone", user.PhoneNumber);
+            command.Parameters.AddWithValue("@address", user.Address);
+            command.Parameters.AddWithValue("@password", user.Password);
+            command.Parameters.AddWithValue("@isAdmin", user.IsAdmin);
+            command.ExecuteNonQuery();
 
-                transaction.Commit();
-            }
-            catch
-            {
-                transaction.Rollback();
-            }
             return user.Email;
         }
 
@@ -88,7 +78,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 while (reader.Read())
                 {
                     // dorobit
-                    users.Add(new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin")));
+                    users.Add(new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("password"), reader.GetBoolean("isAdmin")));
                 }
             }
             finally
@@ -128,9 +118,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                 connection.Open();
                 SqlCommand command = new SqlCommand("SELECT * from [User] where email = @email and password = @password", connection);
                 command.Parameters.AddWithValue("@email", email);
-                command.Parameters.AddWithValue("@name", password);
+                command.Parameters.AddWithValue("@password", password);
                 SqlDataReader reader = command.ExecuteReader();
-                User user = new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surename"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin"));
+                reader.Read();
+                User user = new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"),  reader.GetString("password"), reader.GetBoolean("isAdmin"));
                 return user;
             }
             finally

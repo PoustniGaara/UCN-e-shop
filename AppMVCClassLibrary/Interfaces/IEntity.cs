@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApiClient.RestSharp_Client_Implementation
+namespace WebApiClient.Interfaces
 {
-    public class LoginClient
+    public interface IEntity
     {
     }
 }
