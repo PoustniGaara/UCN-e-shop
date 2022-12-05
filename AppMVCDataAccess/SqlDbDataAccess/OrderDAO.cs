@@ -50,10 +50,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                 }
                 transaction.Commit();
             }
-            catch
+            catch(Exception ex)
             {
                 transaction.Rollback();
-
+                throw new Exception($"Error creating order: '{ex.Message}'.", ex);
             }
             finally
             {

@@ -57,30 +57,35 @@
 }
 @*If there are orders*@
 else{
-    <div class="scrollable-table">
-        <table>
-            <thead>
-                <tr>
-                    <th>DATE</th>
-                    <th>ORDER ID</th>
-                    <th>COST</th>
-                    <th>STATUS</th>
-                    <th>ACTION</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    @foreach (var order in Model.Orders)
-                    {
-                        <td>@order.Date</td>
-                        <td>@order.Id</td>
-                        <td>@order.TotalPrice</td>
-                        <td>@order.Status</td>
-                        <td><a href="@Url.Action("Details", "Order", new {order.Id})">View details</a></td>
-                    }
-                </tr>
-            </tbody>
-        </table>
+    <div class="orders-section-row">
+        <div class="scrollable-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>DATE</th>
+                        <th>ORDER ID</th>
+                        <th>COST</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        @foreach (var order in Model.Orders)
+                        {
+                        <tr>
+                            <td>@order.Date.ToString("dd/MM/yyyy")</td>
+                            <td>@order.Id</td>
+                            <td>@order.TotalPrice</td>
+                            <td>@order.Status</td>
+                            <td><a href="@Url.Action("Details", "Order", new {order.Id})" class="a-link">View details</a></td>
+                        </tr>
+                        }
+                    
+                </tbody>
+            </table>
+        </div>
     </div>
+    
 }
 

@@ -69,6 +69,7 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IProductDataAccess>(connectionString));
 builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IOrderDataAccess>(connectionString));
 builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<IUserDataAccess>(connectionString));
+builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<ICategoryDataAccess>(connectionString));
 
 //AutoMapper config
 builder.Services.AddAutoMapper(typeof(Program));

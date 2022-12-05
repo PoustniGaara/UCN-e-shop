@@ -12,19 +12,25 @@ using NLog.Fluent;
 using System.Collections.Generic;
 using System.Collections;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace WebAppMVC.Controllers
 {
     [ServiceFilter(typeof(ExceptionFilter))]
     public class ProductController : Controller
     {
-        private IProductClient _client;
+        private const string categoryListCacheKey = "categoryList";
+        private IMemoryCache _cache;
+        private IProductClient _productclient;
+        private ICategoryClient _categoryclient;
         private readonly IMapper _mapper;
 
 
-        public ProductController(IProductClient client, IMapper mapper)
+        public ProductController(IProductClient prodClient, ICategoryClient catClient, IMapper mapper, IMemoryCache cache)
         {
-            _client = client;
+            _cache = cache;
+            _productclient = prodClient;
+            _categoryclient = catClient;
             _mapper = mapper;
         }
 
@@ -32,10 +38,20 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Index()
         {
             //Get the IEnumerable from API client
-            IEnumerable<ProductDto> productDtoList = await _client.GetAllAsync();
+            IEnumerable<ProductDto> productDtoList = await _productclient.GetAllAsync();
 
             //Create new view model
             ProductIndexVM productIndexVM = _mapper.Map<ProductIndexVM>(productDtoList);
+
+            //Try to get categories from cache
+            if(_cache.TryGetValue(categoryListCacheKey, out IEnumerable<string> categories))
+            {
+                productIndexVM.Categories = categories;
+            }
+            else
+            {
+                IEnumerable<string> categories = 
+            }
 
             return View(productIndexVM);
         }
@@ -45,7 +61,7 @@ namespace WebAppMVC.Controllers
             var cart = HttpContext.GetCart();
             var items = cart.Items.ToList();
             int sizeId = SizeToIdConverter.ConvertSizeToId(size);
-            var productDto = await _client.GetByIdAsync(id);
+            var productDto = await _productclient.GetByIdAsync(id);
            
             if(items.Where(i => i.ProductId == id && i.SizeId == sizeId).Any()) {
                 int index = items.FindIndex(i => i.ProductId == id && i.SizeId == sizeId);
@@ -63,7 +79,7 @@ namespace WebAppMVC.Controllers
         // GET: ProductController/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var productDto = await _client.GetByIdAsync(id);
+            var productDto = await _productclient.GetByIdAsync(id);
             ProductDetailsVM productDetailsVM = _mapper.Map<ProductDetailsVM>(productDto);
 
             return View(productDetailsVM);

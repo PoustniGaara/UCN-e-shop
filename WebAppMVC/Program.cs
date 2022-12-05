@@ -29,6 +29,11 @@ string userUrl = "https://localhost:44346/api/v1/users";
 IUserClient userClient = new UserClient(userUrl);
 builder.Services.AddScoped<IUserClient>((cs) => userClient);
 
+//Category client 
+string categoryUrl = "https://localhost:44346/api/v1/categories";
+ICategoryClient categoryClient = new CategoryClient(categoryUrl);
+builder.Services.AddScoped<ICategoryClient>((cs) => categoryClient);
+
 //Authentication client 
 string authUrl = "https://localhost:44346/api/v1/authentication";
 IAuthenticationClient authenticationClient = new AuthenticationClient(authUrl);
