@@ -8,7 +8,7 @@ namespace DataAccessLayer.Interfaces
         public Task<Product> GetByIdAsync(int id);
         public Task<int> CreateAsync(Product product);
         public Task<bool> DeleteAsync(int id);
-        public Task<bool> UpdateAsync(Product product);
+        public Task UpdateAsync(Product product);
         public Task<IEnumerable<Product>> GetAllByCategoryAsync(string category);
     }
 

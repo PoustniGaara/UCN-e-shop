@@ -12,7 +12,7 @@ namespace DataAccessLayer.Interfaces
     {
         public Task<IEnumerable<ProductSizeStock>> GetByProductIdAsync(int id);
         public Task<ProductSizeStock> GetByIdAsync(int id);
-        public Task CreateAsync(ProductSizeStock productSizeStock);
+        public Task CreateSizeStocksFromProductListAsync(SqlCommand command, int product_id, IEnumerable<ProductSizeStock> productSizeStocks);
         public Task DeleteAsync(int id);
         public Task<bool> DecreaseStockWithCheck(SqlCommand command, int productId, int sizeId, int amountToDecrease);
     }

@@ -49,9 +49,15 @@ namespace DataAccessLayer.SqlDbDataAccess
                     await lineItemDAO.CreateLineItemAsync(command, id, item);
                 }
                 transaction.Commit();
-            } catch
+            }
+            catch
             {
                 transaction.Rollback();
+
+            }
+            finally
+            {
+                connection.Close();
             }
             return id;
         }
@@ -74,12 +80,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                 await lineItemDAO.DeleteOrderLineItemsAsync(id);
 
                 transaction.Commit();
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                Console.WriteLine("An error occured while deleting an Order: " + ex);
-                return false;
             }
             finally
             {
@@ -108,14 +108,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                     orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items));
                 }
             }
-            catch (SqlException sqlex)
-            {
-                Console.WriteLine("An sql error occured while trying to retrieve all the accounts from the database: " + sqlex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An unspecified error occured while trying to retrieve all the accounts from the database: " + ex);
-            }
             finally
             {
                 connection.Close();
@@ -142,14 +134,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                 List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
                 return new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items);
             }
-            catch (SqlException sqlex)
-            {
-                Console.WriteLine("An sql error occured while trying to retrieve all the accounts from the database: " + sqlex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An unspecified error occured while trying to retrieve all the accounts from the database: " + ex);
-            }
             finally
             {
                 connection.Close();
@@ -164,22 +148,15 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();
-                SqlCommand selectCommand = new SqlCommand("Select * from [Order] where customer = " + email);
-                selectCommand.Connection = connection;
-                SqlDataReader reader = selectCommand.ExecuteReader();
+                SqlCommand command = new SqlCommand("Select * from [Order] where customer = @email", connection);
+                command.Parameters.AddWithValue("@email", email);
+                //command.Connection = connection;
+                SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
                     orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), new User { Email = email, }, items));
                 }
-            }
-            catch (SqlException sqlex)
-            {
-                Console.WriteLine("A sql error occured while trying to retrieve all the accounts from the database: " + sqlex);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An unspecified error occured while trying to retrieve all the accounts from the database: " + ex);
             }
             finally
             {
@@ -190,11 +167,6 @@ namespace DataAccessLayer.SqlDbDataAccess
 
         public async Task<bool> UpdateOrderAsync(Order order)
         {
-            if (order == null)
-            {
-                return false;
-                throw new NullReferenceException();
-            }
 
             using SqlConnection connection = new SqlConnection(connectionstring);
             try
@@ -212,10 +184,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                     return true;
                 else
                     return false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occured while updateing name of an account: " + ex);
             }
             finally
             {

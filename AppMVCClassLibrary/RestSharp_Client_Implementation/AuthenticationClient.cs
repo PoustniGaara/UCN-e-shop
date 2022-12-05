@@ -14,7 +14,6 @@ namespace WebApiClient.RestSharp_Client_Implementation
             var request = new RestRequest();
             request.AddBody(loginModel);
             var response = await _client.PostAsync(request);
-            Console.WriteLine(request);
             return response.Content;
         }
     }

@@ -24,9 +24,20 @@ namespace DataAccessLayer.SqlDbDataAccess
         }
         #endregion
 
-        public Task CreateAsync(ProductSizeStock productSizeStock)
+        public async Task CreateSizeStocksFromProductListAsync(SqlCommand command, int product_id, IEnumerable<ProductSizeStock> productSizeStocks)
         {
-            throw new NotImplementedException();
+            command.Parameters.Clear();
+            command.CommandText = "INSERT INTO dbo.ProductStock (product_id, size_id, stock) VALUES (@product_id, @size_id, @stock)";
+
+            foreach(ProductSizeStock productSizeStock in productSizeStocks)
+            {
+                command.Parameters.AddWithValue("@product_id", product_id);
+                command.Parameters.AddWithValue("@size_id", productSizeStock.Id);
+                command.Parameters.AddWithValue("@stock", productSizeStock.Stock);
+
+                command.ExecuteNonQuery();
+            }
+            
         }
 
         public Task DeleteAsync(int id)

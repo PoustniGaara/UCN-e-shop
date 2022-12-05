@@ -79,20 +79,35 @@ body {
     
 }
 
-.table {
+.scrollable-table{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 70%;
+}
+
+table {
     border-collapse: collapse;
     border-spacing: 0;
     display: table;
     text-indent: initial;
+    width: 100%;
 }
 
-.thead {
+thead {
     display: table-header-group;
     vertical-align: middle;
     border-color: inherit;
 }
 
-.tr {
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+
+tr {
     display: table-row;
     vertical-align: inherit;
     border-color: inherit;

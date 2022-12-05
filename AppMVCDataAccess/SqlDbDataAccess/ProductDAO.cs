@@ -47,14 +47,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                 }
                 return products;
             }
-            catch (SqlException sqlex)
-            {
-                throw sqlex;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An unspecified error occured while trying to retrieve all the products from the database: " + ex.Message);
-            }
             finally
             {
                 connection.Close();
@@ -62,9 +54,41 @@ namespace DataAccessLayer.SqlDbDataAccess
         }
 
 
-        public async Task<int> CreateAsync(Product order)
+        public async Task<int> CreateAsync(Product product)
         {
-            return 5;
+            int id = 0;
+            using SqlConnection connection = new SqlConnection(connectionString);
+
+            connection.Open();
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            try
+            {
+                command.CommandText = "INSERT INTO dbo.Product (name, description, price, category) VALUES " +
+                            "(@name, @description, @price, @category); SELECT CAST(scope_identity() AS int)";
+                command.Parameters.AddWithValue("@name", product.Name);
+                command.Parameters.AddWithValue("@description", product.Description);
+                command.Parameters.AddWithValue("@price", product.Price);
+                command.Parameters.AddWithValue("@category", product.Category);
+                id = (int)command.ExecuteScalar();
+
+                await sizeStockDAO.CreateSizeStocksFromProductListAsync(command, id, product.ProductSizeStocks);
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+            }
+            finally
+            {
+                connection.Close();
+                
+
+            }
+            return id;
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -79,14 +103,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 await sizeStockDAO.DeleteAsync(id);
             }
-            catch (SqlException sqlex)
-            {
-                throw sqlex;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An unspecified error occured while trying to retrieve all the products from the database: " + ex.Message);
-            }
             finally
             {
                 connection.Close();
@@ -94,9 +110,24 @@ namespace DataAccessLayer.SqlDbDataAccess
             return true;
         }
 
-        public async Task<bool> UpdateAsync(Product product)
+        public async Task UpdateAsync(Product product)
         {
-            return true;
+            using SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("UPDATE dbo.Product SET name = @name, description = @description, price = @price, category = @category WHERE id = @id", connection);
+                command.Parameters.AddWithValue("@id", product.Id);
+                command.Parameters.AddWithValue("@name", product.Name);
+                command.Parameters.AddWithValue("@description", product.Description);
+                command.Parameters.AddWithValue("@price", product.Price);
+                command.Parameters.AddWithValue("@category", product.Category);
+                command.ExecuteNonQuery();
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public async Task<Product> GetByIdAsync(int id) 
@@ -112,14 +143,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                 reader.Read();
                 List<ProductSizeStock> productSizeStocks = (List<ProductSizeStock>)await sizeStockDAO.GetByProductIdAsync(id);
                 return new Product(reader.GetInt32("id"), reader.GetString("name"), reader.GetString("description"), reader.GetDecimal("price"), productSizeStocks, reader.GetString("category"));
-            }
-            catch (SqlException sqlex)
-            {
-                throw sqlex;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An unspecified error occured while trying to retrieve the product from the database: " + ex.Message);
             }
             finally
             {
@@ -143,14 +166,6 @@ namespace DataAccessLayer.SqlDbDataAccess
                     products.Add(new Product(reader.GetInt32("id"), reader.GetString("name"), reader.GetString("description"), reader.GetDecimal("price"), productSizeStocks, reader.GetString("category")));
                 }
                 return products;
-            }
-            catch (SqlException sqlex)
-            {
-                throw sqlex;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An unspecified error occured while trying to retrieve all the products from the database: " + ex.Message);
             }
             finally
             {
