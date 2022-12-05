@@ -5,16 +5,19 @@
     <h1 class="product-title">@Html.DisplayFor(model => model.PageTitle)</h1>
 
     <div class="productscontainer">
-        <div class="categories">
+        <div class="category-panel">
             <div class="ctitle">Categories</div>
-            <input type="checkbox" id="Category1" name="vehicle1" value="Bike">
-            <label for="vehicle1"> Category 1 </label><br>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-            <label for="vehicle1"> Category 2 </label>
-            <br><input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-            <label for="vehicle1"> Category 3 </label>
-            <br><input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-            <label for="vehicle1"> Category 4 </label><br>
+            <div class="category-list-panel">
+                <ul class="category-list">
+                    @foreach (var category in @Model.Categories)
+                    {
+                        <li >
+                            <a class="category-link" href="@Url.Action("Index", "Product", new{ category = category.Name})">@category.Name</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            
         </div>
         <div class="products-items">
             <div class="settings">

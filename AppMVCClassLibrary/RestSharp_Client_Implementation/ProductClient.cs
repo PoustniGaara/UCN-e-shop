@@ -6,20 +6,8 @@ namespace WebApiClient.RestSharpClientImplementation
 {
     public class ProductClient : IProductClient
     {
-
         RestClient _client;
         public ProductClient(string restUrl) => _client = new RestClient(restUrl);
-
-        //public async Task<IEnumerable<ProductDto>?> GetAllByCategoryAsync(string? category)
-        //{
-        //    var response = await _client.ExecuteGetAsync<IEnumerable<ProductDto>>(new RestRequest($"{category}"));
-        //    if (!response.IsSuccessful)
-        //    {
-        //        throw new Exception($"Error in client retrieving all products. Message was {response.Content}");
-        //    }
-
-        //    return response.Data;
-        //}
 
         public async Task<ProductDto?> GetByIdAsync(int id)
         {
@@ -27,10 +15,11 @@ namespace WebApiClient.RestSharpClientImplementation
             return await _client.GetAsync<ProductDto?>(request);
         }
 
-        public async Task<IEnumerable<ProductDto>?> GetAllAsync()
+        public async Task<IEnumerable<ProductDto>?> GetAllAsync(string? category)
         {
+            var request = new RestRequest().AddQueryParameter("category", category);
+            return await _client.GetAsync<IEnumerable<ProductDto>>(request);
 
-            return await _client.GetAsync<IEnumerable<ProductDto>>(new RestRequest());
             //var response = await _client.ExecuteGetAsync<IEnumerable<ProductDto>>(new RestRequest());
             //if (!response.IsSuccessful)
             //{
@@ -38,13 +27,5 @@ namespace WebApiClient.RestSharpClientImplementation
             //}
             //return response.Data;
         }
-
-        public async Task<IEnumerable<ProductDto>?> GetAllByCategoryAsync(string? category)
-        {
-            var request = new RestRequest()
-           .AddQueryParameter("category", category);
-            return await _client.GetAsync<IEnumerable<ProductDto>>(request);
-        }
-
     }
 }

@@ -8,13 +8,13 @@ namespace WebApi.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class CategoryController : Controller
+    public class CategoriesController : Controller
     {
             #region Properties and Constructor
             ICategoryDataAccess _categoryDataAccess;
             private readonly IMapper _mapper;
 
-            public CategoryController(ICategoryDataAccess categoryDataAccess, IMapper mapper)
+            public CategoriesController(ICategoryDataAccess categoryDataAccess, IMapper mapper)
             {
                 _categoryDataAccess = categoryDataAccess;
                 _mapper = mapper;

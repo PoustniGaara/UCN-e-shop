@@ -59,7 +59,7 @@ body {
 .account-title {
     align-self: center;
     text-align: center;
-    margin: 40px 0;
+    margin: 4%;
 }
 
 .acount-info {
@@ -271,6 +271,33 @@ tbody {
     color: #ffffff;
 }
 
+/**********************
+        Product
+**********************/
+
+.category-link {
+    font-weight:bold;
+    font-size:x-large;
+    color: #004050;
+    text-decoration: none;
+}
+
+.category-panel{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: initial;
+    align-items: flex-start;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+
+.category-list-panel {
+}
+
 .product-list {
     display: flex;
     flex-wrap: wrap;
@@ -284,10 +311,8 @@ tbody {
 }
 
 .product-title{
-    text-align: left;
-    align-self: start;
-    padding: 40px 0;
-    
+    padding: 2%;
+    margin-left: 2%;
 }
 
 .product-list li img {

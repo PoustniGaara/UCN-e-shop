@@ -159,6 +159,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 connection.Open();
                 string query = "SELECT * FROM Product where category = @category";
                 SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@category", category);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
