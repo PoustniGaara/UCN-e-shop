@@ -100,7 +100,7 @@ namespace Testing.Backend.Controllers
         {
             //ARRANGE
             var productDto = A.Fake<ProductDto>();
-            A.CallTo(() => _productDataAcces.UpdateAsync(new Product())).Returns(true);
+            //A.CallTo(() => _productDataAcces.UpdateAsync(new Product())).Returns(true);
             //ACT
             var request = await _productsController.Put(12, productDto);
             //ASSERT

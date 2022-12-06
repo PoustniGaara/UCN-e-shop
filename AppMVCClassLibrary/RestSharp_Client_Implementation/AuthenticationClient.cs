@@ -11,8 +11,7 @@ namespace WebApiClient.RestSharp_Client_Implementation
 
         public async Task<string> LoginAsync(LoginModelDto loginModel)
         {
-            var request = new RestRequest();
-            request.AddBody(loginModel);
+            var request = new RestRequest().AddBody(loginModel);
             var response = await _client.PostAsync(request);
             return response.Content;
         }

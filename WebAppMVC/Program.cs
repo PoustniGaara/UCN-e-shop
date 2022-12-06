@@ -44,7 +44,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             options =>
             {
                 options.LoginPath = "/Authentication/Login";
-                options.LogoutPath = "/Authentication/LogOut";
+                options.LogoutPath = "/Authentication/Logout";
 
             });
 
@@ -67,7 +67,7 @@ builder.Services.AddScoped<ExceptionFilter>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(3600);
+    options.IdleTimeout = TimeSpan.FromSeconds(3600); //3600
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });

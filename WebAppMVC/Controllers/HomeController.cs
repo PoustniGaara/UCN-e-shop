@@ -14,7 +14,6 @@ namespace WebAppMVC.Controllers
             _logger = logger;
         }
 
-        [Authorize]
         public IActionResult About()
         {
             return View();

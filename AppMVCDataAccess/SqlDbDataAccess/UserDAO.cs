@@ -101,7 +101,7 @@ namespace DataAccessLayer.SqlDbDataAccess
 
                 reader.Read();
                 IEnumerable<Order> customersOrders = await orderDataAccess.GetOrdersByUserAsync(email);
-                return new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("username"), reader.GetString("password"), reader.GetBoolean("isAdmin"), customersOrders);
+                return new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("password"), reader.GetBoolean("isAdmin"), customersOrders);
 
             }
             finally
@@ -138,13 +138,12 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();                            //email, name, surename, phone, address, username, password, isAdmin
-                SqlCommand command = new SqlCommand("UPDATE [User] SET email = @email, name = @name, surename = @surename, phone = @phone, adddress = @address, username = @username, password = @password, isAdmin = @isAdmin WHERE email = @email", connection);
+                SqlCommand command = new SqlCommand("UPDATE [User] SET email = @email, name = @name, surename = @surename, phone = @phone, adddress = @address, password = @password, isAdmin = @isAdmin WHERE email = @email", connection);
                 command.Parameters.AddWithValue("@email", user.Email);
                 command.Parameters.AddWithValue("@name", user.Name);
                 command.Parameters.AddWithValue("@surename", user.Surname);
                 command.Parameters.AddWithValue("@phone", user.PhoneNumber);
                 command.Parameters.AddWithValue("@address", user.Address);
-                command.Parameters.AddWithValue("@username", user.Username);
                 command.Parameters.AddWithValue("@password", user.Password);
                 command.Parameters.AddWithValue("@isAdmin", user.IsAdmin);
                 int affected = command.ExecuteNonQuery();

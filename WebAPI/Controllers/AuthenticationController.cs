@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using WebApi.ActionFilters;
 using WebApi.DTOs;
+using WebAppMVC.Tools;
 
 namespace WebApi.Controllers
 {
@@ -42,12 +43,12 @@ namespace WebApi.Controllers
                     issuer: "https://localhost:5001",
                     audience: "https://localhost:5001",
                     claims: new List<Claim>{
-                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.Email, user.Email.Replace("@", "%40")),
                         new Claim("address",user.Address),
                         new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
                         new Claim(ClaimTypes.Name, user.Name),
                         new Claim(ClaimTypes.Surname, user.Surname),
-                        new Claim(ClaimTypes.Role, user.IsAdmin.ToString()),
+                        new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "Casual"),
                     },
                     expires: DateTime.Now.AddMinutes(20),
                     signingCredentials: signinCredentials
