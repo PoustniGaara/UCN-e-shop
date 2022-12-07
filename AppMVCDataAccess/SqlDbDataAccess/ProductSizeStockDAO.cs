@@ -109,7 +109,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             {
                 //Get the stock
                 command.Parameters.Clear();
-                command = new SqlCommand("SELECT stock FROM ProductStock WHERE product_id = @productId AND size_id = sizeId");
+                command.CommandText = "SELECT stock FROM ProductStock WHERE product_id = @productId AND size_id = sizeId";
                 command.Parameters.AddWithValue("@product_id", productId);
                 command.Parameters.AddWithValue("@size_id", sizeId);
                 SqlDataReader reader = command.ExecuteReader();
@@ -121,7 +121,7 @@ namespace DataAccessLayer.SqlDbDataAccess
 
                 //Decrease the stock
                 command.Parameters.Clear();
-                command = new SqlCommand("UPDATE ProductStock SET stock = stock - @amountToDecrease WHERE product_id = @productId AND size_id = sizeId");
+                command.CommandText = "UPDATE ProductStock SET stock = stock - @amountToDecrease WHERE product_id = @productId AND size_id = sizeId";
                 command.Parameters.AddWithValue("@amountToDecrease", amountToDecrease);
                 command.Parameters.AddWithValue("@product_id", productId);
                 command.Parameters.AddWithValue("@size_id", sizeId);
