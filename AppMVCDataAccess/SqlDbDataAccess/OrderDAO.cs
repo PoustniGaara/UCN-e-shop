@@ -26,7 +26,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             using SqlConnection connection = new SqlConnection(connectionstring);
          
             connection.Open();
-            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
 
             SqlCommand command = connection.CreateCommand();
             command.Transaction = transaction;
