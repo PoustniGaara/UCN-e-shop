@@ -1,4 +1,4 @@
-﻿namespace WebAppMVC.Exceptions
+﻿namespace WebApiClient.Exceptions
 {
 
     [Serializable]

@@ -1,15 +1,14 @@
 ﻿using LoggerService;
 using System.Net;
 using System.Net.Http;
-//using System.Web.Http.Filters;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-//using ExceptionFilterAttribute = System.Web.Http.Filters.ExceptionFilterAttribute;
+using DataAccessLayer.Exceptions;
 
 
 namespace WebApi.ActionFilters 
 {
-    public class ExceptionFilter : ExceptionFilterAttribute    //ExceptionFilterAttribute
+    public class ExceptionFilter : ExceptionFilterAttribute    
     {
         private ILoggerManager _logger;
 
@@ -18,12 +17,13 @@ namespace WebApi.ActionFilters
             _logger = logger;
         }
 
-        public override void OnException(ExceptionContext filterContext) //ExceptionContext filterContext
+        public override void OnException(ExceptionContext filterContext) 
         {
 
             _logger.LogInfo(filterContext.Exception.Message);
 
-            var result = new ObjectResult(new
+            //Unhandled exceptions path
+            ObjectResult result = new ObjectResult(new
             {
                 filterContext.Exception.Message, // Or a different generic message
                 filterContext.Exception.Source,
@@ -35,13 +35,16 @@ namespace WebApi.ActionFilters
 
             filterContext.Result = result;
 
-            //For custom exceptions
-            //if (filterContext.Exception is Exception)
-            //{
-            //    filterContext.Response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
-
-            //}
-
+            if (filterContext.Exception is WrongLoginException)
+            {
+                result.StatusCode = (int)HttpStatusCode.Forbidden;
+                filterContext.Result = result;
+            }
+            if (filterContext.Exception is ProductOutOfStockException)
+            {
+                result.StatusCode = (int)HttpStatusCode.Conflict;
+                filterContext.Result = result;
+            }
         }
     }
 

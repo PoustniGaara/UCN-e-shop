@@ -6,6 +6,7 @@ using DataAccessLayer.Interfaces;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
+using DataAccessLayer.Exceptions;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
@@ -58,6 +59,10 @@ namespace DataAccessLayer.SqlDbDataAccess
 
                 transaction.Commit();
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while deleting user from DB '{ex.Message}'.", ex);
+            }
             finally
             {
                 connection.Close();
@@ -80,6 +85,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                     // dorobit
                     users.Add(new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("password"), reader.GetBoolean("isAdmin")));
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while getting users from DB '{ex.Message}'.", ex);
             }
             finally
             {
@@ -104,6 +113,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                 return new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("password"), reader.GetBoolean("isAdmin"), customersOrders);
 
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while getting user from DB '{ex.Message}'.", ex);
+            }
             finally
             {
                 connection.Close();
@@ -123,6 +136,15 @@ namespace DataAccessLayer.SqlDbDataAccess
                 reader.Read();
                 User user = new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"),  reader.GetString("password"), reader.GetBoolean("isAdmin"));
                 return user;
+            }
+            catch (System.InvalidOperationException logEx)
+            {
+                throw new WrongLoginException($"Incorect login information '{logEx.Message}'", logEx);
+
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"Error while loggin into DB '{ex.Message}'.", ex);
             }
             finally
             {
@@ -151,6 +173,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                     return true;
                 else
                     return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while updating user into DB '{ex.Message}'.", ex);
             }
             finally
             {

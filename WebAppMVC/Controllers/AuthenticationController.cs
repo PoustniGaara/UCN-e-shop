@@ -28,10 +28,14 @@ namespace WebAppMVC.Controllers
         [HttpGet]
         public ActionResult Login() => View(new LoginModelVM());
 
-        //receives the login form on submit
         [HttpPost]
         public async Task<IActionResult> Login(LoginModelVM loginInfo/*, [FromQuery] string returnUrl*/)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(loginInfo);
+            }
+
             //if (string.IsNullOrEmpty(returnUrl)) { return RedirectToAction(); }
 
             LoginModelDto loginModelDto = _mapper.Map<LoginModelDto>(loginInfo);

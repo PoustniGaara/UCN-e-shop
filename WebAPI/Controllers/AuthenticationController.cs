@@ -43,7 +43,7 @@ namespace WebApi.Controllers
                     issuer: "https://localhost:5001",
                     audience: "https://localhost:5001",
                     claims: new List<Claim>{
-                        new Claim(ClaimTypes.Email, user.Email.Replace("@", "%40")),
+                        new Claim(ClaimTypes.Email, user.Email),
                         new Claim("address",user.Address),
                         new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
                         new Claim(ClaimTypes.Name, user.Name),

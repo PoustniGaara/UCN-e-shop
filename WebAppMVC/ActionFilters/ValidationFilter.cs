@@ -10,7 +10,7 @@ namespace WebAppMVC.ActionFilters
             public void OnActionExecuting(ActionExecutingContext context)
             {
 
-                var param = context.ActionArguments.SingleOrDefault(p => p.Value is IEntity);   /*Last();*/
+                var param = context.ActionArguments.SingleOrDefault();   /*Last();*/
                 if (param.Value == null)
                 {
                     context.Result = new BadRequestObjectResult("Object is null");

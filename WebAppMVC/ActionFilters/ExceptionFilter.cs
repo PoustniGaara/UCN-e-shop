@@ -29,9 +29,6 @@ namespace WebAppMVC.ActionFilters
 
                 _logger.LogInfo(Message);
 
-                //saving the data in a text file called Log.txt
-                //You can also save this in a dabase
-                //File.AppendAllText(HttpContext.Current.Server.MapPath("~/Log/Log.txt"), Message);
 
                 filterContext.ExceptionHandled = true;
                 filterContext.Result = new ViewResult()
