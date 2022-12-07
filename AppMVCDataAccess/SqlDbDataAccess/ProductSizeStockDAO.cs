@@ -109,23 +109,25 @@ namespace DataAccessLayer.SqlDbDataAccess
             {
                 //Get the stock
                 command.Parameters.Clear();
-                command.CommandText = "SELECT stock FROM ProductStock WHERE product_id = @productId AND size_id = sizeId";
+                command.CommandText = "SELECT stock FROM ProductStock WHERE product_id = @product_id AND size_id = @size_id";
                 command.Parameters.AddWithValue("@product_id", productId);
                 command.Parameters.AddWithValue("@size_id", sizeId);
                 SqlDataReader reader = command.ExecuteReader();
 
                 //Check the stock 
-                int stockAmount = reader.GetInt32("amount");
+                reader.Read(); 
+                int stockAmount = reader.GetInt32("stock");
                 if(stockAmount < amountToDecrease) 
                     throw new ProductOutOfStockException();
+                reader.Close();
 
                 //Decrease the stock
                 command.Parameters.Clear();
-                command.CommandText = "UPDATE ProductStock SET stock = stock - @amountToDecrease WHERE product_id = @productId AND size_id = sizeId";
+                command.CommandText = "UPDATE ProductStock SET stock = stock - @amountToDecrease WHERE product_id = @product_id AND size_id = @size_id";
                 command.Parameters.AddWithValue("@amountToDecrease", amountToDecrease);
                 command.Parameters.AddWithValue("@product_id", productId);
                 command.Parameters.AddWithValue("@size_id", sizeId);
-                command.ExecuteReader();
+                command.ExecuteNonQuery();
                 return true;
             }
             catch (Exception ex)
