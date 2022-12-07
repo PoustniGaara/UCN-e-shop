@@ -14,6 +14,9 @@ namespace WebApiClient.Interfaces
     {
         Task<ProductDto?> GetByIdAsync(int id);
         Task<IEnumerable<ProductDto>?> GetAllAsync(string? category);
+        Task<int> CreateAsync(ProductDto product);
+        Task<bool> UpdateAsync(ProductDto product);
+        Task<bool> DeleteAsync(int id);
     }
 
 }

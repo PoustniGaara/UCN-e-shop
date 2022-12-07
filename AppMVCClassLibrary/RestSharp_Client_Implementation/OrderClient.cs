@@ -15,32 +15,32 @@ namespace WebApiClient.RestSharpClientImplementation
         RestClient _client;
         public OrderClient(string restUrl) => _client = new RestClient(restUrl);
 
-        public async Task<int> CreateOrderAsync(OrderDto orderDto)
+        public async Task<int> CreateAsync(OrderDto orderDto)
         {
             var request = new RestRequest();
             request.AddBody(orderDto);
             return  await _client.PostAsync<int>(request);
         }
        
-        public async Task<IEnumerable<OrderDto>?> GetAllOrdersAsync()
+        public async Task<IEnumerable<OrderDto>?> GetAllAsync()
         {
             return await _client.GetAsync<IEnumerable<OrderDto>>(new RestRequest());
         }
 
-        public async Task<OrderDto?> GetOrderByIdAsync(int id)
+        public async Task<OrderDto?> GetByIdAsync(int id)
         {
             var request = new RestRequest($"{id}");
             return await _client.GetAsync<OrderDto?>(request);
         }
 
-        public async Task<bool> UpdateOrderAsync(OrderDto orderDto)
+        public async Task<bool> UpdateAsync(OrderDto orderDto)
         {
             var request = new RestRequest($"{orderDto.Id}");
             request.AddBody(orderDto);
             return await _client.PutAsync<bool>(request);
         }
 
-        public async Task<bool> DeleteOrderAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var request = new RestRequest($"{id}");
             return await _client.DeleteAsync<bool>(request);

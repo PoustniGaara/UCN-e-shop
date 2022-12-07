@@ -75,12 +75,11 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] ProductDto updatedProductDto)
         {
-            Product product = await _dataAccess.GetByIdAsync(id);
-            if (product == null) { return NotFound(); }
+            if (updatedProductDto == null)
+                return NotFound();
 
-            product = _mapper.Map<Product>(updatedProductDto);
+            Product product = _mapper.Map<Product>(updatedProductDto);
             await _dataAccess.UpdateAsync(product);
-
             return Ok();
         }
 

@@ -24,13 +24,13 @@ namespace WebAppMVC.Controllers
 
         public async Task<ActionResult> IndexAsync()
         {
-            IEnumerable<OrderDto> orderDtoList = await _client.GetAllOrdersAsync();
+            IEnumerable<OrderDto> orderDtoList = await _client.GetAllAsync();
             return View(orderDtoList);
         }
 
         public async Task<ActionResult> DetailsAsync(int id)
         {
-            var order = await _client.GetOrderByIdAsync(id);
+            var order = await _client.GetByIdAsync(id);
 
             OrderDetailsVM ordervm = _mapper.Map<OrderDetailsVM>(order);
             return View(ordervm);
@@ -51,7 +51,7 @@ namespace WebAppMVC.Controllers
                 order.Items = HttpContext.GetCart().Items;
                 order.TotalPrice = CalculateTotalOrderPrice(order);
                 order.Address = order.Street + (order.AptNumber.HasValue ? ", " + order.AptNumber : "") + ", " + order.City + " " + order.PostalCode;
-                id = await _client.CreateOrderAsync(order);
+                id = await _client.CreateAsync(order);
                 order.Id = id;
                 return RedirectToAction(nameof(Index));
             }
@@ -74,7 +74,7 @@ namespace WebAppMVC.Controllers
         {
             try
             {
-                await _client.DeleteOrderAsync(id);
+                await _client.DeleteAsync(id);
             }
             catch (Exception ex)
             {

@@ -73,6 +73,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@price", product.Price);
                 command.Parameters.AddWithValue("@category", product.Category);
                 id = (int)command.ExecuteScalar();
+                product.Id = id;
 
                 await sizeStockDAO.CreateSizeStocksFromProductListAsync(command, id, product.ProductSizeStocks);
 
@@ -85,8 +86,6 @@ namespace DataAccessLayer.SqlDbDataAccess
             finally
             {
                 connection.Close();
-                
-
             }
             return id;
         }
@@ -97,7 +96,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();
-                string query = "DELETE * FROM Product WHERE id = @id";
+                string query = "DELETE FROM Product WHERE id = @id";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
@@ -113,16 +112,24 @@ namespace DataAccessLayer.SqlDbDataAccess
         public async Task UpdateAsync(Product product)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
+
+            connection.Open();
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction; 
             try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("UPDATE dbo.Product SET name = @name, description = @description, price = @price, category = @category WHERE id = @id", connection);
+                command.CommandText = "UPDATE dbo.Product SET name = @name, description = @description, price = @price, category = @category WHERE id = @id";
                 command.Parameters.AddWithValue("@id", product.Id);
                 command.Parameters.AddWithValue("@name", product.Name);
                 command.Parameters.AddWithValue("@description", product.Description);
                 command.Parameters.AddWithValue("@price", product.Price);
                 command.Parameters.AddWithValue("@category", product.Category);
                 command.ExecuteNonQuery();
+
+                await sizeStockDAO.UpdateProductSizeStock(command, product.Id, product.ProductSizeStocks);
+                transaction.Commit();
             }
             finally
             {

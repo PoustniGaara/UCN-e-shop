@@ -9,10 +9,10 @@ namespace WebApiClient.Interfaces
 {
     public interface IOrderClient
     {
-        Task<int> CreateOrderAsync(OrderDto entity);
-        Task<IEnumerable<OrderDto>> GetAllOrdersAsync();
-        Task<OrderDto> GetOrderByIdAsync(int id);
-        Task<bool> UpdateOrderAsync(OrderDto entity);
-        Task<bool> DeleteOrderAsync(int id);
+        Task<IEnumerable<OrderDto>> GetAllAsync();
+        Task<OrderDto> GetByIdAsync(int id);
+        Task<int> CreateAsync(OrderDto order);
+        Task<bool> UpdateAsync(OrderDto order);
+        Task<bool> DeleteAsync(int id);
     }
 }

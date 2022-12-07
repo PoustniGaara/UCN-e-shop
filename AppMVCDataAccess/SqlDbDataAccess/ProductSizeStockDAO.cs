@@ -2,6 +2,7 @@
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -26,23 +27,39 @@ namespace DataAccessLayer.SqlDbDataAccess
 
         public async Task CreateSizeStocksFromProductListAsync(SqlCommand command, int product_id, IEnumerable<ProductSizeStock> productSizeStocks)
         {
-            command.Parameters.Clear();
-            command.CommandText = "INSERT INTO dbo.ProductStock (product_id, size_id, stock) VALUES (@product_id, @size_id, @stock)";
-
             foreach(ProductSizeStock productSizeStock in productSizeStocks)
             {
+                command.Parameters.Clear();
+                command.CommandText = "INSERT INTO dbo.ProductStock (product_id, size_id, stock) VALUES (@product_id, @size_id, @stock)";
                 command.Parameters.AddWithValue("@product_id", product_id);
                 command.Parameters.AddWithValue("@size_id", productSizeStock.Id);
                 command.Parameters.AddWithValue("@stock", productSizeStock.Stock);
 
                 command.ExecuteNonQuery();
             }
-            
         }
 
-        public Task DeleteAsync(int id)
+        public async Task UpdateProductSizeStock(SqlCommand command, int product_id, IEnumerable<ProductSizeStock> productSizeStocks)
         {
-            throw new NotImplementedException();
+            foreach (ProductSizeStock productSizeStock in productSizeStocks)
+            {
+                command.Parameters.Clear();
+                command.CommandText = "UPDATE dbo.ProductStock SET stock = @stock WHERE product_id = @product_id AND size_id = @size_id";
+                command.Parameters.AddWithValue("@product_id", product_id);
+                command.Parameters.AddWithValue("@size_id", productSizeStock.Id);
+                command.Parameters.AddWithValue("@stock", productSizeStock.Stock);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM dbo.ProductStock WHERE product_id = @product_id";
+            command.Parameters.AddWithValue("@product_id", id);
+            command.ExecuteNonQuery();
         }
 
         public Task<IEnumerable<ProductSizeStock>> GetAByIdAsync()
