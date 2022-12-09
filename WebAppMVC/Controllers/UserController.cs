@@ -9,6 +9,7 @@ using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
 {
+    [ServiceFilter(typeof(ExceptionFilter))]
     public class UserController : Controller
     {
         private IUserClient _userClient;
@@ -38,9 +39,14 @@ namespace WebAppMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(UserEditVM userVM)
+        public async Task<ActionResult> Create(UserDto userDto)
         {
-            UserDto userDto = _mapper.Map<UserDto>(userVM);
+            //UserDto userDto = _mapper.Map<UserDto>(userVM);
+
+            if (!ModelState.IsValid)
+            {
+                return View{ userDto}; // Return view with name Register with userDto objekt 
+            }
 
             await _userClient.CreateAsync(userDto);
 
@@ -48,8 +54,7 @@ namespace WebAppMVC.Controllers
         }
 
 
-        public async Task<ActionResult> Register() => View(new UserEditVM());
-       
+        public async Task<ActionResult> Register() => View(new UserDto());
 
 
         [HttpPost]

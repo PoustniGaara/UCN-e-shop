@@ -1,11 +1,18 @@
 ﻿using LoggerService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.VisualBasic;
+using System.Reflection;
+using WebApiClient.Exceptions;
+using WebAppMVC.Models;
+using WebAppMVC.ViewModels;
+
 
 namespace WebAppMVC.ActionFilters
 {
-    public class ExceptionFilter : Attribute, IExceptionFilter
+    public class ExceptionFilter : ExceptionFilterAttribute
     {
         private ILoggerManager _logger;
 
@@ -14,7 +21,7 @@ namespace WebAppMVC.ActionFilters
             _logger = logger;
         }
 
-        public void OnException(ExceptionContext filterContext)
+        public override void OnException(ExceptionContext filterContext)
         {
             if (!filterContext.ExceptionHandled)
             {
@@ -29,12 +36,33 @@ namespace WebAppMVC.ActionFilters
 
                 _logger.LogInfo(Message);
 
-
+                //Generic exception
+                //...
                 filterContext.ExceptionHandled = true;
                 filterContext.Result = new ViewResult()
                 {
                     ViewName = "Error"
                 };
+
+                //Custom exceptions
+                //...
+                if(filterContext.Exception is WrongLoginException)
+                {
+                    var viewData = new ViewDataDictionary<LoginVM>(new EmptyModelMetadataProvider(), filterContext.ModelState);
+                    viewData = new ViewDataDictionary<LoginVM>(viewData, new LoginVM { ErrorMessage = "Wrong email or password!" });
+                    filterContext.Result = new ViewResult()
+                    {
+                        ViewName = "Login",
+                        ViewData = viewData
+                    };
+                }
+                if (filterContext.Exception is ProductOutOfStockException)
+                {
+                    filterContext.Result = new ViewResult()
+                    {
+                        ViewName = "ErrorOutOfStock",
+                    };
+                }
             }
 
         }

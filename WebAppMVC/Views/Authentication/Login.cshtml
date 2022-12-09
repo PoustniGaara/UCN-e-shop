@@ -1,4 +1,4 @@
-﻿@model WebAppMVC.ViewModels.LoginModelVM
+﻿@model WebAppMVC.ViewModels.LoginVM
 
 <h1 class="account-title">Login</h1>
 
@@ -13,6 +13,10 @@
         <input type="submit" value="Login" class="button-1" />
 
     </form>
+    @if(Model.ErrorMessage != null)
+    {
+        <h5>@Model.ErrorMessage</h5>
+    }
 
     <div class="login-signup">
         <span class="text">

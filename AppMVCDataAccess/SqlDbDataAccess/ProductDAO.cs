@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Interfaces;
+﻿using DataAccessLayer.Exceptions;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                 }
                 return products;
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while getting products from DB '{ex.Message}'.", ex);
+            }
             finally
             {
                 connection.Close();
@@ -79,9 +84,10 @@ namespace DataAccessLayer.SqlDbDataAccess
 
                 transaction.Commit();
             }
-            catch
+            catch (Exception ex)
             {
                 transaction.Rollback();
+                throw new Exception($"Error while creating products from DB '{ex.Message}'.", ex);
             }
             finally
             {
@@ -101,6 +107,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
                 await sizeStockDAO.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while deleting products from DB '{ex.Message}'.", ex);
             }
             finally
             {
@@ -131,6 +141,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                 await sizeStockDAO.UpdateProductSizeStock(command, product.Id, product.ProductSizeStocks);
                 transaction.Commit();
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while updating products into DB '{ex.Message}'.", ex);
+            }
             finally
             {
                 connection.Close();
@@ -150,6 +164,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                 reader.Read();
                 List<ProductSizeStock> productSizeStocks = (List<ProductSizeStock>)await sizeStockDAO.GetByProductIdAsync(id);
                 return new Product(reader.GetInt32("id"), reader.GetString("name"), reader.GetString("description"), reader.GetDecimal("price"), productSizeStocks, reader.GetString("category"));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while getting product into DB '{ex.Message}'.", ex);
             }
             finally
             {
@@ -174,6 +192,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                     products.Add(new Product(reader.GetInt32("id"), reader.GetString("name"), reader.GetString("description"), reader.GetDecimal("price"), productSizeStocks, reader.GetString("category")));
                 }
                 return products;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while getting products by category from DB '{ex.Message}'.", ex);
             }
             finally
             {

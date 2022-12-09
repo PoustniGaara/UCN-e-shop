@@ -23,13 +23,22 @@ namespace DataAccessLayer.SqlDbDataAccess
 
         public async Task CreateLineItemAsync(SqlCommand command, int orderId, LineItem item)
         {
-            command.Parameters.Clear();
-            command.CommandText = "INSERT INTO dbo.OrderLineItem (order_id, product_id, size_id, amount) VALUES (@order_id, @product_id, @size_id, @amount)";
-            command.Parameters.AddWithValue("@order_id", orderId);
-            command.Parameters.AddWithValue("@product_id", item.Product.Id);
-            command.Parameters.AddWithValue("@size_id", item.SizeId);
-            command.Parameters.AddWithValue("@amount", item.Quantity);
-            command.ExecuteNonQuery();
+            try
+            {
+                command.Parameters.Clear();
+                command.CommandText = "INSERT INTO dbo.OrderLineItem (order_id, product_id, size_id, amount) VALUES (@order_id, @product_id, @size_id, @amount)";
+                command.Parameters.AddWithValue("@order_id", orderId);
+                command.Parameters.AddWithValue("@product_id", item.Product.Id);
+                command.Parameters.AddWithValue("@size_id", item.SizeId);
+                command.Parameters.AddWithValue("@amount", item.Quantity);
+                command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("An error occured while decreasing stock: " + ex);
+
+            }
+
         }
 
         public async Task<IEnumerable<LineItem>> GetOrderLineItems(int orderId)

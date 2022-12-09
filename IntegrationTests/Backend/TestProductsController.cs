@@ -3,7 +3,6 @@ using FakeItEasy;
 using RestSharp;
 using System.Net;
 using WebApi.DTOs;
-using WebAppMVC.Exceptions;
 using System.Web;
 using Newtonsoft.Json;
 using System.Text;

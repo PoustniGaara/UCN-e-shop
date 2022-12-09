@@ -22,7 +22,6 @@ namespace WebApi.ActionFilters
 
             _logger.LogInfo(filterContext.Exception.Message);
 
-            //Unhandled exceptions path
             ObjectResult result = new ObjectResult(new
             {
                 filterContext.Exception.Message, // Or a different generic message
@@ -30,11 +29,13 @@ namespace WebApi.ActionFilters
                 ExceptionType = filterContext.Exception.GetType().FullName,
             })
             {
+                //Generic exception
                 StatusCode = (int)HttpStatusCode.ServiceUnavailable
             };
 
             filterContext.Result = result;
 
+            //Custom exceptions
             if (filterContext.Exception is WrongLoginException)
             {
                 result.StatusCode = (int)HttpStatusCode.Forbidden;

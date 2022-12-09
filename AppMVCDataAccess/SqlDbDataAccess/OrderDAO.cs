@@ -3,6 +3,7 @@ using System.Security.Principal;
 using System.Data.SqlClient;
 using System.Data;
 using DataAccessLayer.Interfaces;
+using DataAccessLayer.Exceptions;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
@@ -24,7 +25,7 @@ namespace DataAccessLayer.SqlDbDataAccess
         {
             int id = -1;
             using SqlConnection connection = new SqlConnection(connectionstring);
-         
+
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.RepeatableRead);
 
@@ -50,7 +51,12 @@ namespace DataAccessLayer.SqlDbDataAccess
                 }
                 transaction.Commit();
             }
-            catch(Exception ex)
+            catch (ProductOutOfStockException outOfStockEx)
+            {
+                transaction.Rollback();
+                throw new ProductOutOfStockException($"Error while creating products from DB '{outOfStockEx.Message}'.", outOfStockEx);
+            }
+            catch (Exception ex)
             {
                 transaction.Rollback();
                 throw new Exception($"Error creating order: '{ex.Message}'.", ex);

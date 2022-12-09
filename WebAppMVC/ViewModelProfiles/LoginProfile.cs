@@ -8,7 +8,7 @@ namespace WebAppMVC.ViewModelProfiles
     {
         public LoginProfile()
         {
-            CreateMap<LoginModelVM, LoginModelDto>().
+            CreateMap<LoginVM, LoginModelDto>().
                 ReverseMap();
         }
     }

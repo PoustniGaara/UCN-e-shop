@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAppMVC.ViewModels
 {
-    public class LoginModelVM
+    public class LoginVM
     {
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "*Fill out email field")]
@@ -10,5 +11,9 @@ namespace WebAppMVC.ViewModels
 
         [Required(ErrorMessage = "*Fill out password field")]
         public string? Password { get; set; }
+
+        [ViewData]
+        public string? ErrorMessage { get; set; }
+
     }
 }

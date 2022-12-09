@@ -24,7 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AppMVCDataAccess\DataAccessLayer.csproj" />
     <ProjectReference Include="..\LoggerService\LoggerService.csproj" />
-    <ProjectReference Include="..\WebAppMVC\WebAppMVC.csproj" />
   </ItemGroup>
 
 </Project>

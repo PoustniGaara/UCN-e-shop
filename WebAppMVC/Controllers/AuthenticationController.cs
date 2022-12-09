@@ -26,10 +26,10 @@ namespace WebAppMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login() => View(new LoginModelVM());
+        public ActionResult Login() => View(new LoginVM());
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModelVM loginInfo/*, [FromQuery] string returnUrl*/)
+        public async Task<IActionResult> Login(LoginVM loginInfo/*, [FromQuery] string returnUrl*/)
         {
             if (!ModelState.IsValid)
             {
@@ -86,12 +86,12 @@ namespace WebAppMVC.Controllers
                 }
                 else
                 {
-                    return View("Login");
+                    return View(loginInfo);
                 }
             }
             else
             {
-                return View("../Login/Login");
+                return View(loginInfo);
             }
             //if (user != null) { await SignIn(user); }
             //if (string.IsNullOrEmpty(returnUrl)) { return RedirectToAction(); }

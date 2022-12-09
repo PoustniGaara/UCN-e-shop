@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using WebApiClient.DTOs;
+using WebApiClient.Exceptions;
 using WebApiClient.Interfaces;
 
 namespace WebApiClient.RestSharpClientImplementation
@@ -17,9 +18,17 @@ namespace WebApiClient.RestSharpClientImplementation
 
         public async Task<int> CreateAsync(OrderDto orderDto)
         {
-            var request = new RestRequest();
-            request.AddBody(orderDto);
-            return  await _client.PostAsync<int>(request);
+
+                var request = new RestRequest().AddBody(orderDto);
+                var response = await _client.ExecutePostAsync<int>(request);
+                if (response.StatusCode.Equals(HttpStatusCode.Conflict))
+                {
+                    throw new ProductOutOfStockException($"Incorect data={orderDto}");
+                }
+                return  response.Data;
+           
+
+
         }
        
         public async Task<IEnumerable<OrderDto>?> GetAllAsync()

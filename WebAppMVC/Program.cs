@@ -63,7 +63,6 @@ builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 
 //Register scoped filters
 builder.Services.AddScoped<ExceptionFilter>();
-builder.Services.AddScoped<ValidationFilter>();
 
 
 builder.Services.AddDistributedMemoryCache();

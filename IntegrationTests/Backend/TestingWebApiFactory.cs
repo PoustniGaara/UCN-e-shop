@@ -2,15 +2,7 @@
 using DataAccessLayer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebApiClient.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using WebApiClient.RestSharpClientImplementation;
-using WebApi.ActionFilters;
+using WebApi;
 
 namespace IntegrationTests.Backend
 {

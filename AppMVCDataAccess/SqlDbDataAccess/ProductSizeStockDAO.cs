@@ -84,13 +84,9 @@ namespace DataAccessLayer.SqlDbDataAccess
                 }
                 return productSizeStocks;
             }
-            catch (SqlException sqlex)
-            {
-                throw sqlex;
-            }
             catch (Exception ex)
             {
-                throw new Exception("An unspecified error occured while trying to retrieve all the product stock and sizes from the database: " + ex.Message);
+                throw new Exception("An error occured while trying to retrieve all the product stock and sizes from the database: " + ex.Message);
             }
             finally
             {
@@ -117,9 +113,13 @@ namespace DataAccessLayer.SqlDbDataAccess
                 //Check the stock 
                 reader.Read(); 
                 int stockAmount = reader.GetInt32("stock");
-                if(stockAmount < amountToDecrease) 
+                if(stockAmount < amountToDecrease)
+                {
+                    reader.Close();
                     throw new ProductOutOfStockException();
+                }
                 reader.Close();
+
 
                 //Decrease the stock
                 command.Parameters.Clear();
@@ -130,10 +130,13 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.ExecuteNonQuery();
                 return true;
             }
+            catch(ProductOutOfStockException outOfStockEx)
+            {
+                throw new ProductOutOfStockException($"Error while creating products from DB '{outOfStockEx.Message}'.", outOfStockEx);
+            }
             catch (Exception ex)
             {
-                return false;
-                throw new Exception("An error occured while updateing name of an account: " + ex);
+                throw new Exception("An error occured while decreasing stock: " + ex);
             }
         }
     }

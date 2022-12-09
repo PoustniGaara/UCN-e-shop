@@ -46,19 +46,19 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Create(OrderDto order)
         {
             int id = -1;
-            try
-            {
+            //try
+            //{
                 order.Items = HttpContext.GetCart().Items;
                 order.TotalPrice = CalculateTotalOrderPrice(order);
                 order.Address = order.Street + (order.AptNumber.HasValue ? ", " + order.AptNumber : "") + ", " + order.City + " " + order.PostalCode;
                 id = await _client.CreateAsync(order);
                 order.Id = id;
                 return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                ViewBag.ErrorMessage = ex.Message;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ViewBag.ErrorMessage = ex.Message;
+            //}
             return View();
         }
 
