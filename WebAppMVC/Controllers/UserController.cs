@@ -45,7 +45,7 @@ namespace WebAppMVC.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View{ userDto}; // Return view with name Register with userDto objekt 
+                return View(userDto); // Return view with name Register with userDto objekt 
             }
 
             await _userClient.CreateAsync(userDto);

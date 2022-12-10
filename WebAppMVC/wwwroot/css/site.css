@@ -1,8 +1,19 @@
 /**********************
+     Color variables
+**********************/
+:root {
+    --darkblue: #004250;
+    --lightblue: #BED6DB;
+    --impactblue: #0046AD;
+    --yellow: #FFCB4F;
+    --red: #F7403A;
+}
+
+/**********************
         General
 **********************/
 html {
-    margin:0;
+    margin: 0;
 }
 
 .form-control{
@@ -48,19 +59,17 @@ body {
     width: 100px;
 }
 
-/*ERROR PAGES
-**********************
-**********************
+/**********************
+      ERROR PAGES
 **********************/
-
 .out-of-stock-message {
     text-align: center;
     align-content: center;
     align-self:center;
 }
-/*USER DETAILS PAGE
-**********************
-**********************
+
+/*********************
+   USER DETAILS PAGE
 **********************/
 .account-title {
     align-self: center;
@@ -136,9 +145,8 @@ tbody {
     text-align: left;
 }
 
-/*LOGIN PAGE 
-**********************
-**********************
+/**********************
+      LOGIN PAGE
 **********************/
 
 .login-div {
@@ -255,12 +263,10 @@ tbody {
 .cnt {
     margin: 0 auto;
     max-width: 1200px;
-    padding-bottom: 10vh;
 }
 
 .shop-now-button {
-    background-color: #002129;
-    border: 2px solid #002129;
+    background-color: var(--darkblue);
     display: inline-block;
     cursor: pointer;
     color: #ffffff;
@@ -280,10 +286,16 @@ tbody {
 /**********************
         Product
 **********************/
+.products-title {
+    padding-top: 2%;
+    max-width: 1200px;
+    margin: 2vh auto 0 auto;
+    padding: 2vh 0 2vh 2vh;
+}
 
 .category-link {
-    font-weight:bold;
-    font-size:x-large;
+    font-weight: bold;
+    font-size: x-large;
     color: #004050;
     text-decoration: none;
 }
@@ -314,11 +326,6 @@ ul {
 
 .product-list li {
     width: 33%;
-}
-
-.product-title{
-    padding: 2%;
-    margin-left: 2%;
 }
 
 .product-list li img {
@@ -493,16 +500,17 @@ ul {
 /**********************
 **********************/
 .separator {
-    background-color: aliceblue;
+    background-color: var(--lightblue);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .home-title {
     font-size: 2.5rem;
     font-weight: 500;
-    margin: 0 auto;
+    margin: 2vh auto 4vh auto;
     max-width: 1200px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 2vh 0 2vh 2vh;
 }
 
 .story {
@@ -538,7 +546,8 @@ ul {
 
 .ctitle {
     font-size: 1.5rem;
-    margin-bottom: 30px;
+    padding-top: 5vh;
+    margin-bottom: 1vh;
 }
 
 .products-items {
@@ -561,8 +570,7 @@ ul {
 }
 
 /**********************
-**********************
-**********************
+      Cart Index
 **********************/
 
 .cc {
@@ -586,6 +594,11 @@ ul {
     width: 1200px;
 }
 
+.hr-bold {
+    width: 1200px;
+    border-top: 3px solid black;
+}
+
 .hrr {
     width: 499px;
 }
@@ -596,11 +609,7 @@ ul {
     grid-template-rows: 40px;
     justify-items: left;
     align-items: center;
-}
-
-.clearbutton {
-    margin-top: 20px;
-    margin-left: 1050px;
+    font-size: 1rem;
 }
 
 .price {
@@ -608,16 +617,10 @@ ul {
 }
 
 .totalcontainer {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 5vh;
     padding-bottom: 20px;
-    width: 400px;
     height: auto;
-    border: 3px solid rgb(0, 0, 0);
-    border-radius: 5px;
-    float: right;
     font-size: 1.2rem;
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
 }
@@ -627,32 +630,29 @@ ul {
     font-size: 1.2rem;
 }
 
+.price-vat {
+    display: flex;
+    font-size: 1rem;
+}
+
 .ordertotal {
+    font-size: 1.3rem;
+    font-weight: 500;
     display: flex;
 }
 
 .feetitle {
-    margin-left: 50px;
-    margin-right: 50px;
+    width: 15vw;
 }
 
 .stitle {
     display: flex;
-    margin-left: 50px;
-    font-weight: 500;
-    margin-right: 82px;
+    width: 15vw;
 }
 
 .oc {
     display: flex;
-    margin-left: 50px;
-    font-weight: 500;
-    margin-right: 60px;
-}
-
-.corderbutton {
-    margin-left: 50px;
-    width: 300px;
+    width: 15vw;
 }
 
 .checkoutinfo {
@@ -672,36 +672,12 @@ div br {
     display: none;
 }
 
-.ship {
-    font-size: 2rem;
-    font-weight: 500px;
-    margin-bottom: 40px;
-}
-
 .check-title {
     padding-top: 50px;
 }
 
 .fftitle {
     font-weight: 500;
-    font-size: 1.1rem;
-}
-
-input[type=text],
-select {
-    width: 450px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-
-.shipp {
-    font-size: 2rem;
-    margin-bottom: 40px;
 }
 
 .secondpart {
@@ -709,19 +685,55 @@ select {
     margin-top: 50px;
 }
 
+.to-payment-btn {
+    background-color: var(--darkblue);
+    display: inline-block;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px 36px;
+    text-decoration: none;
+}
+    .to-payment-btn a {
+        text-decoration: none;
+        color: #ffffff;
+    }
 
-/**************
-*****************
-****************
+    .to-payment-btn:hover {
+        background-color: #005266;
+        text-decoration: none;
+        color: #ffffff;
+    }   
+
+.clear-cart-btn {
+    float: right;
+    background-color: var(--lightblue);
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 16px;
+    padding: 8px 26px;
+    text-decoration: none;
+    border: 1px solid var(--darkblue);
+}
+
+    .clear-cart-btn a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .clear-cart-btn:hover {
+        background-color: #005266;
+    }
+   
+/****************
+    ???
 ****************/
-
-/* ===== Google Font Import - Poformsins ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 .password {
     max-width: 730px;
 }
-
 
 .form .title::before {
     content: '';
@@ -832,19 +844,14 @@ select {
     background-color: #265df2;
 }
 
-
-
-/**************
-*****************
-****************
-****************/
-
+/*****************
+   Product something??
+*******************/
 .product-image {
     width: 600px;
     height: 600px;
     background-color: purple;
 }
-
 
 .product-content {
     padding-left: 30px;
@@ -890,6 +897,10 @@ img.product-image {
     margin-right: auto;
     height: 400px;
     width: auto;
+}
+
+.product-title {
+    padding-top: 5vh;
 }
 
 .product-info {
@@ -1000,9 +1011,23 @@ span.sizeName {
     color: #ffffff;
 }
 
-/*
+/***********************
     Create Order Page
-*/
+        CHECKOUT
+************************/
+
+checkout-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.col-md-6 {
+    margin: 0 auto;
+}
+
+.col-md-6 {
+    margin: 0 auto;
+}
 
 ul.cart-list {
     display: block;
@@ -1100,14 +1125,20 @@ ul li {
         Footer
 ********************/
 
+footer {
+    background-color: var(--lightblue);
+}
+
 .custom-footer {
     width: 100%;
     bottom: 0;
-    margin-top: auto;
-    margin: 0 auto;
-    max-width: 1200px;
-    border-top: 2px solid #E0E3E6;
-
+    margin: 10vh auto 0 auto;
     position: sticky;
     top: 100%;
+    padding: 5vh 0 5vh 0;
 }
+
+    .custom-footer .container {
+        max-width: 1200px;
+    }
+
