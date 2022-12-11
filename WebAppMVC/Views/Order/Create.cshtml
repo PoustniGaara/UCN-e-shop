@@ -11,9 +11,10 @@
     @Html.ActionLink("<- Return to the store", "Index", "Home")
 } else
 {
-    <h1>Creating new order</h1>
-    <hr />
-    <div class="row">
+    <div class="separator">
+        <h1 class="home-title">Checkout</h1>
+    </div>
+    <div class="row checkout-container">
         <div class="col-md-6">
             <h2>Contact information</h2>
             <form asp-action="Create">
@@ -91,6 +92,12 @@
                     </ul>
                 </div>
                 <div class="total">
+                    <p class="subtotal-text">Subtotal:</p>
+                    <p class="subtotal-price">@Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr</p>
+                    <p class="price-total-text">Shipping:</p>
+                    <p class="price-total-text">35 Kr.</p>
+                    <p class="oc">Total price:</p>
+                    <p class="price-total">@Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr</p>
                     <p class="price-total-text">Total price:</p>
                     <p class="price-total">@Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr</p>
                 </div>

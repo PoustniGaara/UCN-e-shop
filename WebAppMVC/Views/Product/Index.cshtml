@@ -1,9 +1,9 @@
 @model WebAppMVC.ViewModels.ProductIndexVM
 
 <body class="body" id="content">
-
-    <h1 class="product-title">@Html.DisplayFor(model => model.PageTitle)</h1>
-
+    <div class="separator">
+            <h1 class="products-title">@Html.DisplayFor(model => model.PageTitle)</h1>
+    </div>
     <div class="productscontainer">
         <div class="category-panel">
             <div class="ctitle">Categories</div>
@@ -20,9 +20,6 @@
             
         </div>
         <div class="products-items">
-            <div class="settings">
-                <input type="text" placeholder="Search..">
-            </div>
             <div class="product-panel">
                 <ul class="product-list">
                     @foreach (var productDto in @Model.Products)

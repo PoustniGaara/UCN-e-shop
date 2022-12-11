@@ -9,7 +9,7 @@
 <body class="body" id="content">
 
     <div class="separator">
-        <div class="home-title">Home / Cart</div>
+        <div class="home-title">Cart</div>
     </div>
     @if (@Model.Items == null || @Model.Items.Count() == 0)
     {
@@ -18,7 +18,6 @@
         @Html.ActionLink("<- Return to the store", "Index", "Home")
     } else {
         <div class="cc">
-        
             <div class='cartcontainer'>
                 <h5>Item</h5>
                 <h5>Size</h5>
@@ -27,9 +26,7 @@
                 <h5>Subtotal</h5>
                 <div></div>
             </div>
-
             <hr class="hr" />
-
             @foreach (var lineItem in @Model.Items)
             {
                 <div class="cartitems">
@@ -40,12 +37,11 @@
                     <div>@(lineItem.Quantity * lineItem.Price) Kr.</div>
                 </div>
             }
-            <hr class="hr" />
-            <button type="button" class="btn add-to-cart-btn">@Html.ActionLink("Clear Cart", "Clear")</button>
+            <hr class="hr-bold" />
             <div class="totalcontainer">
                 <div class="subtotal">
-                    <div class="stitle">Subtotal: </div>
-                    <div>@Html.DisplayFor(model => model.TotalPrice)</div>
+                    <div class="stitle">Subtotal</div>
+                    <div>@Html.DisplayFor(model => model.TotalPrice) Kr.</div>
                 </div>
                 <div class="fee">
                     <div class="feetitle">Shipping fee </div>
@@ -56,12 +52,13 @@
                     <div class="oc">Total</div>
                     <div>@(Model.TotalPrice + 35) Kr.</div>
                 </div>
-                <div class="fee">
-                    <div class="feetitle">Including VAT </div>
+                <div class="price-vat">
+                    <div class="feetitle">Including VAT (20%)</div>
                     <div>@((Model.TotalPrice + 35) * (decimal)0.2) Kr.</div>
                 </div>
                 <hr />
-                <button type="button" class="btn btn-primary">@Html.ActionLink("To payment", "Create", "Order")</button>
+                <button type="button" class="to-payment-btn">@Html.ActionLink("To payment", "Create", "Order")</button>
+                <button type="button" class="clear-cart-btn">@Html.ActionLink("Clear Cart", "Clear")</button>
             </div>
         </div>
     }
