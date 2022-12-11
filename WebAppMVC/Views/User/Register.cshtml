@@ -2,8 +2,8 @@
 
 <h1 class="account-title">Register</h1>
 <div class="login-div">
-@*    <form asp-action="Create" class="login-form">
-*@        <form method="post" action="@Url.Action("Create", "User")" class="login-form">
+    <form asp-action="Create" class="login-form">
+        @*<form method="post" action="@Url.Action("Create", "User")" class="login-form">*@
             <div class="login-input-field">
             <span asp-validation-for="Name" class="text-danger"></span>
                 <input type="text" name="Name" placeholder="Enter your name" class="form-control" />
@@ -15,7 +15,6 @@
                 <input type="password" name="Password" placeholder="Enter your password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
             <input type="password" name="Password" placeholder="Confirm your password" class="form-control" />
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             <input type="text" name="PhoneNumber" placeholder="Enter your phone number" class="form-control" />
             <span asp-validation-for="Address" class="text-danger"></span>
                 <input type="text" name="Address" placeholder="Enter your full address" class="form-control" />

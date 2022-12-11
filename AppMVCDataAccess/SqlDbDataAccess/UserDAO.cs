@@ -7,6 +7,7 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using DataAccessLayer.Exceptions;
+using DataAccessLayer.Authentication;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
@@ -25,19 +26,32 @@ namespace DataAccessLayer.SqlDbDataAccess
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
 
-            connection.Open();
+            try
+            {
+                var passwordHash = BCryptTool.HashPassword(user.Password);
 
-            SqlCommand command = connection.CreateCommand();
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
 
-            command.CommandText = "INSERT INTO dbo.[User] (email, name, surname, phone, address, password, isAdmin) VALUES (@email, @name, @surname, @phone, @address, @password, @isAdmin)";
-            command.Parameters.AddWithValue("@email", user.Email);
-            command.Parameters.AddWithValue("@name", user.Name);
-            command.Parameters.AddWithValue("@surname", user.Surname);
-            command.Parameters.AddWithValue("@phone", user.PhoneNumber);
-            command.Parameters.AddWithValue("@address", user.Address);
-            command.Parameters.AddWithValue("@password", user.Password);
-            command.Parameters.AddWithValue("@isAdmin", user.IsAdmin);
-            command.ExecuteNonQuery();
+                command.CommandText = "INSERT INTO dbo.[User] (email, name, surname, phone, address, password, isAdmin) VALUES (@email, @name, @surname, @phone, @address, @password, @isAdmin)";
+                command.Parameters.AddWithValue("@email", user.Email);
+                command.Parameters.AddWithValue("@name", user.Name);
+                command.Parameters.AddWithValue("@surname", user.Surname);
+                command.Parameters.AddWithValue("@phone", user.PhoneNumber);
+                command.Parameters.AddWithValue("@address", user.Address);
+                command.Parameters.AddWithValue("@password", passwordHash);
+                command.Parameters.AddWithValue("@isAdmin", user.IsAdmin);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while creating user '{ex.Message}'.", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
 
             return user.Email;
         }
@@ -135,7 +149,10 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
                 User user = new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"),  reader.GetString("password"), reader.GetBoolean("isAdmin"));
+                if(user != null && BCryptTool.ValidatePassword(password, user.Password)) 
                 return user;
+                else 
+                return null;
             }
             catch (System.InvalidOperationException logEx)
             {

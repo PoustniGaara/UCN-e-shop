@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using WebApi.ActionFilters;
 using WebApi.DTOs;
-
 
 namespace WebApi.Controllers
 {
@@ -33,10 +33,12 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] LoginModelDto loginData)
         {
-            User? user = await _userDataAccess.LoginAsync(loginData.Email, loginData.Password);
+            User? user = await _userDataAccess.GetUserByEmailAsync(loginData.Email);
             
             if (user != null)
             {
+                //User? user = await _userDataAccess.LoginAsync(loginData.Email, loginData.Password);
+
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var tokenOptions = new JwtSecurityToken(

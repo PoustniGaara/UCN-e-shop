@@ -3,6 +3,8 @@ using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 using WebApi.DTOs;
 
 namespace WebApi.Controllers
@@ -58,7 +60,8 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Post([FromBody] UserDto newUserDto)
         {
-            string email = await _userDataAccess.CreateUserAsync(_mapper.Map<User>(newUserDto));
+            User user = _mapper.Map<User>(newUserDto);
+            string email = await _userDataAccess.CreateUserAsync(user);
             return Ok(email);
         }
 
