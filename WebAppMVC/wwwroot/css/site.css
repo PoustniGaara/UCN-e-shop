@@ -17,7 +17,7 @@ html {
 }
 
 .form-control{
-    height: 50px;
+    height: 40px;
     margin-top: 8px;
     margin-bottom: 8px;
 }
@@ -696,6 +696,9 @@ div br {
     text-decoration: none;
 }
     .to-payment-btn a {
+        display: block;
+        width: 100%;
+        height: 100%;
         text-decoration: none;
         color: #ffffff;
     }
@@ -943,7 +946,24 @@ div.sizes {
     justify-content: center;
 }
 
-div.sizes p {
+div.sizeOutOfStock {
+    text-align: center;
+    font-size: 18px;
+    cursor: default;
+    font-weight: 500;
+    color: grey;
+    line-height: 1;
+    margin: 0 6px 6px 0;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border: 2px solid lightgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.sizes p, div.sizeOutOfStock p {
     vertical-align: middle;
 }
 
@@ -1016,17 +1036,13 @@ span.sizeName {
         CHECKOUT
 ************************/
 
-checkout-container {
+.checkout-container {
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .col-md-6 {
-    margin: 0 auto;
-}
-
-.col-md-6 {
-    margin: 0 auto;
+    margin: 0 auto 0 0;
 }
 
 ul.cart-list {
@@ -1056,16 +1072,20 @@ ul li {
     letter-spacing: normal;
     font-weight: 400;
     font-size: 100%;
-    margin: 20px 0 20px;
+    padding-top: 10px;
 }
 
-.cart-list .title a {
-    margin: 0 0 0 10px;
+.cart-list .title h3 {
+    margin: 10px 0 0 10px;
 }
+
+    .cart-list .title a {
+        margin-left: 10px;
+    }
 
 .cart-list .title .img {
     width: 80px;
-    margin-left: -20px;
+    margin-left: -10px;
     float: left;
     display: block;
 }
@@ -1094,32 +1114,104 @@ ul li {
     font-size: 110%;
 }
 
+.cart-items {
+    overflow: hidden;
+}
+
 .cart .total {
     padding: 10px 20px;
 }
 
-.cart .total .price-total-text {
+    .cart .total .price-total-text {
+        display: inline-block;
+        letter-spacing: normal;
+        vertical-align: top;
+        font-size: 140%;
+        font-weight: 600;
+        text-align: left;
+        line-height: 1.3;
+        margin: 20px 0 0 20px;
+    }
+
+    .cart .total .price-total {
+        display: inline-block;
+        letter-spacing: normal;
+        vertical-align: top;
+        font-size: 140%;
+        font-weight: 600;
+        text-align: right;
+        line-height: 1.3;
+        width: 48%;
+        margin: 20px 0 0 20px;
+    }
+
+    .cart .total .subtotal-text {
+        display: inline-block;
+        letter-spacing: normal;
+        font-weight: 500;
+        vertical-align: top;
+        text-align: left;
+        line-height: 1.3;
+        margin: 10px 0 0 20px;
+    }
+
+    .cart .total .subtotal-price {
+        display: inline-block;
+        letter-spacing: normal;
+        vertical-align: top;
+        text-align: right;
+        width: 55%;
+        line-height: 1.3;
+        margin: 10px 0 0 20px;
+    }
+
+    .cart .total .subtotal-text-small {
+        display: inline-block;
+        letter-spacing: normal;
+        font-weight: 500;
+        vertical-align: top;
+        text-align: left;
+        line-height: 1.3;
+        font-size: 90%;
+        margin: 10px 0 0 20px;
+    }
+
+    .cart .total .subtotal-price-small {
+        display: inline-block;
+        letter-spacing: normal;
+        vertical-align: top;
+        text-align: right;
+        width: 55%;
+        line-height: 1.3;
+        font-size: 90%;
+        margin: 10px 0 0 20px;
+    }
+
+.pay-now-btn {
+    background-color: var(--darkblue);
     display: inline-block;
-    letter-spacing: normal;
-    vertical-align: top;
-    font-size: 140%;
-    font-weight: 600;
-    text-align: left;
-    line-height: 1.3;
-    margin: 0 0 0 20px;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px 36px;
+    text-decoration: none;
+    border: none;
+    color: white;
+    display: block;
+    margin: 6vh auto;
 }
 
-.cart .total .price-total {
-    display: inline-block;
-    letter-spacing: normal;
-    vertical-align: top;
-    font-size: 140%;
-    font-weight: 600;
-    text-align: right;
-    line-height: 1.3;
-    width: 48%;
-    margin: 0 0 0 0px;
-}
+    .pay-now-btn a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+    .pay-now-btn:hover {
+        background-color: #005266;
+        text-decoration: none;
+        color: #ffffff;
+    }   
 
 /********************
         Footer

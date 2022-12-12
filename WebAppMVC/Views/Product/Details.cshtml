@@ -22,7 +22,17 @@
             <div class="sizes-flexbox">
                 @foreach (var sizestock in Model.ProductSizeStocks)
                 {
-                    <div class="sizes"><span class="sizeName">@sizestock.Size</span></div>
+                    if(sizestock.Stock < 1)
+                    {
+                        <div class="sizeOutOfStock">
+                            <span class="sizeNameOutOfStock">@sizestock.Size</span>
+                        </div>
+                    } else
+                    {
+                        <div class="sizes">
+                            <span class="sizeName">@sizestock.Size</span>
+                        </div>
+                    }
                 }  
             </div>
         </div>
@@ -57,9 +67,7 @@
     }
     
     function AddToCart(){
-        @*/Product/Add/5?size=L"*@
         window.open("/Product/Add/" + thePath.substring(thePath.lastIndexOf('/') + 1) + "?size=" + size, "_self");
-        @*document.getElementById("add-to-cart-link").setAttribute("onclick", "window.open('/Product/Add/" + thePath.substring(thePath.lastIndexOf('/') + 1) + "?size=" + size +"')");*@
     }
 
     function unselectSizes() {

@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Phone" class="control-label">Phone:</label>
-                    <input asp-for="Phone" style="display: block; width: 450px;" class="form-control" />
+                    <input asp-for="Phone" style="display: block; width: 100%;" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label asp-for="UserEmail" class="control-label">E-mail:*</label>
@@ -52,7 +52,7 @@
                 </div>
                  <div class="form-group">
                     <label asp-for="AptNumber" class="control-label">Apartment number:</label>
-                    <input asp-for="AptNumber" style="display: block; width: 450px;" class="form-control" />
+                    <input asp-for="AptNumber" style="display: block; width: 100%" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label asp-for="PostalCode" class="control-label">Postal code:*</label>
@@ -65,9 +65,10 @@
                     <span asp-validation-for="City" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Pay now" class="pay-now-btn" />
                 </div>
             </form>
+            <p>By clicking the "Pay now" button, you agree to UCN Webshop's Terms and Conditions.</p>
         </div>
         <div class="col-md-5">
             <div class="cart">
@@ -92,21 +93,25 @@
                     </ul>
                 </div>
                 <div class="total">
-                    <p class="subtotal-text">Subtotal:</p>
-                    <p class="subtotal-price">@Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr</p>
-                    <p class="price-total-text">Shipping:</p>
-                    <p class="price-total-text">35 Kr.</p>
-                    <p class="oc">Total price:</p>
-                    <p class="price-total">@Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr</p>
-                    <p class="price-total-text">Total price:</p>
-                    <p class="price-total">@Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr</p>
+                    <div>
+                        <p class="subtotal-text">Subtotal:</p>
+                        <p class="subtotal-price">@Html.DisplayFor(model => model.TotalPrice)&nbsp;Kr.</p>
+                    </div>
+                    <div>
+                        <p class="subtotal-text">Shipping:</p>
+                        <p class="subtotal-price">35 Kr.</p>
+                    </div>
+                    <div>
+                        <p class="price-total-text">Total price:</p>
+                        <p class="price-total">@(Model.TotalPrice + 35)&nbsp;Kr.</p>
+                    </div>
+                    <div>
+                        <p class="subtotal-text-small">Including VAT (20%)</p>
+                        <p class="subtotal-price-small">@((Model.TotalPrice + 35) * (decimal)0.2) Kr.</p>
+                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div>
-        @Html.ActionLink("Back to store", "Index", "Home")
     </div>
 }
 
