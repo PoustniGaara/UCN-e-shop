@@ -17,18 +17,21 @@ namespace WebApiClient.RestSharp_Client_Implementation
             var request = new RestRequest().AddBody(loginModel);
             try
             {
-                var response = await _client.PostAsync(request);
-                if (!response.IsSuccessful)
+                var response = await _client.ExecutePostAsync<string>(request);
+                if (response.StatusCode.Equals(HttpStatusCode.Forbidden))
+                {
+                    throw new WrongLoginException($"Incorect login data={loginModel}. Message was {response.ErrorMessage}");
+                }
+                if (!response.IsSuccessful || response.Data == null)
                 {
                     throw new Exception($"Error loggin in author with login data={loginModel}. Message was {response.Content}");
                 }
-                return response.Content;
+                return response.Data;
             }
             catch(HttpRequestException requestException)
             {
                 if (requestException.StatusCode.Equals(HttpStatusCode.Forbidden))
                 {
-                    throw new WrongLoginException($"Incorect login data={loginModel}. Message was {requestException.Message}");
                 }
                 throw requestException;
             }

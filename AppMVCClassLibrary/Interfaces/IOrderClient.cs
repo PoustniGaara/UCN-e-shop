@@ -12,7 +12,5 @@ namespace WebApiClient.Interfaces
         Task<IEnumerable<OrderDto>> GetAllAsync();
         Task<OrderDto> GetByIdAsync(int id);
         Task<int> CreateAsync(OrderDto order);
-        Task<bool> UpdateAsync(OrderDto order);
-        Task<bool> DeleteAsync(int id);
     }
 }

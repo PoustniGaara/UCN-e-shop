@@ -1,10 +1,5 @@
 ﻿using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using WebApiClient.DTOs;
 using WebApiClient.Exceptions;
 using WebApiClient.Interfaces;
@@ -18,41 +13,39 @@ namespace WebApiClient.RestSharpClientImplementation
 
         public async Task<int> CreateAsync(OrderDto orderDto)
         {
-
-                var request = new RestRequest().AddBody(orderDto);
-                var response = await _client.ExecutePostAsync<int>(request);
-                if (response.StatusCode.Equals(HttpStatusCode.Conflict))
-                {
-                    throw new ProductOutOfStockException($"Incorect data={orderDto}");
-                }
-                return  response.Data;
-           
-
-
+            var request = new RestRequest().AddBody(orderDto);
+            var response = await _client.ExecutePostAsync<int>(request);
+            if (response.StatusCode.Equals(HttpStatusCode.Conflict))
+            {
+                throw new ProductOutOfStockException($"Creating of order was unsuccessful. One of products was out of stock");
+            }
+            else if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Creating of order was unsuccessful. Message was'{response.ErrorMessage}'");
+            }
+            return response.Data;
         }
-       
-        public async Task<IEnumerable<OrderDto>?> GetAllAsync()
+
+        public async Task<IEnumerable<OrderDto>> GetAllAsync()
         {
-            return await _client.GetAsync<IEnumerable<OrderDto>>(new RestRequest());
+            var response = await _client.ExecuteGetAsync<IEnumerable<OrderDto>>(new RestRequest());
+            if (!response.IsSuccessStatusCode || response.Data == null)
+            {
+                throw new Exception($"Error retrieving all orders. Message was {response.ErrorMessage}");
+
+            }
+            return response.Data;
         }
 
-        public async Task<OrderDto?> GetByIdAsync(int id)
-        {
-            var request = new RestRequest($"{id}");
-            return await _client.GetAsync<OrderDto?>(request);
-        }
-
-        public async Task<bool> UpdateAsync(OrderDto orderDto)
-        {
-            var request = new RestRequest($"{orderDto.Id}");
-            request.AddBody(orderDto);
-            return await _client.PutAsync<bool>(request);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<OrderDto> GetByIdAsync(int id)
         {
             var request = new RestRequest($"{id}");
-            return await _client.DeleteAsync<bool>(request);
+            var response = await _client.ExecuteGetAsync<OrderDto>(request);
+            if (!response.IsSuccessStatusCode || response.Data == null)
+            {
+                throw new Exception($"Error retrieving all orders. Message was {response.ErrorMessage}");
+            }
+            return response.Data;
         }
     }
 }

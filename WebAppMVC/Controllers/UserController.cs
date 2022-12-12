@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
@@ -59,28 +61,32 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> Register() => View(new UserDto());
 
 
-        [HttpPost]
-        public async Task<ActionResult> UpdateProfile(UserEditVM user)
-        {
-            var succes = await _userClient.UpdatePasswordAsync(_mapper.Map<UserDto>(user));
-            if (succes) 
-                return View();
-            else 
-                return null;       
-        }
+        //[HttpPost]
+        //public async Task<ActionResult> UpdateProfile(UserEditVM user)
+        //{
+        //    var succes = await _userClient.UpdatePasswordAsync(_mapper.Map<UserDto>(user));
+        //    if (succes) 
+        //        return View();
+        //    else 
+        //        return null;       
+        //}
 
-        [HttpPost]
-        public async Task<ActionResult> UpdatePassword(UserEditVM user)
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            string email = identity.FindFirst(ClaimTypes.Email).Value;
-            UserDto userDto = _mapper.Map<UserDto>(user);
-            userDto.Email = email;
-            var succes = await _userClient.UpdatePasswordAsync(userDto);
-            if (succes)
-                return View();
-            else
-                return null;
-        }
+        //[HttpPost]
+        //public async Task<ActionResult> UpdatePassword(UserEditVM user)
+        //{
+        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //    string email = identity.FindFirst(ClaimTypes.Email).Value;
+        //    UserDto userDto = _mapper.Map<UserDto>(user);
+        //    userDto.Email = email;
+        //    var succes = await _userClient.UpdatePasswordAsync(userDto);
+        //    if (succes)
+        //    {
+        //        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        //        return RedirectToAction("Login", "Authentication");
+        //    }
+
+        //    else
+        //        return null;
+        //}
     }
 }

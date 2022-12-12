@@ -9,36 +9,25 @@ namespace WebApiClient.RestSharpClientImplementation
         RestClient _client;
         public ProductClient(string restUrl) => _client = new RestClient(restUrl);
 
-        public async Task<ProductDto?> GetByIdAsync(int id)
+        public async Task<ProductDto> GetByIdAsync(int id)
         {
             var request = new RestRequest($"{id}");
-            return await _client.GetAsync<ProductDto?>(request);
+            var response = await _client.ExecuteGetAsync<ProductDto>(request);
+            if (!response.IsSuccessStatusCode || response.Data == null)
+            {
+                throw new Exception($"Error retrieving product by id. Message was {response.ErrorMessage}");
+            }
+            return response.Data;
         }
-
-        public async Task<IEnumerable<ProductDto>?> GetAllAsync(string? category)
+        public async Task<IEnumerable<ProductDto>> GetAllAsync(string? category)
         {
             var request = new RestRequest().AddQueryParameter("category", category);
-            return await _client.GetAsync<IEnumerable<ProductDto>>(request);
-        }
-
-        public async Task<int> CreateAsync(ProductDto productDto)
-        {
-            var request = new RestRequest();
-            request.AddBody(productDto);
-            return await _client.PostAsync<int>(request);
-        }
-
-        public async Task<bool> UpdateAsync(ProductDto productDto)
-        {
-            var request = new RestRequest($"{productDto.Id}");
-            request.AddBody(productDto);
-            return await _client.PutAsync<bool>(request);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var request = new RestRequest($"{id}");
-            return await _client.DeleteAsync<bool>(request);
+            var response = await _client.ExecuteGetAsync<IEnumerable<ProductDto>>(request);
+            if (!response.IsSuccessStatusCode || response.Data == null)
+            {
+                throw new Exception($"Error retrieving all products. Message was {response.ErrorMessage}");
+            }
+            return response.Data;
         }
     }
 }

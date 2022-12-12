@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tests.Backend.Controllers
+namespace UnitTest.Backend.DataAccess
 {
-    internal class TestOrderController
+    public class TestProductDA
     {
     }
 }

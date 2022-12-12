@@ -10,6 +10,5 @@ namespace WebApiClient.Interfaces
     public interface ICategoryClient
     {
         Task<IEnumerable<CategoryDto>> GetAllAsync();
-
     }
 }

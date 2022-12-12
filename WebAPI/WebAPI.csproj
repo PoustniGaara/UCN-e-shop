@@ -17,9 +17,9 @@
   </ItemGroup>
 
 	<!--show internal to integration tests-->
-	<ItemGroup>
+	<!--<ItemGroup>
 		<InternalsVisibleTo Include="IntegrationTests" />
-	</ItemGroup>
+	</ItemGroup>-->
 
   <ItemGroup>
     <ProjectReference Include="..\AppMVCDataAccess\DataAccessLayer.csproj" />

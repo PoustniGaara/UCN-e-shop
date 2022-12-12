@@ -13,7 +13,7 @@ using WebApi.MapperProfiles;
 using WebApiClient.DTOs;
 using ProductDto = WebApi.DTOs.ProductDto;
 
-namespace Testing.Backend.Controllers
+namespace UnitTest.Backend.Controllers
 {
     public class TestProductController
     {

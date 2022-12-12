@@ -1,10 +1,4 @@
 ﻿using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
 
@@ -17,39 +11,52 @@ namespace WebApiClient.RestSharpClientImplementation
 
         public async Task<string> CreateAsync(UserDto userDto)
         {
-            var request = new RestRequest();
-            request.AddBody(userDto);
-            return await _client.PostAsync<string>(request);
+            var request = new RestRequest().AddBody(userDto);
+            var response = await _client.ExecutePostAsync<string>(request);
+            if (!response.IsSuccessStatusCode || response.Data == null)
+            {
+                throw new Exception($"Error creating user. Message was {response.ErrorMessage}");
+            }
+            return response.Data;
         }
 
-        public async Task<UserDto?> GetByEmailAsync(string email)
+        public async Task<UserDto> GetByEmailAsync(string email)
         {
-            
+
             var request = new RestRequest($"{email}");
-            var user = await _client.GetAsync<UserDto?>(request);
-            return user;
+            var response = await _client.ExecuteGetAsync<UserDto>(request);
+            if (!response.IsSuccessStatusCode || response.Data == null)
+            {
+                throw new Exception($"Error retrieving user by email:'{email}'. Message was {response.ErrorMessage}");
+            }
+            return response.Data;
         }
 
-        public async Task<bool> UpdatePasswordAsync(UserDto userDto)
+        public async Task UpdatePasswordAsync(UserDto userDto)
         {
+            var request = new RestRequest($"{userDto.Email}/Password").AddBody(userDto);
+            var response = await _client.ExecutePutAsync(request);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error updating password. Message was {response.ErrorMessage}");
+            }
+            return;
+        }
+
+        public async Task DeleteAsync(string email)
+        {
+            //Try catch block is needed because DeleteAsync throws exception when request fails.
+            var request = new RestRequest($"{email}");
             try
             {
-                var request = new RestRequest($"{userDto.Email}/Password");
-                request.AddBody(userDto);
-                await _client.PutAsync<bool>(request);
-                return true;
-                    
+                await _client.DeleteAsync(request);
+                return;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception($"{ex.Message}");
+                throw new Exception($"Error deleting user. Message was {ex.Message}");
             }
-        }
 
-        public async Task<bool> DeleteAsync(string email)
-        {
-            var request = new RestRequest($"{email}");
-            return await _client.DeleteAsync<bool>(request);
         }
     }
 }

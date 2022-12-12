@@ -12,11 +12,7 @@ namespace WebApiClient.Interfaces
 {
     public interface IProductClient
     {
-        Task<ProductDto?> GetByIdAsync(int id);
-        Task<IEnumerable<ProductDto>?> GetAllAsync(string? category);
-        Task<int> CreateAsync(ProductDto product);
-        Task<bool> UpdateAsync(ProductDto product);
-        Task<bool> DeleteAsync(int id);
+        Task<ProductDto> GetByIdAsync(int id);
+        Task<IEnumerable<ProductDto>> GetAllAsync(string? category);
     }
-
 }

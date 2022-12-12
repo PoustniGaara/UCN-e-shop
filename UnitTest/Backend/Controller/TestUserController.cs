@@ -16,7 +16,7 @@
 //using WebApi.MapperProfiles;
 
 
-//namespace Tests.Backend.Controllers
+//namespace UnitTest.Backend.Controllers
 //{
 //    private IUserDataAccess _usersDataAcces;
 //    private IMapper _mapper;
