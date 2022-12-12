@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using DataAccessLayer.Exceptions;
 using DataAccessLayer.Authentication;
+using System.Text.RegularExpressions;
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
@@ -143,31 +144,56 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("SELECT * from [User] where email = @email and password = @password", connection);
+                SqlCommand command = new SqlCommand("SELECT * from [User] where email = @email", connection);
                 command.Parameters.AddWithValue("@email", email);
-                command.Parameters.AddWithValue("@password", password);
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
                 User user = new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"),  reader.GetString("password"), reader.GetBoolean("isAdmin"));
-                if(user != null && BCryptTool.ValidatePassword(password, user.Password)) 
+                bool statement = BCryptTool.ValidatePassword(password, user.Password);
+                if (user != null && statement) 
                 return user;
-                else 
-                return null;
+                else
+                {
+                    throw new WrongLoginException($"Incorect login information for user '{user}'");
+                }
             }
-            catch (System.InvalidOperationException logEx)
-            {
-                throw new WrongLoginException($"Incorect login information '{logEx.Message}'", logEx);
-
-            }
-            catch(Exception ex)
-            {
-                throw new Exception($"Error while loggin into DB '{ex.Message}'.", ex);
+            catch (System.InvalidOperationException logEx){
+                throw new WrongLoginException($"Incorect login information, message was '{logEx.Message}'");
             }
             finally
             {
                 connection.Close();
             }
 
+        }
+
+        public async Task<bool> UpdatePasswordAsync(string email, string oldPassword, string newPassword)
+        {
+            using SqlConnection connection = new SqlConnection(connectionstring);
+            try
+            {
+                User? user = await LoginAsync(email, oldPassword);
+                if(user != null)
+                {
+                    connection.Open();
+                    var newPasswordHash = BCryptTool.HashPassword(newPassword);
+                    SqlCommand command = new SqlCommand("UPDATE [User] SET password = @password WHERE email = @email", connection);
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@password", newPasswordHash);
+                    command.ExecuteNonQuery();
+                    return true;
+
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while updating user into DB '{ex.Message}'.", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public async Task<bool> UpdateUserAsync(User user)

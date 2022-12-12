@@ -30,11 +30,20 @@ namespace WebApiClient.RestSharpClientImplementation
             return user;
         }
 
-        public async Task<bool> UpdateAsync(UserDto userDto)
+        public async Task<bool> UpdatePasswordAsync(UserDto userDto)
         {
-            var request = new RestRequest($"{userDto.Email}");
-            request.AddBody(userDto);
-            return await _client.PutAsync<bool>(request);
+            try
+            {
+                var request = new RestRequest($"{userDto.Email}/Password");
+                request.AddBody(userDto);
+                await _client.PutAsync<bool>(request);
+                return true;
+                    
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
         }
 
         public async Task<bool> DeleteAsync(string email)

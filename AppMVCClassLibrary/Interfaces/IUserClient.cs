@@ -12,7 +12,7 @@ namespace WebApiClient.Interfaces
         Task<UserDto?> GetByEmailAsync(string email);
         Task<string> CreateAsync(UserDto User);
         Task<bool> DeleteAsync(string email);
-        Task<bool> UpdateAsync(UserDto user);
+        Task<bool> UpdatePasswordAsync(UserDto user);
 
     }
 }

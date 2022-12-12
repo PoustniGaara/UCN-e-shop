@@ -9,6 +9,7 @@ namespace DataAccessLayer.Model
         public string PhoneNumber { get; set; }
         public string Address { get; set; } 
         public string Password { get; set; }
+        public string NewPassword { get; set; }
         public bool IsAdmin { get; set; }
         public IEnumerable<Order> Orders { get; set; }
 

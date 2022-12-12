@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApiClient.Interfaces
+namespace WebApi.Interfaces
 {
     public interface IEntity
     {

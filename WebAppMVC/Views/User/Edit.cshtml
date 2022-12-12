@@ -31,15 +31,23 @@
     </form>
     <form asp-action="UpdatePassword">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @{
+            Model.Password = "";
+        }
         <div class="form-group">
             <label asp-for="Password" class="control-label">Password:*</label>
             <input asp-for="Password" style="display: block;" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Password" class="control-label">Password:*</label>
-            <input asp-for="Password" style="display: block;" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
+            <label asp-for="NewPassword" class="control-label">New password:*</label>
+            <input asp-for="NewPassword" style="display: block;" class="form-control" />
+            <span asp-validation-for="NewPassword" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NewPassword" class="control-label">New password:*</label>
+            <input asp-for="NewPassword" style="display: block;" class="form-control" />
+            <span asp-validation-for="NewPassword" class="text-danger"></span>
         </div>
         <div class="update-profile-button-container">
             <input type="submit" value="Update Password" class="button-1" />

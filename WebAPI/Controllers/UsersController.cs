@@ -48,7 +48,7 @@ namespace WebApi.Controllers
 
         // DELETE api/<UserController>/1
         [HttpDelete("{email}")]
-        public async Task<ActionResult> Delete(string email)
+        public async Task<ActionResult<bool>> Delete(string email)
         {
             if (await _userDataAccess.DeleteUserAsync(email))
                 return Ok();
@@ -73,6 +73,14 @@ namespace WebApi.Controllers
                 return Ok();
             else
                 return NotFound();
+        }
+
+        [HttpPut("{email}/Password")]
+        public async Task<ActionResult> UpdatePassword(string email, [FromBody] UserDto passwordUpdateInfo)
+        {
+            if (!await _userDataAccess.UpdatePasswordAsync(email, passwordUpdateInfo.Password, passwordUpdateInfo.NewPassword))
+            { return NotFound(false); }
+             return Ok(true); 
         }
 
         #endregion

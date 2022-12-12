@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
 using WebApiClient.RestSharpClientImplementation;
@@ -60,7 +62,7 @@ namespace WebAppMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdateProfile(UserEditVM user)
         {
-            var succes = await _userClient.UpdateAsync(_mapper.Map<UserDto>(user));
+            var succes = await _userClient.UpdatePasswordAsync(_mapper.Map<UserDto>(user));
             if (succes) 
                 return View();
             else 
@@ -70,7 +72,11 @@ namespace WebAppMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdatePassword(UserEditVM user)
         {
-            var succes = await _userClient.UpdateAsync(_mapper.Map<UserDto>(user));
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            string email = identity.FindFirst(ClaimTypes.Email).Value;
+            UserDto userDto = _mapper.Map<UserDto>(user);
+            userDto.Email = email;
+            var succes = await _userClient.UpdatePasswordAsync(userDto);
             if (succes)
                 return View();
             else

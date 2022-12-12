@@ -4,7 +4,7 @@ using WebApiClient.Interfaces;
 
 namespace WebApiClient.DTOs
 {
-    public class LoginModelDto : IEntity
+    public class LoginModelDto
     {
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Email is required")]

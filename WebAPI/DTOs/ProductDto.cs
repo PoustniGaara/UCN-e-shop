@@ -1,7 +1,7 @@
-﻿using DataAccessLayer.Interfaces;
-using DataAccessLayer.Model;
+﻿using DataAccessLayer.Model;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using WebApi.Interfaces;
 
 namespace WebApi.DTOs
 {

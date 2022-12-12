@@ -33,12 +33,10 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] LoginModelDto loginData)
         {
-            User? user = await _userDataAccess.GetUserByEmailAsync(loginData.Email);
-            
+            User? user = await _userDataAccess.LoginAsync(loginData.Email, loginData.Password);
+
             if (user != null)
             {
-                //User? user = await _userDataAccess.LoginAsync(loginData.Email, loginData.Password);
-
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var tokenOptions = new JwtSecurityToken(

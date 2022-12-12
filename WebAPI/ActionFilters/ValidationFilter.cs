@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Principal;
 using WebApi.DTOs;
-using DataAccessLayer.Interfaces;
+using WebApi.Interfaces;
 
 namespace WebApi.ActionFilters
 {
-        public class ValidationFilter : IActionFilter
+    public class ValidationFilter : IActionFilter
         {
             public void OnActionExecuting(ActionExecutingContext context)
             {
