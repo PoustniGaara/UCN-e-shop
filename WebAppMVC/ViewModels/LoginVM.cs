@@ -15,5 +15,8 @@ namespace WebAppMVC.ViewModels
         [ViewData]
         public string? ErrorMessage { get; set; }
 
+        [ViewData]
+        public string? Message { get; set; }
+
     }
 }

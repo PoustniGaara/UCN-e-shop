@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebApiClient.DTOs;
-using WebAppMVC.Models;
+using WebAppMVC.ActionFilters;
 using WebAppMVC.Tools;
 using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
 {
+    [ServiceFilter(typeof(ExceptionFilter))]
     public class CartController : Controller
     {
         private readonly ILogger<CartController> _logger;
@@ -14,11 +14,6 @@ namespace WebAppMVC.Controllers
         public CartController(ILogger<CartController> logger)
         {
             _logger = logger;
-        }
-
-        public IActionResult About()
-        {
-            return View();
         }
 
         public IActionResult Index()
@@ -33,11 +28,5 @@ namespace WebAppMVC.Controllers
             return Redirect("/cart");
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

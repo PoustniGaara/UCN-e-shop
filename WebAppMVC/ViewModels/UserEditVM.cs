@@ -1,13 +1,21 @@
-﻿namespace WebAppMVC.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebAppMVC.ViewModels
 {
     public class UserEditVM
     {
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "*Email is required")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "*Name is required")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "*Surname is required")]
         public string Surname { get; set; }
+        [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
+        [Required(ErrorMessage = "*Address is required")]
         public string Address { get; set; }
-        public string Username { get; set; }
+        [Required(ErrorMessage = "*Password is required")]
         public string Password { get; set; }
         public string NewPassword { get; set; }
 

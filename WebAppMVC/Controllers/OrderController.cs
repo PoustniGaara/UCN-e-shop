@@ -50,12 +50,6 @@ namespace WebAppMVC.Controllers
                 orderCreateVM.Surname = User.FindFirst(ClaimTypes.Surname).Value;
                 orderCreateVM.Phone = User.FindFirst(ClaimTypes.MobilePhone).Value;
                 orderCreateVM.UserEmail = User.FindFirst(ClaimTypes.Email).Value;
-                string address = User.FindFirst("address").Value;
-                string[] words = address.Split(',');
-                orderCreateVM.Street = words[0];
-                orderCreateVM.PostalCode = words[1];
-                orderCreateVM.City = words[2];
-                orderCreateVM.AptNumber = Int32.Parse(words[3]);
                 return View(orderCreateVM);
             }
 
