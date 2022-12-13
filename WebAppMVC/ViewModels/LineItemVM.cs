@@ -1,6 +1,6 @@
-﻿namespace WebApiClient.DTOs
+﻿namespace WebAppMVC.ViewModels
 {
-    public class LineItemDto
+    public class LineItemVM
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }

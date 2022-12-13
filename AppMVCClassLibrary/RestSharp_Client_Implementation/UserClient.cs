@@ -56,7 +56,17 @@ namespace WebApiClient.RestSharpClientImplementation
             {
                 throw new Exception($"Error deleting user. Message was {ex.Message}");
             }
+        }
 
+        public async Task UpdateAsync(UserDto user)
+        {
+            var request = new RestRequest($"{user.Email}").AddBody(user); 
+            var response = await _client.ExecutePutAsync(request);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error updating user with email:'{user.Email}'. Message was {response.ErrorMessage}");
+            }
+            return;
         }
     }
 }

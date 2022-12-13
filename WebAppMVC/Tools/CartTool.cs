@@ -1,4 +1,5 @@
 ﻿using WebApiClient.DTOs;
+using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Tools
 {
@@ -6,29 +7,29 @@ namespace WebAppMVC.Tools
     {
         private const string shoppingCartKey = "shopping_cart";
 
-        public static OrderDto GetCart(this HttpContext context)
+        public static OrderCreateVM GetCart(this HttpContext context)
         {
-            var cart = context.Session.Get<OrderDto>(shoppingCartKey);
+            var cart = context.Session.Get<OrderCreateVM>(shoppingCartKey);
             
             if (cart == null)
-                cart = new OrderDto() { Items = new List<LineItemDto>() };
+                cart = new OrderCreateVM() { Items = new List<LineItemVM>() };
             
             if(cart.Items == null)
-                cart.Items = new List<LineItemDto>();
+                cart.Items = new List<LineItemVM>();
 
             cart.TotalPrice = cart.Items.Sum(item => item.Price * item.Quantity);
 
             return cart;
         }
 
-        public static void SaveCart(this HttpContext context, OrderDto cart)
+        public static void SaveCart(this HttpContext context, OrderCreateVM cart)
         {
-            context.Session.Set<OrderDto>(shoppingCartKey, cart);
+            context.Session.Set<OrderCreateVM>(shoppingCartKey, cart);
         }
 
         public static int GetCartCount(this HttpContext context)
         {
-            var cart = context.Session.Get<OrderDto>(shoppingCartKey);
+            var cart = context.Session.Get<OrderCreateVM>(shoppingCartKey);
             if (cart == null || cart.Items == null)
                 return 0;
             else

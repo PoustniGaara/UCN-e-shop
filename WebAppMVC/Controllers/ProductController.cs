@@ -13,12 +13,11 @@ namespace WebAppMVC.Controllers
     public class ProductController : Controller
     {
         private const string categoryListCacheKey = "categoryList";
-        private IMemoryCache _cache;
-        private IProductClient _productclient;
-        private ICategoryClient _categoryclient;
+        private readonly IMemoryCache _cache;
+        private readonly IProductClient _productclient;
+        private readonly ICategoryClient _categoryclient;
         private readonly IMapper _mapper;
         private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
-
 
         public ProductController(IProductClient prodClient, ICategoryClient catClient, IMapper mapper, IMemoryCache cache)
         {
@@ -28,50 +27,48 @@ namespace WebAppMVC.Controllers
             _mapper = mapper;
         }
 
-        // GET: ProductController
         public async Task<ActionResult> Index([FromQuery] string? category)
         {
             //Get the IEnumerable from API client
             IEnumerable<ProductDto> productDtoList = await _productclient.GetAllAsync(category);
 
             //Create new view model
-            ProductIndexVM productIndexVM = _mapper.Map<ProductIndexVM>(productDtoList);
+            ProductIndexVM productIndexVM = _mapper.Map<ProductIndexVM>(productDtoList.Select(productDto => _mapper.Map<ProductDetailsVM>(productDto)));
 
             //Get categories
-            if (_cache.TryGetValue(categoryListCacheKey, out IEnumerable<CategoryDto> categories))
+            //...
+            //If possbile get from cache
+            if (_cache.TryGetValue(categoryListCacheKey, out IEnumerable<CategoryVM> categories))
             {
-                //Try to get categories from cache
                 productIndexVM.Categories = categories;
             }
+            //Else get from DB
             else
             {
                 try
                 {
+                    //NOTE: Semaphore is here because we don't want a case when two user get data from DB and then write it in cache at the same time.
                     await semaphore.WaitAsync();
-                    if (_cache.TryGetValue("employeeList", out categories))
-                    {
+                    
+                    //Get categories from DB
+                    IEnumerable<CategoryDto> categoriesDB = await _categoryclient.GetAllAsync();
+                    IEnumerable<CategoryVM> categoriesVM = categoriesDB.Select(categoryDto => _mapper.Map<CategoryVM>(categoryDto));
 
-                    }
-                    else
-                    {
-                        //Get categories from DB
-                        IEnumerable<CategoryDto> categoriesDB = await _categoryclient.GetAllAsync();
-                        productIndexVM.Categories = categoriesDB;
+                    productIndexVM.Categories = categoriesVM;
 
-                        var cacheEntryOptions = new MemoryCacheEntryOptions()
-                            .SetSlidingExpiration(TimeSpan.FromHours(12))
-                            .SetAbsoluteExpiration(TimeSpan.FromDays(2))
-                            .SetPriority(CacheItemPriority.Normal)
-                            .SetSize(1024);
-                        _cache.Set(categoryListCacheKey, categoriesDB, cacheEntryOptions);
-                    }
+                    var cacheEntryOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromHours(12))
+                        .SetAbsoluteExpiration(TimeSpan.FromDays(2))
+                        .SetPriority(CacheItemPriority.Normal)
+                        .SetSize(1024);
+                    _cache.Set(categoryListCacheKey, categoriesVM, cacheEntryOptions);
                 }
                 finally
                 {
                     semaphore.Release();
                 }
             }
-                return View(productIndexVM);
+            return View(productIndexVM);
         }
 
         public async Task<ActionResult> Add(int id, [FromQuery] string size)
@@ -88,7 +85,7 @@ namespace WebAppMVC.Controllers
             }
             else
             {
-                items.Add(new LineItemDto { ProductId = id, SizeName = size, SizeId = sizeId, Price = productDto.Price, ProductName = productDto.Name, Quantity = 1 });
+                items.Add(new LineItemVM { ProductId = id, SizeName = size, SizeId = sizeId, Price = productDto.Price, ProductName = productDto.Name, Quantity = 1 });
             }
 
             cart.Items = items;
@@ -97,12 +94,10 @@ namespace WebAppMVC.Controllers
             return Redirect("/product/details/" + id);
         }
 
-        // GET: ProductController/Details/5
         public async Task<ActionResult> Details(int id)
         {
             var productDto = await _productclient.GetByIdAsync(id);
             ProductDetailsVM productDetailsVM = _mapper.Map<ProductDetailsVM>(productDto);
-
             return View(productDetailsVM);
         }
 

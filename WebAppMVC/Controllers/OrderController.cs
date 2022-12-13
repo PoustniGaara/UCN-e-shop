@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
 using WebAppMVC.ActionFilters;
@@ -11,9 +12,7 @@ namespace WebAppMVC.Controllers
     [ServiceFilter(typeof(ExceptionFilter))]
     public class OrderController : Controller
     {
-
-        private IOrderClient _client;
-        private IOrderClient _productClient;
+        private readonly IOrderClient _client;
         private readonly IMapper _mapper;
 
         public OrderController(IOrderClient client, IMapper mapper)
@@ -25,36 +24,60 @@ namespace WebAppMVC.Controllers
         public async Task<ActionResult> IndexAsync()
         {
             IEnumerable<OrderDto> orderDtoList = await _client.GetAllAsync();
-            return View(orderDtoList);
+            OrderIndexVM orderIndexVM = _mapper.Map<OrderIndexVM>(orderDtoList);
+            return View(orderIndexVM);
         }
 
         public async Task<ActionResult> DetailsAsync(int id)
         {
             var order = await _client.GetByIdAsync(id);
-
-            OrderDetailsVM ordervm = _mapper.Map<OrderDetailsVM>(order);
-            return View(ordervm);
+            OrderDetailsVM orderVM = _mapper.Map<OrderDetailsVM>(order);
+            return View(orderVM);
         }
 
         public ActionResult Create()
         {
-            var cart = HttpContext.GetCart();
-            return View(cart);
+            //Check if user is logged in
+            if (!User.Identity.IsAuthenticated)
+            {
+                return View("NoAccountInfo");
+            }
+            else
+            {
+                var orderCreateVM = HttpContext.GetCart();
+                //Add user info from cookie to order (cart) object, so it can be autofilled in the view
+                orderCreateVM.Name = User.FindFirst(ClaimTypes.Name).Value;
+                orderCreateVM.Surname = User.FindFirst(ClaimTypes.Surname).Value;
+                orderCreateVM.Phone = User.FindFirst(ClaimTypes.MobilePhone).Value;
+                orderCreateVM.UserEmail = User.FindFirst(ClaimTypes.Email).Value;
+                string address = User.FindFirst("address").Value;
+                string[] words = address.Split(',');
+                orderCreateVM.Street = words[0];
+                orderCreateVM.PostalCode = words[1];
+                orderCreateVM.City = words[2];
+                orderCreateVM.AptNumber = Int32.Parse(words[3]);
+                return View(orderCreateVM);
+            }
+
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(OrderDto order)
+        public async Task<ActionResult> Create(OrderCreateVM orderVM)
         {
-            int id = -1;
+            //Adjustments
+            orderVM.Items = HttpContext.GetCart().Items;
+            orderVM.TotalPrice = CalculateTotalOrderPrice(orderVM);
+            orderVM.Address = orderVM.Street + (orderVM.AptNumber.HasValue ? ", " + orderVM.AptNumber : "") + ", " + orderVM.City + " " + orderVM.PostalCode;
+            //Create
+            OrderDto orderDto = _mapper.Map<OrderDto>(orderVM);
+            await _client.CreateAsync(orderDto);
+            //Clear the cart
+            HttpContext.SaveCart(new OrderCreateVM());
 
-            order.Items = HttpContext.GetCart().Items;
-            order.TotalPrice = CalculateTotalOrderPrice(order);
-            order.Address = order.Street + (order.AptNumber.HasValue ? ", " + order.AptNumber : "") + ", " + order.City + " " + order.PostalCode;
-            await _client.CreateAsync(order);
             return RedirectToAction(nameof(Index));
         }
 
-        private decimal CalculateTotalOrderPrice(OrderDto order)
+        private decimal CalculateTotalOrderPrice(OrderCreateVM order)
         {
             var Shipping = 35;
             decimal total = Shipping + order.Items.Sum(i => i.Price * i.Quantity);

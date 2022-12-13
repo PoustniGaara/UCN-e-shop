@@ -3,6 +3,7 @@ using System.Diagnostics;
 using WebApiClient.DTOs;
 using WebAppMVC.Models;
 using WebAppMVC.Tools;
+using WebAppMVC.ViewModels;
 
 namespace WebAppMVC.Controllers
 {
@@ -28,7 +29,7 @@ namespace WebAppMVC.Controllers
 
         public IActionResult Clear()
         {
-            HttpContext.SaveCart(new OrderDto());
+            HttpContext.SaveCart(new OrderCreateVM());
             return Redirect("/cart");
         }
 

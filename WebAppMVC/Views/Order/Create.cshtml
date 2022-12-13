@@ -1,15 +1,12 @@
-﻿@model WebApiClient.DTOs.OrderDto
-
-@{
-    ViewData["Title"] = "New Order";
-}
+﻿@model WebAppMVC.ViewModels.OrderCreateVM;
 
 @if (@Model == null || @Model.Items == null || @Model.Items.Count() == 0)
 {
     <h2>Unfortunately, your shopping cart is empty!</h2>
     <hr />
     @Html.ActionLink("<- Return to the store", "Index", "Home")
-} else
+}
+else
 {
     <div class="separator">
         <h1 class="home-title">Checkout</h1>
@@ -19,12 +16,18 @@
             <h2>Contact information</h2>
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                 <div class="form-group">
+                <div class="form-group e-disabled">
+                    <label asp-for="UserEmail" class="control-label">E-mail:*</label>
+                    <input asp-for="UserEmail" disabled style="display: block;" class="form-control " />
+                    <span asp-validation-for="UserEmail" class="text-danger">
+                    </span>
+                </div>
+                <div class="form-group">
                     <label asp-for="Name" class="control-label">Name:*</label>
                     <input asp-for="Name" style="display: block;" required class=" form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
                     <label asp-for="Surname" class="control-label">Surname:*</label>
                     <input asp-for="Surname" style="display: block;" required class="form-control input-custom" />
                     <span asp-validation-for="Surname" class="text-danger"></span>
@@ -32,12 +35,6 @@
                 <div class="form-group">
                     <label asp-for="Phone" class="control-label">Phone:</label>
                     <input asp-for="Phone" style="display: block; width: 100%;" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="UserEmail" class="control-label">E-mail:*</label>
-                    <input asp-for="UserEmail" style="display: block;" class="form-control" />
-                    <span asp-validation-for="UserEmail" class="text-danger">
-                    </span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Note" class="control-label">Note:</label>
@@ -50,7 +47,7 @@
                     <input asp-for="Street" style="display: block;" required class="form-control" />
                     <span asp-validation-for="Street" class="text-danger"></span>
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
                     <label asp-for="AptNumber" class="control-label">Apartment number:</label>
                     <input asp-for="AptNumber" style="display: block; width: 100%" class="form-control" />
                 </div>
@@ -108,7 +105,7 @@
                     <div>
                         <p class="subtotal-text-small">Including VAT (20%)</p>
                         <p class="subtotal-price-small">@((Model.TotalPrice + 35) * (decimal)0.2) Kr.</p>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,5 +113,7 @@
 }
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

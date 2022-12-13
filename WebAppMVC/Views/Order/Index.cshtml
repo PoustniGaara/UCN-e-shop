@@ -1,8 +1,6 @@
-﻿@model IEnumerable<WebApiClient.DTOs.OrderDto>
-
-@{
-    ViewData["Title"] = "Orders";
-}
+﻿@*@model IEnumerable<WebApiClient.DTOs.OrderDto>
+*@
+@model WebAppMVC.ViewModels.OrderIndexVM;
 
 <h2>Your Orders</h2>
 <hr />
@@ -13,7 +11,7 @@
                 Order nr.
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                Date
             </th>
             <th>
                 Total
@@ -21,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var order in Model) {
+        @foreach (var order in Model.Orders) {
             <tr>
                 <td>
                         @Html.ActionLink(order.Id.ToString(), "Details", new { id = order.Id }) 

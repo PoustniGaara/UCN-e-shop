@@ -4,6 +4,14 @@ namespace WebAppMVC.ViewModels
 {
     public class OrderIndexVM
     {
-        public IEnumerable<OrderDto> Orders { get; set; }
+        public IEnumerable<OrderDetailsVM> Orders { get; set; }
+
+        public string Title
+        {
+            get
+            {
+                return "Orders";
+            }
+        }
     }
 }

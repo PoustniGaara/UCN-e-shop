@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using RestSharp;
+﻿using RestSharp;
 using System.Net;
 using WebApiClient.DTOs;
 using WebApiClient.Exceptions;
@@ -15,26 +14,17 @@ namespace WebApiClient.RestSharp_Client_Implementation
         public async Task<string> LoginAsync(LoginModelDto loginModel)
         {
             var request = new RestRequest().AddBody(loginModel);
-            try
+
+            var response = await _client.ExecutePostAsync(request);
+            if (response.StatusCode.Equals(HttpStatusCode.Forbidden))
             {
-                var response = await _client.ExecutePostAsync<string>(request);
-                if (response.StatusCode.Equals(HttpStatusCode.Forbidden))
-                {
-                    throw new WrongLoginException($"Incorect login data={loginModel}. Message was {response.ErrorMessage}");
-                }
-                if (!response.IsSuccessful || response.Data == null)
-                {
-                    throw new Exception($"Error loggin in author with login data={loginModel}. Message was {response.Content}");
-                }
-                return response.Data;
+                throw new WrongLoginException($"Incorect login data={loginModel}. Message was {response.ErrorMessage}");
             }
-            catch(HttpRequestException requestException)
+            if (!response.IsSuccessful || response.Content == null)
             {
-                if (requestException.StatusCode.Equals(HttpStatusCode.Forbidden))
-                {
-                }
-                throw requestException;
+                throw new Exception($"Error loggin in author with login data={loginModel}. Message was {response.Content}");
             }
+            return response.Content;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using WebApiClient.DTOs;
+﻿using WebApiClient.DTOs;
 
 namespace WebAppMVC.ViewModels
 {
@@ -12,7 +11,7 @@ namespace WebAppMVC.ViewModels
         public string Address { get; set; }
         public string Note { get; set; }
         public string UserEmail { get; set; }
-        public IEnumerable<LineItemDto> Items { get; set; }
+        public IEnumerable<LineItemVM> Items { get; set; }
         public string Title { get
             {
                 return "Order #" + Id;

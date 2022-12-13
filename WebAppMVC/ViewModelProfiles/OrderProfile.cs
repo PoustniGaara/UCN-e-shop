@@ -8,11 +8,19 @@ namespace WebAppMVC.ViewModelProfiles
     {
         public OrderProfile()
         {
-            CreateMap<IEnumerable<OrderDto>, OrderIndexVM>()
-            .ForMember(dest => dest.Orders, act => act.MapFrom(src => src));
+            CreateMap<LineItemDto, LineItemVM>()
+                .ReverseMap();
 
             CreateMap<OrderDto, OrderDetailsVM>()
                 .ReverseMap();
+
+            CreateMap<OrderDto, OrderCreateVM>()
+                .ReverseMap();
+
+            CreateMap<IEnumerable<OrderDto>, OrderIndexVM>()
+            .ForMember(dest => dest.Orders, act => act.MapFrom(src => src));
+
+            
 
         }
     }
