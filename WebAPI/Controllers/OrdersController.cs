@@ -2,6 +2,7 @@
 using AutoMapper;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.DTOs;
 
@@ -16,10 +17,9 @@ namespace WebApi.Controllers
     IProductDataAccess _productDataAccess;
     private readonly IMapper _mapper;
 
-    public OrdersController(IOrderDataAccess orderDataAccess, IProductDataAccess productDataAccess, IMapper mapper)
+    public OrdersController(IOrderDataAccess orderDataAccess, IMapper mapper)
     {
         _orderDataAccess = orderDataAccess;
-        _productDataAccess = productDataAccess;
         _mapper = mapper;
     }
         #endregion

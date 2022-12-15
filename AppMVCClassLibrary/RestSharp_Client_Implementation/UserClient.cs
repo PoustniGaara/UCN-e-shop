@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Microsoft.AspNetCore.Authorization;
+using RestSharp;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
 
@@ -20,6 +21,7 @@ namespace WebApiClient.RestSharpClientImplementation
             return response.Data;
         }
 
+        [Authorize]
         public async Task<UserDto> GetByEmailAsync(string email)
         {
 
@@ -32,6 +34,7 @@ namespace WebApiClient.RestSharpClientImplementation
             return response.Data;
         }
 
+        [Authorize]
         public async Task UpdatePasswordAsync(UserDto userDto)
         {
             var request = new RestRequest($"{userDto.Email}/Password").AddBody(userDto);
@@ -43,6 +46,7 @@ namespace WebApiClient.RestSharpClientImplementation
             return;
         }
 
+        [Authorize]
         public async Task DeleteAsync(string email)
         {
             //Try catch block is needed because DeleteAsync throws exception when request fails.
@@ -58,6 +62,7 @@ namespace WebApiClient.RestSharpClientImplementation
             }
         }
 
+        [Authorize]
         public async Task UpdateAsync(UserDto user)
         {
             var request = new RestRequest($"{user.Email}").AddBody(user); 

@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.VisualBasic;
-using System.Reflection;
 using WebApiClient.Exceptions;
-using WebAppMVC.Models;
 using WebAppMVC.ViewModels;
 
 

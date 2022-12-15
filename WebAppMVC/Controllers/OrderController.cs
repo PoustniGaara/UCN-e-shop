@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebApiClient.DTOs;
@@ -21,6 +22,7 @@ namespace WebAppMVC.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> IndexAsync()
         {
             IEnumerable<OrderDto> orderDtoList = await _client.GetAllAsync();
@@ -28,6 +30,7 @@ namespace WebAppMVC.Controllers
             return View(orderIndexVM);
         }
 
+        [Authorize]
         public async Task<ActionResult> DetailsAsync(int id)
         {
             var order = await _client.GetByIdAsync(id);
@@ -52,15 +55,16 @@ namespace WebAppMVC.Controllers
                 orderCreateVM.UserEmail = User.FindFirst(ClaimTypes.Email).Value;
                 return View(orderCreateVM);
             }
-
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> Create(OrderCreateVM orderVM)
         {
             //Adjustments
             orderVM.Items = HttpContext.GetCart().Items;
             orderVM.TotalPrice = CalculateTotalOrderPrice(orderVM);
+            orderVM.UserEmail = User.FindFirst(ClaimTypes.Email).Value;
             orderVM.Address = orderVM.Street + (orderVM.AptNumber.HasValue ? ", " + orderVM.AptNumber : "") + ", " + orderVM.City + " " + orderVM.PostalCode;
             //Create
             OrderDto orderDto = _mapper.Map<OrderDto>(orderVM);

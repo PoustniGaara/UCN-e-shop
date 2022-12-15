@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Security.Claims;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
 using WebAppMVC.ActionFilters;
-using WebAppMVC.Tools;
 using WebAppMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppMVC.Controllers
 {
@@ -23,8 +24,11 @@ namespace WebAppMVC.Controllers
             _mapper = mapper;
         }
 
-        public async Task<ActionResult> Edit(string email)
+        [Authorize]
+        public async Task<ActionResult> Edit()
         {
+            var email = User.FindFirst(ClaimTypes.Email).Value;
+
             var userDto = await _userClient.GetByEmailAsync(email);
 
             UserEditVM userEditVM = _mapper.Map<UserEditVM>(userDto);
@@ -32,8 +36,11 @@ namespace WebAppMVC.Controllers
             return View(userEditVM);
         }
 
-        public async Task<ActionResult> Details(string email)
+        [Authorize]
+        public async Task<ActionResult> Details()
         {
+            var email = User.FindFirst(ClaimTypes.Email).Value;
+
             var userDto = await _userClient.GetByEmailAsync(email);
 
             UserDetailsVM userDetailsVM = _mapper.Map<UserDetailsVM>(userDto);
@@ -51,19 +58,36 @@ namespace WebAppMVC.Controllers
 
             await _userClient.CreateAsync(userDto);
 
-            return RedirectToAction("Login", "Authentication", new RouteValueDictionary(new LoginVM { Message = "Registration was succesful, now you can login!" }));
+            var viewData = new ViewDataDictionary<LoginVM>(new EmptyModelMetadataProvider(), ModelState);
+            viewData = new ViewDataDictionary<LoginVM>(viewData, new LoginVM { Message = "Registration was successful!" });
+            return new ViewResult()
+            {
+                ViewName = "/Views/Authentication/Login.cshtml",
+                ViewData = viewData
+            };
+
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> UpdateProfile(UserEditVM user)
         {
+            if(user.Email != User.FindFirst(ClaimTypes.Email).Value)
+            {
+                return View("/Views/Shared/ActionForbiden.cshtml");
+            }
             await _userClient.UpdateAsync(_mapper.Map<UserDto>(user));
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> UpdatePassword(UserEditVM user)
         {
+            if (user.Email != User.FindFirst(ClaimTypes.Email).Value)
+            {
+                return View("/Views/Shared/ActionForbiden.cshtml");
+            }
             UserDto userDto = _mapper.Map<UserDto>(user);
             userDto.Email = User.FindFirst(ClaimTypes.Email).Value;
             await _userClient.UpdatePasswordAsync(userDto);
