@@ -18,7 +18,6 @@ namespace WebAppMVC.Controllers
         private IAuthenticationClient _client;
         private readonly IMapper _mapper;
 
-
         public AuthenticationController(IAuthenticationClient client, IMapper mapper)
         {
             _client = client;
@@ -29,74 +28,35 @@ namespace WebAppMVC.Controllers
         public ActionResult Login() => View(new LoginVM());
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM loginInfo/*, [FromQuery] string returnUrl*/)
+        public async Task<IActionResult> Login([FromForm] LoginVM loginInfo)
         {
             if (!ModelState.IsValid)
             {
                 return View(loginInfo);
             }
-
-            //if (string.IsNullOrEmpty(returnUrl)) { return RedirectToAction(); }
-
             LoginModelDto loginModelDto = _mapper.Map<LoginModelDto>(loginInfo);
             string result = await _client.LoginAsync(loginModelDto);
-            if (result != "")
+            string? TokenString = (string?)JObject.Parse(result)["token"];
+
+            if (TokenString != null)
             {
-                string? TokenString = (string?)JObject.Parse(result)["token"];
+                JwtSecurityToken Jst = new(TokenString);
 
-                if (TokenString != null)
-                {
-                    JwtSecurityToken Jst = new(TokenString);
+                List<Claim> theApiClaims = (List<Claim>)Jst.Claims.ToList();
+                theApiClaims.Add(new Claim("token", TokenString));
 
-                    List<Claim> theApiClaims = (List<Claim>)Jst.Claims.ToList();
-                    theApiClaims.Add(new Claim("token", TokenString));
+                var claimsIdentity = new ClaimsIdentity(theApiClaims, "Login");
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-                    var claimsIdentity = new ClaimsIdentity(theApiClaims, "Login");
-                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                    var authProperties = new AuthenticationProperties
-                    {
-                        #region often used options - to consider including in cookie
-                        //AllowRefresh = <bool>,
-                        // Refreshing the authentication session should be allowed.
-
-                        //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                        // The time at which the authentication ticket expires. A 
-                        // value set here overrides the ExpireTimeSpan option of 
-                        // CookieAuthenticationOptions set with AddCookie.
-
-                        //IsPersistent = true,
-                        // Whether the authentication session is persisted across 
-                        // multiple requests. When used with cookies, controls
-                        // whether the cookie's lifetime is absolute (matching the
-                        // lifetime of the authentication ticket) or session-based.
-
-                        //IssuedUtc = <DateTimeOffset>,
-                        // The time at which the authentication ticket was issued.
-
-                        //RedirectUri = <string>
-                        // The full path or absolute URI to be used as an http 
-                        // redirect response value. 
-                        #endregion
-                    };
-
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        claimsPrincipal);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    return View(loginInfo);
-                }
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    claimsPrincipal);
+                return RedirectToAction("Index", "Home");
             }
             else
             {
                 return View(loginInfo);
             }
-            //if (user != null) { await SignIn(user); }
-            //if (string.IsNullOrEmpty(returnUrl)) { return RedirectToAction(); }
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Logout()

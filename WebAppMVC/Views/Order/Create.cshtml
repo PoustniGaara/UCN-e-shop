@@ -17,6 +17,7 @@ else
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group e-disabled">
+                    @Html.AntiForgeryToken()
                     <label asp-for="UserEmail" class="control-label">E-mail:*</label>
                     <input asp-for="UserEmail" disabled style="display: block;" class="form-control " />
                     <span asp-validation-for="UserEmail" class="text-danger">

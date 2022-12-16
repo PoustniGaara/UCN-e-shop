@@ -35,6 +35,11 @@ namespace WebAppMVC.Controllers
         {
             var order = await _client.GetByIdAsync(id);
             OrderDetailsVM orderVM = _mapper.Map<OrderDetailsVM>(order);
+            //Check if the user email match with email in demanded order info
+            if(orderVM.UserEmail != User.FindFirst(ClaimTypes.Email).Value)
+            {
+                return View("Views/Shared/ActionForbiden.cshtml");
+            }
             return View(orderVM);
         }
 
@@ -59,6 +64,7 @@ namespace WebAppMVC.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(OrderCreateVM orderVM)
         {
             //Adjustments

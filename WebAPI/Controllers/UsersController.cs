@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
-using System.Text;
 using WebApi.DTOs;
 
 namespace WebApi.Controllers
@@ -14,7 +11,7 @@ namespace WebApi.Controllers
     public class UsersController : ControllerBase
     {
         #region Properties and Constructor
-        IUserDataAccess _userDataAccess;
+        private readonly IUserDataAccess _userDataAccess;
         private readonly IMapper _mapper;
 
         public UsersController(IUserDataAccess userDataAccess, IMapper mapper)
@@ -35,7 +32,6 @@ namespace WebApi.Controllers
             return Ok(usersDto);
         }
 
-        // GET api/<UserController>/1
         [HttpGet("{email}")]
         public async Task<ActionResult<UserDto>> Get(string email)
         {
@@ -46,7 +42,6 @@ namespace WebApi.Controllers
             return Ok(userDto);
         }
 
-        // DELETE api/<UserController>/1
         [HttpDelete("{email}")]
         public async Task<ActionResult<bool>> Delete(string email)
         {
@@ -56,7 +51,6 @@ namespace WebApi.Controllers
                 return NotFound();
         }
 
-        //POST api/<UserController>
         [HttpPost]
         public async Task<ActionResult<string>> Post([FromBody] UserDto newUserDto)
         {
@@ -65,7 +59,6 @@ namespace WebApi.Controllers
             return Ok(email);
         }
 
-        // PUT api/<OrderController>/1
         [HttpPut("{email}")]
         public async Task<ActionResult> Put([FromBody] UserDto updatedUserDto)
         {

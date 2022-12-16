@@ -70,6 +70,7 @@ namespace WebAppMVC.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> UpdateProfile(UserEditVM user)
         {
             if(user.Email != User.FindFirst(ClaimTypes.Email).Value)
@@ -82,6 +83,7 @@ namespace WebAppMVC.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> UpdatePassword(UserEditVM user)
         {
             if (user.Email != User.FindFirst(ClaimTypes.Email).Value)

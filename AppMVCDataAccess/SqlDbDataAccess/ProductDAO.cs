@@ -1,13 +1,8 @@
-﻿using DataAccessLayer.Exceptions;
-using DataAccessLayer.Interfaces;
+﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ProductSizeStock = DataAccessLayer.Model.ProductSizeStock;
 
 namespace DataAccessLayer.SqlDbDataAccess
@@ -21,11 +16,11 @@ namespace DataAccessLayer.SqlDbDataAccess
         private ICategoryDataAccess categoryDAO;
 
 
-        public ProductDAO(string connectionstring)
+        public ProductDAO(string connectionstring, IProductSizeStockDataAccess sizeStockDAO, ICategoryDataAccess categoryDAO)
         {
-            this.connectionString = connectionstring;
-            this.sizeStockDAO = new ProductSizeStockDAO(connectionString);
-            this.categoryDAO = new CategoryDAO(connectionString);
+            connectionString = connectionstring;
+            this.sizeStockDAO = sizeStockDAO;
+            this.categoryDAO = categoryDAO;
         }
         #endregion
 

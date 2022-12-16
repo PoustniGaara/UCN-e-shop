@@ -1,12 +1,9 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
-using System;
-using System.Collections.Generic;
+
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DataAccessLayer.SqlDbDataAccess
 {
@@ -15,10 +12,10 @@ namespace DataAccessLayer.SqlDbDataAccess
         private string connectionstring;
         private IProductDataAccess productDAO;
 
-        public LineItemDAO(string connectionstring)
+        public LineItemDAO(string connectionstring, IProductDataAccess productDAO)
         {
             this.connectionstring = connectionstring;
-            productDAO = new ProductDAO(connectionstring);
+            this.productDAO = productDAO;
         }
 
         public async Task CreateLineItemAsync(SqlCommand command, int orderId, LineItem item)

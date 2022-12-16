@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Principal;
-using WebApi.DTOs;
 using WebApi.Interfaces;
 
 namespace WebApi.ActionFilters
@@ -11,7 +9,7 @@ namespace WebApi.ActionFilters
             public void OnActionExecuting(ActionExecutingContext context)
             {
 
-                var param = context.ActionArguments.SingleOrDefault(p => p.Value is IEntity);   /*Last();*/
+                var param = context.ActionArguments.SingleOrDefault(p => p.Value is IEntity);  
                 if (param.Value == null)
                 {
                     context.Result = new BadRequestObjectResult("Object is null");

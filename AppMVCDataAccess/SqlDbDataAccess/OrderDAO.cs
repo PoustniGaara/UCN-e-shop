@@ -1,5 +1,4 @@
 ﻿using DataAccessLayer.Model;
-using System.Security.Principal;
 using System.Data.SqlClient;
 using System.Data;
 using DataAccessLayer.Interfaces;
@@ -14,11 +13,11 @@ namespace DataAccessLayer.SqlDbDataAccess
         private IProductSizeStockDataAccess productSizeStockDAO;
 
 
-        public OrderDAO(string connectionstring)
+        public OrderDAO(string connectionstring, ILineItemDataAccess lineItemDAO, IProductSizeStockDataAccess productSizeStockDAO)
         { 
             this.connectionstring = connectionstring;
-            lineItemDAO = new LineItemDAO(connectionstring);
-            productSizeStockDAO = new ProductSizeStockDAO(connectionstring);
+            this.lineItemDAO = lineItemDAO;
+            this.productSizeStockDAO = productSizeStockDAO;
         }
 
         public async Task<int> CreateOrderAsync(Order order)

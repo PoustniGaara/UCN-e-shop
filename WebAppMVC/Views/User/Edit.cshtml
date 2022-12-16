@@ -5,6 +5,7 @@
 <div class="flex-forms">
     <form asp-action="UpdateProfile">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @Html.AntiForgeryToken()
         <div class="form-group">
             <label asp-for="Name" class="control-label">Name:*</label>
             <input asp-for="Name" style="display: block;" class="form-control" />
@@ -30,6 +31,7 @@
         </div>
     </form>
     <form asp-action="UpdatePassword">
+        @Html.AntiForgeryToken()
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @{
             Model.Password = "";

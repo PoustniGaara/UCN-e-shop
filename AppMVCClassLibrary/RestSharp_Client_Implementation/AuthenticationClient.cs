@@ -20,7 +20,7 @@ namespace WebApiClient.RestSharp_Client_Implementation
             {
                 throw new WrongLoginException($"Incorect login data={loginModel}. Message was {response.ErrorMessage}");
             }
-            if (!response.IsSuccessful || response.Content == null)
+            if (!response.IsSuccessful || response.Content == null || response.Content.Equals(""))
             {
                 throw new Exception($"Error loggin in author with login data={loginModel}. Message was {response.Content}");
             }

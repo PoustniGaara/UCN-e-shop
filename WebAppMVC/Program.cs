@@ -1,10 +1,8 @@
 using LoggerService;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using WebApiClient;
 using WebApiClient.Interfaces;
 using WebApiClient.RestSharp_Client_Implementation;
 using WebApiClient.RestSharpClientImplementation;
-using WebAppMVC;
 using WebAppMVC.ActionFilters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,15 +53,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //Logger manager config
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 
-//Register global filters -- out of service righ now, we use scoped filters
-//builder.Services.AddControllers(options =>
-//{
-//    options.Filters.Add<ExceptionFilter>();
-//});
-
 //Register scoped filters
 builder.Services.AddScoped<ExceptionFilter>();
-
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

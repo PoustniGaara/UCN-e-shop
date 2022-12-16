@@ -1,21 +1,12 @@
 using DataAccessLayer.Interfaces;
 using DataAccessLayer;
-using DataAccessLayer.Model;
 using LoggerService;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Identity.Web;
-using Microsoft.OpenApi.Models;
 using WebApi.ActionFilters;
-using WebApi.DTOs;
 using NLog;
-using WebApi.DtoProfiles;
-using WebApi.MapperProfiles;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
