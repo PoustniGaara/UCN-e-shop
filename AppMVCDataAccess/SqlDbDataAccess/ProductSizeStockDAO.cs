@@ -35,11 +35,11 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@size_id", productSizeStock.Id);
                 command.Parameters.AddWithValue("@stock", productSizeStock.Stock);
 
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
         }
 
-        public async Task UpdateProductSizeStock(SqlCommand command, int product_id, IEnumerable<ProductSizeStock> productSizeStocks)
+        public async Task UpdateSizeStockAsync(SqlCommand command, int product_id, IEnumerable<ProductSizeStock> productSizeStocks)
         {
             foreach (ProductSizeStock productSizeStock in productSizeStocks)
             {
@@ -48,23 +48,29 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@product_id", product_id);
                 command.Parameters.AddWithValue("@size_id", productSizeStock.Id);
                 command.Parameters.AddWithValue("@stock", productSizeStock.Stock);
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
         }
 
         public async Task DeleteAsync(int id)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM dbo.ProductStock WHERE product_id = @product_id";
-            command.Parameters.AddWithValue("@product_id", id);
-            command.ExecuteNonQuery();
-        }
-
-        public Task<IEnumerable<ProductSizeStock>> GetAByIdAsync()
-        {
-            throw new NotImplementedException();
+            try
+            {
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+                command.CommandText = "DELETE FROM dbo.ProductStock WHERE product_id = @product_id";
+                command.Parameters.AddWithValue("@product_id", id);
+                await command.ExecuteNonQueryAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occured while deleting product stock: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public async Task<IEnumerable<ProductSizeStock>> GetByProductIdAsync(int id)
@@ -94,23 +100,18 @@ namespace DataAccessLayer.SqlDbDataAccess
             }
         }
 
-        public Task<ProductSizeStock> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> DecreaseStockWithCheck(SqlCommand command, int productId, int sizeId, int amountToDecrease)
+        public async Task<bool> DecreaseStockWithCheckAsync(SqlCommand command, int productId, int sizeId, int amountToDecrease)
         {
             try
             {
-                //Get the stock
+                //Get the product stock
                 command.Parameters.Clear();
                 command.CommandText = "SELECT stock FROM ProductStock WHERE product_id = @product_id AND size_id = @size_id";
                 command.Parameters.AddWithValue("@product_id", productId);
                 command.Parameters.AddWithValue("@size_id", sizeId);
-                SqlDataReader reader = command.ExecuteReader();
+                SqlDataReader reader = await command.ExecuteReaderAsync();
 
-                //Check the stock 
+                //Check the amount of stock 
                 reader.Read(); 
                 int stockAmount = reader.GetInt32("stock");
                 if(stockAmount < amountToDecrease)
@@ -120,23 +121,26 @@ namespace DataAccessLayer.SqlDbDataAccess
                 }
                 reader.Close();
 
-
-                //Decrease the stock
+                //Decrease the product stock
                 command.Parameters.Clear();
                 command.CommandText = "UPDATE ProductStock SET stock = stock - @amountToDecrease WHERE product_id = @product_id AND size_id = @size_id";
                 command.Parameters.AddWithValue("@amountToDecrease", amountToDecrease);
                 command.Parameters.AddWithValue("@product_id", productId);
                 command.Parameters.AddWithValue("@size_id", sizeId);
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
                 return true;
             }
             catch(ProductOutOfStockException outOfStockEx)
             {
-                throw new ProductOutOfStockException($"Error while creating products from DB '{outOfStockEx.Message}'.", outOfStockEx);
+                throw new ProductOutOfStockException($"The desired product is out of stock or the stock's quanity is less then desired: '{outOfStockEx.Message}'.", outOfStockEx);
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occured while decreasing stock: " + ex);
+                throw new Exception("An error occured while decreasing product stock: " + ex);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
     }

@@ -5,10 +5,9 @@ namespace DataAccessLayer.Interfaces
 {
     public interface ILineItemDataAccess
     {
-        public Task<IEnumerable<LineItem>> GetOrderLineItems(int orderID);
-        public Task CreateLineItemAsync(SqlCommand command, int orderID, LineItem item);
-        public Task<bool> DeleteLineItemAsync(int orderID, LineItem item);
-        public Task<bool> DeleteOrderLineItemsAsync(int orderID);
-        public Task<bool> UpdateLineItemAsync(LineItem item);
+        public Task<IEnumerable<LineItem>> GetByOrderIdAsync(int orderId);
+        public Task CreateAsync(SqlCommand command, int orderID, LineItem item);
+        public Task<bool> DeleteAsync(int orderID, LineItem item);
+        public Task<bool> DeleteByOrderIdAsync(int orderID);
     }
 }

@@ -11,16 +11,17 @@ namespace DataAccessLayer.SqlDbDataAccess
         private string connectionstring;
         private ILineItemDataAccess lineItemDAO;
         private IProductSizeStockDataAccess productSizeStockDAO;
+        private IUserDataAccess userDAO;
 
-
-        public OrderDAO(string connectionstring, ILineItemDataAccess lineItemDAO, IProductSizeStockDataAccess productSizeStockDAO)
+        public OrderDAO(string connectionstring, ILineItemDataAccess lineItemDAO, IProductSizeStockDataAccess productSizeStockDAO, IUserDataAccess userDAO)
         { 
             this.connectionstring = connectionstring;
             this.lineItemDAO = lineItemDAO;
             this.productSizeStockDAO = productSizeStockDAO;
+            this.userDAO = userDAO;
         }
 
-        public async Task<int> CreateOrderAsync(Order order)
+        public async Task<int> CreateAsync(Order order)
         {
             int id = -1;
             using SqlConnection connection = new SqlConnection(connectionstring);
@@ -38,27 +39,27 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@total", order.TotalPrice);
                 command.Parameters.AddWithValue("@address", order.Address);
                 command.Parameters.AddWithValue("@note", (order.Note == null ? "" : order.Note));
-                command.Parameters.AddWithValue("@status", Convert.ToInt32(order.Status));
+                command.Parameters.AddWithValue("@status", order.Status);
                 command.Parameters.AddWithValue("@customer", order.User.Email);
                 id = (int)command.ExecuteScalar();
                 order.Id = id;
 
                 foreach(LineItem item in order.Items)
                 {
-                    await productSizeStockDAO.DecreaseStockWithCheck(command, item.Product.Id, item.SizeId, item.Quantity);
-                    await lineItemDAO.CreateLineItemAsync(command, id, item);
+                    await productSizeStockDAO.DecreaseStockWithCheckAsync(command, item.Product.Id, item.SizeId, item.Quantity);
+                    await lineItemDAO.CreateAsync(command, id, item);
                 }
                 transaction.Commit();
             }
             catch (ProductOutOfStockException outOfStockEx)
             {
                 transaction.Rollback();
-                throw new ProductOutOfStockException($"Error while creating products from DB '{outOfStockEx.Message}'.", outOfStockEx);
+                throw new ProductOutOfStockException($"The product's stock is less then desired! Error: '{outOfStockEx.Message}'.", outOfStockEx);
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
-                throw new Exception($"Error creating order: '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while creating a new order: '{ex.Message}'.", ex);
             }
             finally
             {
@@ -67,24 +68,22 @@ namespace DataAccessLayer.SqlDbDataAccess
             return id;
         }
 
-        public async Task<bool> DeleteOrderAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
             connection.Open();
 
             SqlTransaction transaction = connection.BeginTransaction();
-            SqlCommand command = connection.CreateCommand();
-            command.Transaction = transaction;
-            
+            SqlCommand command = connection.CreateCommand();            
             try
             {
                 command.CommandText = "DELETE FROM [Order] WHERE id = @id";
                 command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-
-                await lineItemDAO.DeleteOrderLineItemsAsync(id);
-
-                transaction.Commit();
+                await command.ExecuteNonQueryAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured deleting an order: '{ex.Message}'.", ex);
             }
             finally
             {
@@ -105,13 +104,14 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlDataReader reader = selectCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    User user = new User()
-                    {
-                        Email = reader.GetString("customer")
-                    }; //UserDAO.GetByIdAsync(reader.GetString("customer"));
-                    List<LineItem> items = (List<LineItem>) await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
+                    User user = await userDAO.GetByEmailAsync(reader.GetString("customer"));
+                    List<LineItem> items = (List<LineItem>) await lineItemDAO.GetByOrderIdAsync(reader.GetInt32("id"));
                     orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items));
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while retrieving orders from database: '{ex.Message}'.", ex);
             }
             finally
             {
@@ -120,7 +120,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             return orders;
         }
 
-        public async Task<Order> GetOrderByIdAsync(int id)
+        public async Task<Order> GetByIdAsync(int id)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
             try
@@ -130,23 +130,23 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = command.ExecuteReader();
-                
                 reader.Read();
-                User user = new User()
-                {
-                    Email = reader.GetString("customer")
-                }; //UserDAO.GetByIdAsync(reader.GetString("customer"));
-                List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
+
+                User user = await userDAO.GetByEmailAsync(reader.GetString("customer"));
+                List<LineItem> items = (List<LineItem>)await lineItemDAO.GetByOrderIdAsync(reader.GetInt32("id"));
                 return new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while retrieving an order from database: '{ex.Message}'.", ex);
             }
             finally
             {
                 connection.Close();
             }
-            return null;
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersByUserAsync(string email)
+        public async Task<IEnumerable<Order>> GetByUserAsync(string email)
         {
             List<Order> orders = new List<Order>();
             using SqlConnection connection = new SqlConnection(connectionstring);
@@ -155,46 +155,22 @@ namespace DataAccessLayer.SqlDbDataAccess
                 connection.Open();
                 SqlCommand command = new SqlCommand("Select * from [Order] where customer = @email", connection);
                 command.Parameters.AddWithValue("@email", email);
-                //command.Connection = connection;
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    List<LineItem> items = (List<LineItem>)await lineItemDAO.GetOrderLineItems(reader.GetInt32("id"));
+                    List<LineItem> items = (List<LineItem>)await lineItemDAO.GetByOrderIdAsync(reader.GetInt32("id"));
                     orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), new User { Email = email, }, items));
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while retrieving orders of a user from database: '{ex.Message}'.", ex);
             }
             finally
             {
                 connection.Close();
             }
             return orders;
-        }
-
-        public async Task<bool> UpdateOrderAsync(Order order)
-        {
-
-            using SqlConnection connection = new SqlConnection(connectionstring);
-            try
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("UPDATE [Order] SET date = @date, total = @total, address = @address, note = @note, orderStatus = @staus WHERE id = @id", connection);
-                command.Parameters.AddWithValue("@date", order.Date);
-                command.Parameters.AddWithValue("@total", order.TotalPrice);
-                command.Parameters.AddWithValue("@address", order.Address);
-                command.Parameters.AddWithValue("@note", order.Note);
-                command.Parameters.AddWithValue("@status", (int)order.Status);
-                command.Parameters.AddWithValue("@id", order.Id);
-                int affected = command.ExecuteNonQuery();
-                if (affected == 1)
-                    return true;
-                else
-                    return false;
-            }
-            finally
-            {
-                connection.Close();
-            }
-            return false;
         }
     }
 }

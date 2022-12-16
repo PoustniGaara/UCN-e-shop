@@ -13,10 +13,9 @@ namespace DataAccessLayer.Model
         public bool IsAdmin { get; set; }
         public IEnumerable<Order> Orders { get; set; }
 
-
         public User()
-        {
-        }
+        { }
+
         public User(string email, string name, string surename, string phoneNumber, string address, string password, bool isAdmin, IEnumerable<Order> orders)
         {
             Email = email;
@@ -41,4 +40,3 @@ namespace DataAccessLayer.Model
         }
     }
 }
-

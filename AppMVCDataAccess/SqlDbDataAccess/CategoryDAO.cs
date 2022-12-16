@@ -13,6 +13,7 @@ namespace DataAccessLayer.SqlDbDataAccess
     public class CategoryDAO : ICategoryDataAccess
     {
         private string connectionstring;
+
         public CategoryDAO(string connectionstring)
         {
             this.connectionstring = connectionstring;
@@ -27,7 +28,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             command.CommandText = "INSERT INTO dbo.Category ('name', 'description') VALUES (@name, @description)";
             command.Parameters.AddWithValue("@name", category.Name);
             command.Parameters.AddWithValue("@description", category.Description);
-            command.ExecuteNonQuery();
+            await command.ExecuteNonQueryAsync();
         }
 
         public async Task DeleteAsync(string name)
@@ -62,6 +63,5 @@ namespace DataAccessLayer.SqlDbDataAccess
             SqlDataReader reader = command.ExecuteReader();
             return new Category(reader.GetString("name"), reader.GetString("description"));
         }
-
     }
 }

@@ -7,10 +7,10 @@ namespace DataAccessLayer.Model
         public DateTime Date { get; set; }
         public decimal TotalPrice { get; set; }
         public Status Status { get; set; }
-        public string Address { get; set; }
-        public string Note { get; set; }
-        public User User { get; set; }
-        public IEnumerable<LineItem> Items { get; set; }
+        public string? Address { get; set; }
+        public string? Note { get; set; }
+        public User? User { get; set; }
+        public IEnumerable<LineItem>? Items { get; set; }
 
         public Order(int id, DateTime date, decimal totalPrice, Status status, string address, string note, User user, List<LineItem> items)
         {
@@ -50,7 +50,7 @@ namespace DataAccessLayer.Model
 
     public enum Status
     {
-        CART, PLACED
+        PLACED, SHIPPED, COMPLETED, CANCELLED
     }
 }
 

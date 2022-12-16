@@ -9,12 +9,9 @@ namespace DataAccessLayer.SqlDbDataAccess
 {
     public class ProductDAO : IProductDataAccess
     {
-
-        #region Properties + Constructor
         public string connectionString;
         private IProductSizeStockDataAccess sizeStockDAO;
         private ICategoryDataAccess categoryDAO;
-
 
         public ProductDAO(string connectionstring, IProductSizeStockDataAccess sizeStockDAO, ICategoryDataAccess categoryDAO)
         {
@@ -22,9 +19,6 @@ namespace DataAccessLayer.SqlDbDataAccess
             this.sizeStockDAO = sizeStockDAO;
             this.categoryDAO = categoryDAO;
         }
-        #endregion
-
-        #region Methods
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
@@ -45,14 +39,13 @@ namespace DataAccessLayer.SqlDbDataAccess
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while getting products from DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while retrieving products from database: {ex.Message}", ex);
             }
             finally
             {
                 connection.Close();
             }
         }
-
 
         public async Task<int> CreateAsync(Product product)
         {
@@ -82,7 +75,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             catch (Exception ex)
             {
                 transaction.Rollback();
-                throw new Exception($"Error while creating products from DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while creating new product: '{ex.Message}'.", ex);
             }
             finally
             {
@@ -105,7 +98,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while deleting products from DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while deleting a product: '{ex.Message}'.", ex);
             }
             finally
             {
@@ -133,12 +126,12 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@category", product.Category);
                 command.ExecuteNonQuery();
 
-                await sizeStockDAO.UpdateProductSizeStock(command, product.Id, product.ProductSizeStocks);
+                await sizeStockDAO.UpdateSizeStockAsync(command, product.Id, product.ProductSizeStocks);
                 transaction.Commit();
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while updating products into DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while updating product information: '{ex.Message}'.", ex);
             }
             finally
             {
@@ -162,7 +155,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while getting product into DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while retrieving a product from database: '{ex.Message}'.", ex);
             }
             finally
             {
@@ -190,14 +183,12 @@ namespace DataAccessLayer.SqlDbDataAccess
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while getting products by category from DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while retrieving products by a category from database: '{ex.Message}'.", ex);
             }
             finally
             {
                 connection.Close();
             }
         }
-
-        #endregion
     }
 }

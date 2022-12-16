@@ -3,10 +3,9 @@ namespace DataAccessLayer.Model
 {
     public class LineItem
     {
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
         public int SizeId { get; set; }
         public int Quantity { get; set; }
-
 
         public LineItem(Product product, int sizeId, int quantity)
         {

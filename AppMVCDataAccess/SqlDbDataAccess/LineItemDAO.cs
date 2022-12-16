@@ -18,7 +18,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             this.productDAO = productDAO;
         }
 
-        public async Task CreateLineItemAsync(SqlCommand command, int orderId, LineItem item)
+        public async Task CreateAsync(SqlCommand command, int orderId, LineItem item)
         {
             try
             {
@@ -28,39 +28,43 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@product_id", item.Product.Id);
                 command.Parameters.AddWithValue("@size_id", item.SizeId);
                 command.Parameters.AddWithValue("@amount", item.Quantity);
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
             catch(Exception ex)
             {
-                throw new Exception("An error occured while decreasing stock: " + ex);
-
+                throw new Exception("An error occured while creating a new LineItem: " + ex);
             }
-
         }
 
-        public async Task<IEnumerable<LineItem>> GetOrderLineItems(int orderId)
+        public async Task<IEnumerable<LineItem>> GetByOrderIdAsync(int orderId)
         {
             List<LineItem> items = new List<LineItem>();
-
             using SqlConnection connection = new SqlConnection(connectionstring);
-            connection.Open();
-            SqlCommand command = new SqlCommand("SELECT * FROM OrderLineItem WHERE order_id = @orderId", connection);
-            command.Parameters.AddWithValue("@orderId", orderId);
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                Product product = await productDAO.GetByIdAsync(reader.GetInt32("product_id"));
-                items.Add(new LineItem(product, reader.GetInt32("size_id"), reader.GetInt32("amount")));
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM OrderLineItem WHERE order_id = @orderId", connection);
+                command.Parameters.AddWithValue("@orderId", orderId);
+                SqlDataReader reader = command.ExecuteReader();
+               
+                while (reader.Read())
+                {
+                    Product product = await productDAO.GetByIdAsync(reader.GetInt32("product_id"));
+                    items.Add(new LineItem(product, reader.GetInt32("size_id"), reader.GetInt32("amount")));
+                }
+                
+                return items;
+            } catch
+            {
+                throw new Exception("An error occured while deleting a LineItem: " + ex);
             }
-            return items;     
+            finally
+            {
+                connection.Close();
+            }
         }
 
-        public Task<bool> UpdateLineItemAsync(LineItem item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> DeleteLineItemAsync(int orderId, LineItem item)
+        public async Task<bool> DeleteAsync(int orderId, LineItem item)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
             try
@@ -69,14 +73,14 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlCommand command = new SqlCommand("DELETE FROM OrderLineItem WHERE order_id = @order_id, product_id = @product_id, size_id = @size_id", connection);
                 command.Parameters.AddWithValue("@order_id", orderId);
                 command.Parameters.AddWithValue("@product_id", item.Product.Id);
-                command.Parameters.AddWithValue("@sizeId", item.SizeId); 
-                int affected = command.ExecuteNonQuery();
+                command.Parameters.AddWithValue("@size_id", item.SizeId); 
+                int affected = await command.ExecuteNonQueryAsync();
                 if (affected == 1)
                     return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured while deleting a LineItem: " + ex);
+                throw new Exception("An error occured while deleting a LineItem: " + ex);
             }
             finally
             {
@@ -85,7 +89,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             return false;
         }
 
-        public async Task<bool> DeleteOrderLineItemsAsync(int orderId)
+        public async Task<bool> DeleteByOrderIdAsync(int orderId)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
             try
@@ -93,13 +97,13 @@ namespace DataAccessLayer.SqlDbDataAccess
                 connection.Open();
                 SqlCommand command = new SqlCommand("DELETE FROM OrderLineItem WHERE order_id = @order_id", connection);
                 command.Parameters.AddWithValue("@order_id", orderId);
-                int affected = command.ExecuteNonQuery();
+                int affected = await command.ExecuteNonQueryAsync();
                 if (affected > 0)
                     return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured while deleting a LineItem: " + ex);
+                throw new Exception("An error occured while deleting a LineItem: " + ex);
             }
             finally
             {

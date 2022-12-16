@@ -23,7 +23,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             this.orderDataAccess = orderDataAccess;
         }
 
-        public async Task<string> CreateUserAsync(User user)
+        public async Task<string> CreateAsync(User user)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
 
@@ -42,7 +42,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@address", user.Address);
                 command.Parameters.AddWithValue("@password", passwordHash);
                 command.Parameters.AddWithValue("@isAdmin", user.IsAdmin);
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
             catch (Exception ex)
             {
@@ -52,27 +52,21 @@ namespace DataAccessLayer.SqlDbDataAccess
             {
                 connection.Close();
             }
-
-
             return user.Email;
         }
 
-        public async Task<bool> DeleteUserAsync(string email)
+        public async Task<bool> DeleteAsync(string email)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
             connection.Open();
 
             SqlTransaction transaction = connection.BeginTransaction();
             SqlCommand command = connection.CreateCommand();
-            command.Transaction = transaction;
-
             try
             {
                 command.CommandText = "DELETE FROM [User] WHERE email = @email";
                 command.Parameters.AddWithValue("@email", email);
-                command.ExecuteNonQuery();
-
-                transaction.Commit();
+                await command.ExecuteNonQueryAsync();
             }
             catch (Exception ex)
             {
@@ -94,16 +88,15 @@ namespace DataAccessLayer.SqlDbDataAccess
                 connection.Open();
                 SqlCommand selectCommand = new SqlCommand("Select * from [User]");
                 selectCommand.Connection = connection;
-                SqlDataReader reader = selectCommand.ExecuteReader();
+                SqlDataReader reader = await selectCommand.ExecuteReaderAsync();
                 while (reader.Read())
                 {
-                    // dorobit
                     users.Add(new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("password"), reader.GetBoolean("isAdmin")));
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while getting users from DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while getting users from DB '{ex.Message}'.", ex);
             }
             finally
             {
@@ -112,7 +105,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             return users;
         }
 
-        public async Task<User?> GetUserByEmailAsync(string email)
+        public async Task<User?> GetByEmailAsync(string email)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
             try
@@ -124,13 +117,13 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlDataReader reader = command.ExecuteReader();
 
                 reader.Read();
-                IEnumerable<Order> customersOrders = await orderDataAccess.GetOrdersByUserAsync(email);
+                IEnumerable<Order> customersOrders = await orderDataAccess.GetByUserAsync(email);
                 return new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"), reader.GetString("password"), reader.GetBoolean("isAdmin"), customersOrders);
 
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while getting user from DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while getting user from DB '{ex.Message}'.", ex);
             }
             finally
             {
@@ -146,7 +139,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 connection.Open();
                 SqlCommand command = new SqlCommand("SELECT * from [User] where email = @email", connection);
                 command.Parameters.AddWithValue("@email", email);
-                SqlDataReader reader = command.ExecuteReader();
+                SqlDataReader reader = await command.ExecuteReaderAsync();
                 reader.Read();
                 User user = new User(reader.GetString("email"), reader.GetString("name"), reader.GetString("surname"), reader.GetString("phone"), reader.GetString("address"),  reader.GetString("password"), reader.GetBoolean("isAdmin"));
                 bool statement = BCryptTool.ValidatePassword(password, user.Password);
@@ -164,7 +157,6 @@ namespace DataAccessLayer.SqlDbDataAccess
             {
                 connection.Close();
             }
-
         }
 
         public async Task<bool> UpdatePasswordAsync(string email, string oldPassword, string newPassword)
@@ -188,7 +180,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while updating user into DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while updating user password: '{ex.Message}'.", ex);
             }
             finally
             {
@@ -196,9 +188,8 @@ namespace DataAccessLayer.SqlDbDataAccess
             }
         }
 
-        public async Task<bool> UpdateUserAsync(User user)
+        public async Task<bool> UpdateAsync(User user)
         {
-
             using SqlConnection connection = new SqlConnection(connectionstring);
             try
             {
@@ -211,7 +202,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@address", user.Address);
                 command.Parameters.AddWithValue("@password", user.Password);
                 command.Parameters.AddWithValue("@isAdmin", user.IsAdmin);
-                int affected = command.ExecuteNonQuery();
+                int affected = await command.ExecuteNonQueryAsync();
                 if (affected == 1)
                     return true;
                 else
@@ -219,13 +210,12 @@ namespace DataAccessLayer.SqlDbDataAccess
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error while updating user into DB '{ex.Message}'.", ex);
+                throw new Exception($"An error occured while updating user information: '{ex.Message}'.", ex);
             }
             finally
             {
                 connection.Close();
             }
-            return false;
         }
     }
 }

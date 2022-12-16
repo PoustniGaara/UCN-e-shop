@@ -1072,7 +1072,7 @@ ul li {
     letter-spacing: normal;
     font-weight: 400;
     font-size: 100%;
-    padding-top: 10px;
+    margin: 15px 0 20px;
 }
 
 .cart-list .title h3 {
