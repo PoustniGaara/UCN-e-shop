@@ -32,7 +32,8 @@ namespace DataAccessLayer
         {
             var lineItemDAO = GetLineItemDAO(connectionString);
             var productSizeStockDAO = new ProductSizeStockDAO(connectionString);
-            return new OrderDAO(connectionString, lineItemDAO, productSizeStockDAO);
+            var userDAO = GetUserDAO(connectionString);
+            return new OrderDAO(connectionString, lineItemDAO, productSizeStockDAO, userDAO);
         }
 
         private static LineItemDAO GetLineItemDAO(string connectionString)

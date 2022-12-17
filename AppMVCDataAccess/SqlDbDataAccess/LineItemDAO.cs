@@ -54,7 +54,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 }
                 
                 return items;
-            } catch
+            } catch (Exception ex)
             {
                 throw new Exception("An error occured while deleting a LineItem: " + ex);
             }

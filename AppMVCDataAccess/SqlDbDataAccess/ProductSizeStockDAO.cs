@@ -138,10 +138,7 @@ namespace DataAccessLayer.SqlDbDataAccess
             {
                 throw new Exception("An error occured while decreasing product stock: " + ex);
             }
-            finally
-            {
-                connection.Close();
-            }
+
         }
     }
 }

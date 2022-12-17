@@ -23,7 +23,7 @@ namespace WebAppMVC.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> IndexAsync()
+        public async Task<ActionResult> Index()
         {
             IEnumerable<OrderDto> orderDtoList = await _client.GetAllAsync();
             OrderIndexVM orderIndexVM = _mapper.Map<OrderIndexVM>(orderDtoList);
@@ -31,7 +31,7 @@ namespace WebAppMVC.Controllers
         }
 
         [Authorize]
-        public async Task<ActionResult> DetailsAsync(int id)
+        public async Task<ActionResult> Details(int id)
         {
             var order = await _client.GetByIdAsync(id);
             OrderDetailsVM orderVM = _mapper.Map<OrderDetailsVM>(order);

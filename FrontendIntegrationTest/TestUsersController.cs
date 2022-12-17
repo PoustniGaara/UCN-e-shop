@@ -1,147 +1,130 @@
-﻿//using IntegrationTests.Backend;
-//using Newtonsoft.Json;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Net;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using FakeItEasy;
+using Microsoft.AspNetCore.Mvc.Testing;
+using WebAppMVC.ViewModels;
 
-//namespace IntegrationTests.Frontend
-//{
-//    public class TestUsersController : IClassFixture<TestingWebAppFactory<Program>>
-//    {
-//        private readonly HttpClient _client;
-//        private string UserUrl = "https://localhost:44346/api/v1/Users";
-//        public TestUsersController(TestingWebApiFactory<Program> factory)
-//            => _client = factory.CreateClient();
+namespace IntegrationTests.Frontend
+{
+    public class TestUsersController : IClassFixture<WebApplicationFactory<Program>>
+    {
+        private readonly HttpClient _client;
+        public TestUsersController(WebApplicationFactory<Program> factory)
+            => _client = factory.CreateClient();
 
-//        //DELETE COMPLETE
-//        [Fact]
-//        public async Task<Task> Delete_User_DbException_ServiceUnavailable503()
-//        {
-//            return Assert_That_DeleteUser_HandlesGivenException(
-//            givenException: new Exception($"database is down"),
-//            resultingStatusCode: HttpStatusCode.ServiceUnavailable);
-//        }
+        //DETAILS
+        [Fact]
+        public async Task Details_Returns_Success()
+        {
+            //ARRANGE
+            string url = "https://localhost:7183/User/Details/1";
+            //ACT
+            var response = await _client.GetAsync(url);
+            //ASSERT
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("text/html; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+        }
 
-//        private async Task Assert_That_DeleteUser_HandlesGivenException(Exception givenException, HttpStatusCode resultingStatusCode)
-//        {
-//            string email = "best@ucn.dk";
-//            var response = await _client.SendAsync($"{UserUrl}/{email}");
-//            HttpStatusCode statusCode = response.StatusCode;
-//            Assert.Equal(resultingStatusCode, statusCode);
-//        }
+        //CREATE
+        [Fact]
+        public async Task Create_Returns_Success()
+        {
+            //ARRANGE
+            string url = "https://localhost:7183/User/Create";
+            UserEditVM user = A.Fake<UserEditVM>();
+            var formData = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("Email", user.Email),
+                new KeyValuePair<string, string>("Name", user.Name),
+                new KeyValuePair<string, string>("Surname", user.Surname),
+                new KeyValuePair<string, string>("PhoneNumber", user.PhoneNumber),
+                new KeyValuePair<string, string>("Address", user.Address),
+                new KeyValuePair<string, string>("Password", user.Password),
+                new KeyValuePair<string, string>("NewPassword", user.NewPassword),
+            });
+            //ACT
+            var response = await _client.PostAsync(url, formData);
+            //ASSERT
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("text/html; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+        }
 
-//        //GET BY ID COMPLETE
-//        [Fact]
-//        public async Task<Task> GET_UserById_DbException_ServiceUnavailable503()
-//        {
-//            return Assert_That_GetUserByEmail_HandlesGivenException(
-//            givenException: new Exception($"database is down"),
-//            resultingStatusCode: HttpStatusCode.ServiceUnavailable);
-//        }
+        //EDIT
+        [Fact]
+        public async Task Edit_Returns_Success()
+        {
+            //ARRANGE
+            string url = "https://localhost:7183/User/Edit";
+            //ACT
+            var response = await _client.GetAsync(url);
+            //ASSERT
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("text/html; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+        }
 
-//        private async Task Assert_That_GetUserByEmail_HandlesGivenException(Exception givenException, HttpStatusCode resultingStatusCode)
-//        {
-//            string email = "best@ucn.dk";
-//            var response = await _client.DeleteAsync($"{UserUrl}/{email}");
-//            HttpStatusCode statusCode = response.StatusCode;
-//            Assert.Equal(resultingStatusCode, statusCode);
-//        }
+        //UPDATE_PROFILE
+        [Fact]
+        public async Task UpdateProfile_Returns_Success()
+        {
+            //ARRANGE
+            string url = "https://localhost:7183/User/UpdateProfile";
+            UserEditVM user = A.Fake<UserEditVM>();
+            var formData = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("Email", user.Email),
+                new KeyValuePair<string, string>("Name", user.Name),
+                new KeyValuePair<string, string>("Surname", user.Surname),
+                new KeyValuePair<string, string>("PhoneNumber", user.PhoneNumber),
+                new KeyValuePair<string, string>("Address", user.Address),
+                new KeyValuePair<string, string>("Password", user.Password),
+                new KeyValuePair<string, string>("NewPassword", user.NewPassword),
+            });
+            //ACT
+            var response = await _client.PostAsync(url, formData);
+            //ASSERT
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("text/html; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+        }
 
-//        //PUT COMPLETE
-//        [Fact]
-//        public async Task<Task> Put_User_DbException_ServiceUnavailable503()
-//        {
-//            return Assert_That_PutUser_HandlesGivenException(
-//            givenException: new Exception($"database is down"),
-//            resultingStatusCode: HttpStatusCode.ServiceUnavailable);
-//        }
+        //UPDATE_PASSWORD
+        [Fact]
+        public async Task UpdatePassword_Returns_Success()
+        {
+            //ARRANGE
+            string url = "https://localhost:7183/User/UpdatePassword";
+            UserEditVM user = A.Fake<UserEditVM>();
+            var formData = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("Email", user.Email),
+                new KeyValuePair<string, string>("Name", user.Name),
+                new KeyValuePair<string, string>("Surname", user.Surname),
+                new KeyValuePair<string, string>("PhoneNumber", user.PhoneNumber),
+                new KeyValuePair<string, string>("Address", user.Address),
+                new KeyValuePair<string, string>("Password", user.Password),
+                new KeyValuePair<string, string>("NewPassword", user.NewPassword),
+            });
+            //ACT
+            var response = await _client.PostAsync(url, formData);
+            //ASSERT
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("text/html; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+        }
 
+        private async Task LoginUser()
+        {
+            var requestUrl = "https://localhost:7183/Authentication/Login";
 
-//        private async Task Assert_That_PutUser_HandlesGivenException(Exception givenException, HttpStatusCode resultingStatusCode)
-//        {
-//            UserDto entity = new();
-//            var json = JsonConvert.SerializeObject(entity);
-//            var content = new StringContent(json, Encoding.UTF8, "application/json");
-//            var response = await _client.PutAsync($"{UserUrl}", content);
-//            HttpStatusCode statusCode = response.StatusCode;
-//            Assert.Equal(resultingStatusCode, statusCode);
-//        }
+            var formData = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("Email", "email@email.com"),
+                new KeyValuePair<string, string>("Password", "qqqq"),
+            });
 
-//        [Fact]
-//        public async Task Put_Incorrect_Data_In_User_Should_Return_UnprocessableEntity422()
-//        {
-//            //ARRANGE
-//            UserDto entity = new();
-//            entity.Name = "";
-//            var json = JsonConvert.SerializeObject(entity);
-//            var content = new StringContent(json, Encoding.UTF8, "application/json");
-//            //ACT
-//            var response = await _client.PutAsync($"{UserUrl}/put", content);
-//            //ASSERT
-//            HttpStatusCode statusCode = response.StatusCode;
-//            Assert.Equal(HttpStatusCode.UnprocessableEntity, statusCode);
-//        }
+            var response = await _client.PostAsync(requestUrl, formData);
+        }
 
-//        [Fact]
-//        public async Task Put_Wrong_Data_Type_Should_Return_BadRequestObjectResult400()
-//        {
-//            //ARRANGE
-//            var json = JsonConvert.SerializeObject("");
-//            var content = new StringContent(json, Encoding.UTF8, "application/json");
-//            //ACT
-//            var response = await _client.PutAsync($"{UserUrl}/put", content);
-//            //ASSERT
-//            HttpStatusCode statusCode = response.StatusCode;
-//            Assert.Equal(HttpStatusCode.BadRequest, statusCode);
-//        }
-
-//        //POST COMPLETE
-//        [Fact]
-//        public async Task<Task> Post_User_DbException_ServiceUnavailable503()
-//        {
-//            return Assert_That_PostUser_HandlesGivenException(
-//            givenException: new Exception($"database is down"),
-//            resultingStatusCode: HttpStatusCode.ServiceUnavailable);
-//        }
-
-//        private async Task Assert_That_PostUser_HandlesGivenException(Exception givenException, HttpStatusCode resultingStatusCode)
-//        {
-//            UserDto entity = new();
-//            var json = JsonConvert.SerializeObject(entity);
-//            var content = new StringContent(json, Encoding.UTF8, "application/json");
-//            var response = await _client.PostAsync($"{UserUrl}", content);
-//            HttpStatusCode statusCode = response.StatusCode;
-//            Assert.Equal(resultingStatusCode, statusCode);
-//        }
-
-//        public async Task Post_Incorrect_Data_In_User_Should_Return_UnprocessableEntity422()
-//        {
-//            //ARRANGE
-//            UserDto entity = new();
-//            entity.Name = "";
-//            var json = JsonConvert.SerializeObject(entity);
-//            var content = new StringContent(json, Encoding.UTF8, "application/json");
-//            //ACT
-//            var response = await _client.PostAsync($"{UserUrl}", content);
-//            //ASSERT
-//            HttpStatusCode statusCode = response.StatusCode;
-//            Assert.Equal(HttpStatusCode.UnprocessableEntity, statusCode);
-//        }
-
-//        [Fact]
-//        public async Task Post_Wrong_Data_Type_Should_Return__BadRequestObjectResult400()
-//        {
-//            //ARRANGE
-//            var json = JsonConvert.SerializeObject("");
-//            var content = new StringContent(json, Encoding.UTF8, "application/json");
-//            //ACT
-//            var response = await _client.PostAsync($"{UserUrl}", content);
-//            //ASSERT
-//            HttpStatusCode statusCode = response.StatusCode;
-//            Assert.Equal(HttpStatusCode.BadRequest, statusCode);
-//        }
-//    }
-//}
+    }
+}

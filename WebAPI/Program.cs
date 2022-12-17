@@ -31,30 +31,9 @@ builder.Services.AddAuthentication(options =>
      };
  });
 
-//builder.Services.AddAuthentication(opt => {
-//    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//})
-//    .AddJwtBearer(options =>
-//    {
-//        options.TokenValidationParameters = new TokenValidationParameters
-//        {
-//            ValidateIssuer = true,
-//            ValidateAudience = true,
-//            ValidateLifetime = true,
-//            ValidateIssuerSigningKey = true,
-//            ValidIssuer = "https://localhost:5001",
-//            ValidAudience = "https://localhost:5001",
-//            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
-//        };
-//    });
-
 //Logger manager config
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
-//// Add services to the container.
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 //Data acces
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -65,7 +44,6 @@ builder.Services.AddScoped((sc) => DataAccessFactory.CreateRepository<ICategoryD
 
 //AutoMapper config
 builder.Services.AddAutoMapper(typeof(Program));
-//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //Logger manager config
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();

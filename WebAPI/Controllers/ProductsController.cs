@@ -29,14 +29,10 @@ namespace WebApi.Controllers
         {
             IEnumerable<Product> products;
             //Check wheter some certain category is requested, if no return all...
-            if (!string.IsNullOrEmpty(category))
-            {
-                products = await _dataAccess.GetAllByCategoryAsync(category);
-            }
-            else
-            {
-                products = await _dataAccess.GetAllAsync();
-            }
+            if (!string.IsNullOrEmpty(category)) { products = await _dataAccess.GetAllByCategoryAsync(category); }
+            else { products = await _dataAccess.GetAllAsync(); }
+
+            if(products == null) { return NotFound(); }
             IEnumerable<ProductDto> productDtos = products.Select(product => _mapper.Map<ProductDto>(product));
             return Ok(productDtos);
         }
@@ -63,6 +59,8 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] ProductDto updatedProductDto)
         {
+            var productDB = await _dataAccess.GetByIdAsync(id);
+            if (productDB == null) { return NotFound(); }
             Product product = _mapper.Map<Product>(updatedProductDto);
             await _dataAccess.UpdateAsync(product);
             return Ok();
