@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[User]
      [surname]  [varchar](50) NOT NULL,
      [phone]    [varchar](20) NULL,
      [address]  [varchar](50) NULL,
-     [password] [varchar](50) NULL,
+     [password] [nvarchar](MAX) NULL,
      [isAdmin]  bit NOT NULL DEFAULT 0
   )
 
