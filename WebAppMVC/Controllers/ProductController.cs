@@ -91,7 +91,7 @@ namespace WebAppMVC.Controllers
             cart.Items = items;
             HttpContext.SaveCart(cart);
 
-            return Redirect("/product/details/" + id);
+            return View("Views/Product/AddedToCart.cshtml");
         }
 
         public async Task<ActionResult> Details(int id)

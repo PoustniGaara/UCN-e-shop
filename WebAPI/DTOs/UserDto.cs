@@ -18,8 +18,8 @@ namespace WebApi.DTOs
         public string Address { get; set; }
         [Required(ErrorMessage = "*Password is required")]
         public string Password { get; set; }
-        public string NewPassword { get; set; }
+        public string? NewPassword { get; set; }
         public bool IsAdmin { get; set; }
-        public IEnumerable<OrderDto> Orders { get; set; }
+        public IEnumerable<OrderDto>? Orders { get; set; }
     }
 }

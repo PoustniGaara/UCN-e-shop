@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using System.Security.Claims;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
@@ -78,7 +79,7 @@ namespace WebAppMVC.Controllers
             //Clear the cart
             HttpContext.SaveCart(new OrderCreateVM());
 
-            return RedirectToAction(nameof(Index));
+            return View("Views/Order/Completed.cshtml");
         }
 
         private decimal CalculateTotalOrderPrice(OrderCreateVM order)

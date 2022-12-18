@@ -13,7 +13,6 @@ namespace WebApi.Controllers
     {
     #region Properties and Constructor
     IOrderDataAccess _orderDataAccess;
-    IProductDataAccess _productDataAccess;
     private readonly IMapper _mapper;
 
     public OrdersController(IOrderDataAccess orderDataAccess, IMapper mapper)
