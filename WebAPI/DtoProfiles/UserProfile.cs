@@ -8,6 +8,7 @@ namespace WebApi.DtoProfiles
     {
         public UserProfile()
         {
+
             CreateMap<User, UserDto>()
                .ReverseMap();
 

@@ -12,6 +12,6 @@ namespace WebApiClient.DTOs
         public string Password { get; set; }
         public string NewPassword { get; set; }
         public bool IsAdmin { get; set; }
-        public IEnumerable<OrderDto> Orders = new List<OrderDto>();
+        public IEnumerable<OrderDto>? Orders { get; set; }
     }
 }

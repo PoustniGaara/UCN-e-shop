@@ -78,7 +78,7 @@ else{
                             <td>@order.Date.ToString("dd/MM/yyyy")</td>
                             <td>@order.Id</td>
                             <td>@order.TotalPrice</td>
-                            <td>@order.Status</td>
+                            <td>@WebAppMVC.Tools.OrderStatusConverter.GetStatusAsString(order.Status)</td>
                             <td><a href="@Url.Action("Details", "Order", new {order.Id})" class="a-link">View details</a></td>
                         </tr>
                         }
