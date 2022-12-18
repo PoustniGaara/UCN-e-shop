@@ -58,8 +58,6 @@ namespace WebApi.Controllers
                     token = new JwtSecurityTokenHandler().WriteToken(tokenOptions),
                     expiration = tokenOptions.ValidTo
                 });
-                //var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                //return Ok(new AuthenticatedResponse { Token = tokenString });
             }
             return Unauthorized();
         }

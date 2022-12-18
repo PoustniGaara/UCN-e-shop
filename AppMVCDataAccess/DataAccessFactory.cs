@@ -16,11 +16,6 @@ namespace DataAccessLayer
             throw new ArgumentException($"Unknown type {typeof(T).FullName}");
         }
 
-        private static UserDAO GetUserDAO(string connectionString)
-        {
-            return new UserDAO(connectionString, GetOrderDAO(connectionString));
-        }
-
         private static ProductDAO GetProductDAO(string connectionString)
         {
             var sizeStockDAO = new ProductSizeStockDAO(connectionString);
@@ -32,7 +27,7 @@ namespace DataAccessLayer
         {
             var lineItemDAO = GetLineItemDAO(connectionString);
             var productSizeStockDAO = new ProductSizeStockDAO(connectionString);
-            var userDAO = GetUserDAO(connectionString);
+            var userDAO = new UserDAO(connectionString);
             return new OrderDAO(connectionString, lineItemDAO, productSizeStockDAO, userDAO);
         }
 
@@ -41,8 +36,11 @@ namespace DataAccessLayer
             return new LineItemDAO(connectionString, GetProductDAO(connectionString));
         }
 
-
-
+        private static UserDAO GetUserDAO(string connectionString)
+        {
+            var orderDAO = GetOrderDAO(connectionString);
+            return new UserDAO(connectionString, orderDAO);
+        }
 
     }
 }

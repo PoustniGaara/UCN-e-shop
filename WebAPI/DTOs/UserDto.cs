@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebApi.Interfaces;
 
 namespace WebApi.DTOs
 {
-    public class UserDto
+    public class UserDto : IEntity
     {
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "*Email is required")]

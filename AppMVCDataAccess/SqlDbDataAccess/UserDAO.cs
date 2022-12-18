@@ -15,12 +15,17 @@ namespace DataAccessLayer.SqlDbDataAccess
     public class UserDAO : IUserDataAccess
     {
         private string connectionstring;
-        private IOrderDataAccess orderDataAccess;
+        private IOrderDataAccess? orderDataAccess;
 
         public UserDAO(string connectionstring, IOrderDataAccess orderDataAccess)
         {
             this.connectionstring = connectionstring;
             this.orderDataAccess = orderDataAccess;
+        }
+
+        public UserDAO(string connectionstring)
+        {
+            this.connectionstring = connectionstring;
         }
 
         public async Task<string> CreateAsync(User user)
