@@ -17,6 +17,34 @@ namespace FrontendIntegrationTest
             _client = factory.CreateClient();
         }
 
+        //INDEX
+        [Fact]
+        public async Task Index_Returns_Success()
+        {
+            //ARRANGE
+            string url = "https://localhost:7183/Order";
+            //ACT
+            var response = await _client.GetAsync(url);
+            //ASSERT
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("text/html; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+        }
+
+        //DETAILS
+        [Fact]
+        public async Task Details_Returns_Success()
+        {
+            //ARRANGE
+            string url = "https://localhost:7183/Order/Details/1";
+            //ACT
+            var response = await _client.GetAsync(url);
+            //ASSERT
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("text/html; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+        }
+
 
     }
 }

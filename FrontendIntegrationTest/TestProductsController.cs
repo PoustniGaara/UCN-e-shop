@@ -7,6 +7,7 @@ using RestSharp;
 using WebApiClient.DTOs;
 using WebApiClient.Interfaces;
 using WebApiClient.RestSharpClientImplementation;
+using WebAppMVC.ViewModels;
 
 namespace IntegrationTests.Frontend
 {
@@ -43,6 +44,26 @@ namespace IntegrationTests.Frontend
             string url = "https://localhost:7183/Product/Details/1";
             //ACT
             var response = await _client.GetAsync(url);
+            //ASSERT
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("text/html; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+        }
+
+        //CREATE
+        [Fact]
+        public async Task Create_Returns_Success()
+        {
+            //ARRANGE
+            string url = "https://localhost:7183/Order/Create";
+            OrderCreateVM user = A.Fake<OrderCreateVM>();
+            var formData = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("Email", user.UserEmail),
+
+            });
+            //ACT
+            var response = await _client.PostAsync(url, formData);
             //ASSERT
             response.EnsureSuccessStatusCode();
             Assert.Equal("text/html; charset=utf-8",
