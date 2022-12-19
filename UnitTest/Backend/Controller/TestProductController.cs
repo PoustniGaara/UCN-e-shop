@@ -86,7 +86,8 @@ namespace UnitTest.Backend.Controllers
         {
             //ARRANGE
             var productDto = A.Fake<ProductDto>();
-            A.CallTo(() => _productDataAcces.CreateAsync(new Product())).Returns(3);
+            //var product = A.Fake<Product>();
+            //A.CallTo(() => _productDataAcces.CreateAsync(product)).Returns(3);
             //ACT
             var request = await _productsController.Post(productDto);
             var result = request.Result as ObjectResult;

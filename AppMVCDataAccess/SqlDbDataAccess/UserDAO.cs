@@ -65,7 +65,6 @@ namespace DataAccessLayer.SqlDbDataAccess
             using SqlConnection connection = new SqlConnection(connectionstring);
             connection.Open();
 
-            SqlTransaction transaction = connection.BeginTransaction();
             SqlCommand command = connection.CreateCommand();
             try
             {
@@ -199,10 +198,10 @@ namespace DataAccessLayer.SqlDbDataAccess
             try
             {
                 connection.Open();                            //email, name, surename, phone, address, username, password, isAdmin
-                SqlCommand command = new SqlCommand("UPDATE [User] SET email = @email, name = @name, surename = @surename, phone = @phone, adddress = @address, password = @password, isAdmin = @isAdmin WHERE email = @email", connection);
+                SqlCommand command = new SqlCommand("UPDATE [User] SET email = @email, name = @name, surname = @surname, phone = @phone, address = @address, password = @password, isAdmin = @isAdmin WHERE email = @email", connection);
                 command.Parameters.AddWithValue("@email", user.Email);
                 command.Parameters.AddWithValue("@name", user.Name);
-                command.Parameters.AddWithValue("@surename", user.Surname);
+                command.Parameters.AddWithValue("@surname", user.Surname);
                 command.Parameters.AddWithValue("@phone", user.PhoneNumber);
                 command.Parameters.AddWithValue("@address", user.Address);
                 command.Parameters.AddWithValue("@password", user.Password);

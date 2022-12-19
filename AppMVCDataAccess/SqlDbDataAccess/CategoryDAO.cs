@@ -35,7 +35,7 @@ namespace DataAccessLayer.SqlDbDataAccess
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
                 connection.Open();
-                SqlCommand command = new SqlCommand("DELETE FROM Category WHERE name = '@name'", connection);
+                SqlCommand command = new SqlCommand("DELETE FROM Category WHERE name = @name", connection);
                 command.Parameters.AddWithValue("@name", name);
                 command.ExecuteNonQuery();
         }
@@ -58,10 +58,25 @@ namespace DataAccessLayer.SqlDbDataAccess
         public async Task<Category> GetByNameAsync(string name)
         {
             using SqlConnection connection = new SqlConnection(connectionstring);
-            connection.Open();
-            SqlCommand command = new SqlCommand("SELECT FROM Category where name = '@name'", connection);
-            SqlDataReader reader = command.ExecuteReader();
-            return new Category(reader.GetString("name"), reader.GetString("description"));
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Category where name = @name", connection);
+                command.Parameters.AddWithValue("@name", name);
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                return new Category(reader.GetString("name"), reader.GetString("description"));
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while getting category from DB '{ex.Message}'.", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+           
         }
     }
 }
