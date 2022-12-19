@@ -1,6 +1,5 @@
 ﻿using DataAccessLayer.Interfaces;
 using FakeItEasy;
-using RestSharp;
 using System.Net;
 using WebApi.DTOs;
 using System.Web;
@@ -15,8 +14,6 @@ namespace IntegrationTests.Backend
         private string productUrl = "https://localhost:44346/api/v1/products";
         public TestProductsController(TestingWebApiFactory<Program> factory)
             => _client = factory.CreateClient();
-
-        IProductDataAccess _productDataAcces = A.Fake<IProductDataAccess>();
 
 
         //DELETE COMPLETE
@@ -120,6 +117,7 @@ namespace IntegrationTests.Backend
             Assert.Equal(resultingStatusCode, statusCode);
         }
 
+        [Fact]
         public async Task Post_Incorrect_Data_In_Product_Should_Return_UnprocessableEntity422()
         {
             //ARRANGE

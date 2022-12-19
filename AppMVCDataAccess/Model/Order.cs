@@ -9,10 +9,10 @@ namespace DataAccessLayer.Model
         public Status Status { get; set; }
         public string? Address { get; set; }
         public string? Note { get; set; }
-        public User? User { get; set; }
+        public string UserEmail { get; set; }
         public IEnumerable<LineItem>? Items { get; set; }
 
-        public Order(int id, DateTime date, decimal totalPrice, Status status, string address, string note, User user, List<LineItem> items)
+        public Order(int id, DateTime date, decimal totalPrice, Status status, string address, string note, string userEmail, List<LineItem> items)
         {
             Id = id;
             Date = date;
@@ -20,25 +20,25 @@ namespace DataAccessLayer.Model
             Address = address;
             Status = status;
             Note = note;
-            User = user;
+            UserEmail = userEmail;
             Items = items;
         }
 
-        public Order(DateTime date, decimal totalPrice, Status status, string address, string note, User user, List<LineItem> items)
+        public Order(DateTime date, decimal totalPrice, Status status, string address, string note, string userEmail, List<LineItem> items)
         {
             Date = date;
             TotalPrice = totalPrice;
             Status = status;
             Address = address;
             Note = note;
-            User = user;
+            UserEmail = userEmail;
             Items = items;
         }
 
-        public Order(Status status, User user, List<LineItem> items)
+        public Order(Status status, string userEmail, List<LineItem> items)
         {
             Status = status;
-            User = user;
+            UserEmail = userEmail;
             Items = items;
         }
 

@@ -16,5 +16,6 @@ namespace DataAccessLayer.Model
             Name = name;
             Description = description;
         }
+
     }
 }

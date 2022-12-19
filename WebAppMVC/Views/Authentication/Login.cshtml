@@ -4,6 +4,8 @@
 
 <div class="login-div">
     <form method="post" action="@Url.Action("Login", "Authentication")" class="login-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="login-input-field">
             <span asp-validation-for="Email" class="text-danger"></span>
             <input type="text" name="email" placeholder="Email" class="form-control" />

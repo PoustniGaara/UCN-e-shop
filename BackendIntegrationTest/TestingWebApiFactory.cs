@@ -2,6 +2,7 @@
 using DataAccessLayer;
 using Microsoft.AspNetCore.Hosting;
 using WebApi;
+using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace IntegrationTests.Backend
 {

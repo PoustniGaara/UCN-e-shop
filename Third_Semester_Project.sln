@@ -13,11 +13,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "AppMVCDa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerService", "LoggerService\LoggerService.csproj", "{FB658C4B-0587-4606-AE8E-832E972E3017}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendIntegrationTest", "BackendIntegrationTest\BackendIntegrationTest.csproj", "{78789DB6-37C9-461D-8CA1-BC17F4F9A1F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendIntegrationTest", "BackendIntegrationTest\BackendIntegrationTest.csproj", "{78789DB6-37C9-461D-8CA1-BC17F4F9A1F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontendIntegrationTest", "FrontendIntegrationTest\FrontendIntegrationTest.csproj", "{BD5CDC86-E55A-492D-8798-7B4FE9D6AAAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontendIntegrationTest", "FrontendIntegrationTest\FrontendIntegrationTest.csproj", "{BD5CDC86-E55A-492D-8798-7B4FE9D6AAAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{0C23691F-EEA6-4EDB-8320-4DD8DDC03C19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTest.csproj", "{0C23691F-EEA6-4EDB-8320-4DD8DDC03C19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F22654D3-E52F-478B-8969-AB8563D4294A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

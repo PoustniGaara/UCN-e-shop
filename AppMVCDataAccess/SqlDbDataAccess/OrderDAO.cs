@@ -40,7 +40,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 command.Parameters.AddWithValue("@address", order.Address);
                 command.Parameters.AddWithValue("@note", (order.Note == null ? "" : order.Note));
                 command.Parameters.AddWithValue("@status", order.Status);
-                command.Parameters.AddWithValue("@customer", order.User.Email);
+                command.Parameters.AddWithValue("@customer", order.UserEmail);
                 id = (int)command.ExecuteScalar();
                 order.Id = id;
 
@@ -73,7 +73,6 @@ namespace DataAccessLayer.SqlDbDataAccess
             using SqlConnection connection = new SqlConnection(connectionstring);
             connection.Open();
 
-            SqlTransaction transaction = connection.BeginTransaction();
             SqlCommand command = connection.CreateCommand();            
             try
             {
@@ -104,9 +103,8 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlDataReader reader = selectCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    User user = await userDAO.GetByEmailAsync(reader.GetString("customer"));
                     List<LineItem> items = (List<LineItem>) await lineItemDAO.GetByOrderIdAsync(reader.GetInt32("id"));
-                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items));
+                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), reader.GetString("customer"), items));
                 }
             }
             catch (Exception ex)
@@ -132,9 +130,8 @@ namespace DataAccessLayer.SqlDbDataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
 
-                User user = await userDAO.GetByEmailAsync(reader.GetString("customer"));
                 List<LineItem> items = (List<LineItem>)await lineItemDAO.GetByOrderIdAsync(reader.GetInt32("id"));
-                return new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), user, items);
+                return new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), reader.GetString("customer"), items);
             }
             catch (Exception ex)
             {
@@ -159,7 +156,7 @@ namespace DataAccessLayer.SqlDbDataAccess
                 while (reader.Read())
                 {
                     List<LineItem> items = (List<LineItem>)await lineItemDAO.GetByOrderIdAsync(reader.GetInt32("id"));
-                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), new User { Email = email, }, items));
+                    orders.Add(new Order(reader.GetInt32("id"), reader.GetDateTime("date"), reader.GetDecimal("total"), (Status)reader.GetInt32("status"), reader.GetString("address"), reader.GetString("note"), email, items));
                 }
             }
             catch (Exception ex)

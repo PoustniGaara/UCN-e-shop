@@ -12,6 +12,7 @@ namespace DataAccessLayer
                 case "IOrderDataAccess": return GetOrderDAO(connectionstring) as T;
                 case "IUserDataAccess": return GetUserDAO(connectionstring) as T;
                 case "ICategoryDataAccess": return new CategoryDAO(connectionstring) as T;
+                case "IProductSizeStockDataAccess": return new ProductSizeStockDAO(connectionstring) as T;
             }
             throw new ArgumentException($"Unknown type {typeof(T).FullName}");
         }
