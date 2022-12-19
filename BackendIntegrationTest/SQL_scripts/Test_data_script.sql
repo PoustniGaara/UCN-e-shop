@@ -80,3 +80,13 @@ INSERT INTO ProductStock (product_id, size_id, stock) VALUES (8, 5, 99)
 
 INSERT INTO ProductStock (product_id, size_id, stock) VALUES (9, 5, 0)
 
+
+
+INSERT INTO [User] (email, name, surname, phone, address, password, isAdmin) 
+Values ('test@test.test', 'test', 'test', 0902737653, 'test', 'test', 0);
+
+INSERT INTO [Order] (date, total, address, note, status, customer)
+Values ('2022-12-18 13:38:22.657', 5, 'test', 'test', 0, 'test@test.test')
+
+INSERT INTO OrderLineItem (order_id, product_id, size_id, amount)
+Values (8, 1, 1, 10)
